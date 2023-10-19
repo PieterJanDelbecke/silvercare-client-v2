@@ -13,7 +13,7 @@ import { AiOutlineQuestionCircle as FaqIcon } from "react-icons/ai";
 
 const IconButton = ({ name, onClick, size, color }) => {
   const iconStyle = {
-    fontSize: size || 32,
+    fontSize: size || 28,
     color: color || "white",
   };
 
