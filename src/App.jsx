@@ -6,17 +6,17 @@ import Global from "./styles/global";
 import Dashboard from "./scenes/dashboard";
 import Topbar from "./scenes/global/topbar";
 function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <Global />
-      <Topbar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<Global />
+			<Topbar />
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Dashboard />} />
+				</Routes>
+			</BrowserRouter>
+		</ThemeProvider>
+	);
 }
 
 export default App;

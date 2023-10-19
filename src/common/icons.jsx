@@ -12,81 +12,81 @@ import { AiOutlineCalendar as CalendarIcon } from "react-icons/ai";
 import { AiOutlineQuestionCircle as FaqIcon } from "react-icons/ai";
 
 const IconButton = ({ name, onClick, size, color }) => {
-  const iconStyle = {
-    fontSize: size || 28,
-    color: color || "white",
-  };
+	const iconStyle = {
+		fontSize: size || 28,
+		color: color || "white",
+	};
 
-  switch (name) {
-    case "home":
-      return (
-        <BaseButton onClick={onClick}>
-          <HomeIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "team":
-      return (
-        <BaseButton onClick={onClick}>
-          <TeamIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "user":
-      return (
-        <BaseButton onClick={onClick}>
-          <UserIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "settings":
-      return (
-        <BaseButton onClick={onClick}>
-          <SettingsIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "search":
-      return (
-        <BaseButton onClick={onClick}>
-          <SearchIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "menu":
-      return (
-        <BaseButton onClick={onClick}>
-          <MenuIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "barChart":
-      return (
-        <BaseButton onClick={onClick}>
-          <BarChartIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "lineChart":
-      return (
-        <BaseButton onClick={onClick}>
-          <LineChartIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "pieChart":
-      return (
-        <BaseButton onClick={onClick}>
-          <PieChartIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "calendar":
-      return (
-        <BaseButton onClick={onClick}>
-          <CalendarIcon style={iconStyle} />
-        </BaseButton>
-      );
-    case "faq":
-      return (
-        <BaseButton onClick={onClick}>
-          <FaqIcon style={iconStyle} />
-        </BaseButton>
-      );
-    default:
-      return <BaseButton onClick={onClick}></BaseButton>;
-  }
+	switch (name) {
+		case "home":
+			return (
+				<BaseButton onClick={onClick}>
+					<HomeIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "team":
+			return (
+				<BaseButton onClick={onClick}>
+					<TeamIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "user":
+			return (
+				<BaseButton onClick={onClick}>
+					<UserIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "settings":
+			return (
+				<BaseButton onClick={onClick}>
+					<SettingsIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "search":
+			return (
+				<BaseButton onClick={onClick}>
+					<SearchIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "menu":
+			return (
+				<BaseButton onClick={onClick}>
+					<MenuIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "barChart":
+			return (
+				<BaseButton onClick={onClick}>
+					<BarChartIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "lineChart":
+			return (
+				<BaseButton onClick={onClick}>
+					<LineChartIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "pieChart":
+			return (
+				<BaseButton onClick={onClick}>
+					<PieChartIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "calendar":
+			return (
+				<BaseButton onClick={onClick}>
+					<CalendarIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "faq":
+			return (
+				<BaseButton onClick={onClick}>
+					<FaqIcon style={iconStyle} />
+				</BaseButton>
+			);
+		default:
+			return <BaseButton onClick={onClick}></BaseButton>;
+	}
 };
 
 export default IconButton;
