@@ -2,36 +2,40 @@ import styled from "@emotion/styled";
 
 import { colors } from "../../styles/theme";
 import IconButton from "../../common/icons";
+import { useMediaQuery } from "@mui/material";
 
 const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
-	background-color: ${colors.orange[500]};
+	padding: 16px;
+	background-color: ${colors.primary[500]};
 `;
 
 const IconsContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 16px;
+	gap: 24px;
 `;
 
 const Topbar = () => {
-	const click1 = () => {
-		console.log("1 CLICKED");
+	const isDesktop = useMediaQuery("(min-width:820px)");
+
+	const user = () => {
+		console.log("USER");
 	};
-	const click2 = () => {
-		console.log("2 CLICKED");
+	const settings = () => {
+		console.log("SETTINGS");
 	};
-	const click3 = () => {
-		console.log("3 CLICKED");
+	const menu = () => {
+		console.log("MENU");
 	};
 	return (
 		<Container>
-			<IconButton name={"menu"} onClick={click1} />
+			{!isDesktop ? <IconButton name={"menu"} onClick={user} /> : <div></div>}
 			<IconsContainer>
-				<IconButton name={"home"} onClick={click2} />
-				<IconButton name={"user"} onClick={click3} />
+				<IconButton name={"settings"} onClick={settings} />
+				<IconButton name={"user"} onClick={menu} />
 			</IconsContainer>
 		</Container>
 	);

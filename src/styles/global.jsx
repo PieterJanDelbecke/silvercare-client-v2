@@ -15,10 +15,31 @@ const Global = () => (
 			}
 			body {
 				height: 100%;
+				height: 100%;
 				color: ${typography.defaultColor};
 				font-family: ${typography.fonts};
 				font-weight: 400;
 				letter-spacing: ${typography.letterSpacing.regular};
+			}
+
+			/* Scrollbar */
+			::-webkit-scrollbar {
+				width: 10px;
+			}
+
+			/* Track */
+			::-webkit-scrollbar-track {
+				background: #e0e0e0;
+			}
+
+			/* Hanlde */
+			::-webkit-scrollbar-thumb {
+				background: #888;
+			}
+
+			/* Handle on Hover */
+			::-webkit-scrollbar-track:hover {
+				background: #555;
 			}
 		`}
 	/>
