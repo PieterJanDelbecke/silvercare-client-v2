@@ -192,7 +192,7 @@ const colors = {
 };
 
 const typography = {
-  fonts: ["'Source Sans 3'", "sans-serif"].join(","),
+  fonts: ['"Source Sans 3"', "sans-serif"].join(","),
   size: {
     s1: "12px",
     s2: "14px",
