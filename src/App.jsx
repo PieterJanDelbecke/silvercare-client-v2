@@ -1,12 +1,17 @@
 import { ThemeProvider } from "@emotion/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { useMediaQuery } from "@mui/material";
 import * as theme from "./styles/theme";
 import Global from "./styles/global";
-import Dashboard from "./scenes/dashboard";
 import Topbar from "./scenes/global/topbar";
 import Sidebar from "./scenes/global/sidebar";
-import { useMediaQuery } from "@mui/material";
+import Dashboard from "./scenes/dashboard";
+import Team from "./scenes/team";
+import Residents from "./scenes/residents";
+import ResidentForm from "./scenes/resident-form";
+import Faq from "./scenes/faq";
+import Calendar from "./scenes/calendar";
 
 function App() {
 	const isDesktop = useMediaQuery("(min-width:820px)");
@@ -14,17 +19,20 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<Global />
-			<body className="app">
+			<div className="app">
 				{isDesktop && <Sidebar />}
 				<main className="content">
 					<Topbar />
-					<BrowserRouter>
-						<Routes>
-							<Route path="/" element={<Dashboard />} />
-						</Routes>
-					</BrowserRouter>
+					<Routes>
+						<Route path="/" element={<Dashboard />} />
+						<Route path="/team" element={<Team />} />
+						<Route path="/residents" element={<Residents />} />
+						<Route path="/resident-form" element={<ResidentForm />} />
+						<Route path="/faq" element={<Faq />} />
+						<Route path="/calendar" element={<Calendar />} />
+					</Routes>
 				</main>
-			</body>
+			</div>
 		</ThemeProvider>
 	);
 }

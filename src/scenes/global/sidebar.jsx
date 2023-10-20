@@ -1,35 +1,88 @@
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
+
 import { colors } from "../../styles/theme";
-import { AiOutlineHome as HomeIcon } from "react-icons/ai";
+import { Heading, Subheading, Body } from "../../common/typography";
 import IconButton from "../../common/icons";
 
-import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 240px;
+	min-width: 270px;
 	height: 100vh;
-	border: 1px solid red;
+	background-color: ${colors.primary[400]};
 `;
 
-const AdminDiv = styled.div`
+const UserContainer = styled.div`
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	align-items: center;
+	margin-block: 12px;
 `;
 
-const Paragraph = styled.p`
-	font-size: 12px;
-	color: ${colors.grey[100]};
+const Name = styled(Heading)`
+	color: #fff;
 `;
+
+const Role = styled(Subheading)`
+	color: ${colors.greenAccent[500]};
+`;
+
+const OptionsContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-inline: 24px;
+	margin-block: 12px;
+	gap: 8px;
+`;
+
+const OptionContainer = styled(Link)`
+	display: flex;
+	align-items: center;
+	gap: 16px;
+`;
+const Title = styled(Body)`
+	${(props) => `color: ${props.color}`}
+`;
+
+const Option = ({ title, to, iconName, selected, setSelected }) => {
+	const color = selected === title ? colors.blueAccent[500] : colors.grey[100];
+
+	return (
+		<OptionContainer to={to} onClick={() => setSelected(title)}>
+			<IconButton name={iconName} color={color} />
+			<Title color={color}>{title}</Title>
+		</OptionContainer>
+	);
+};
 
 const Sidebar = () => {
-	const [selected, setSelected] = useState("dashboard");
-	const [isCollapsed, setIsCollapsed] = useState(false);
+	const [selected, setSelected] = useState("Dashboard");
 
-	return <Container></Container>;
+	return (
+		<Container>
+			<UserContainer>
+				<Name>Pieter Delbecke</Name>
+				<Role>CEO Silvercare</Role>
+			</UserContainer>
+			<OptionsContainer>
+				<Option title="Dashboard" to="/" iconName="home" selected={selected} setSelected={setSelected} />
+				<Option title="Team" to="/team" iconName="team" selected={selected} setSelected={setSelected} />
+				<Option title="Residents" to="/residents" iconName="user" selected={selected} setSelected={setSelected} />
+				<Option
+					title="Resident Form"
+					to="/resident-form"
+					iconName="form"
+					selected={selected}
+					setSelected={setSelected}
+				/>
+				<Option title="Calendar" to="/calendar" iconName="calendar" selected={selected} setSelected={setSelected} />
+				<Option title="FAQ" to="/faq" iconName="faq" selected={selected} setSelected={setSelected} />
+			</OptionsContainer>
+		</Container>
+	);
 };
 
 export default Sidebar;
