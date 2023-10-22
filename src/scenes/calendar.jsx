@@ -5,8 +5,8 @@ const Container = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
-const Dashboard = () => {
-	return <Container>Dashbord</Container>;
+const Calendar = () => {
+	return <Container>Calendar</Container>;
 };
 
-export default Dashboard;
+export default Calendar;

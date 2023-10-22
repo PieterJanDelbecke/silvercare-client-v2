@@ -10,6 +10,7 @@ import { AiOutlineLineChart as LineChartIcon } from "react-icons/ai";
 import { AiOutlinePieChart as PieChartIcon } from "react-icons/ai";
 import { AiOutlineCalendar as CalendarIcon } from "react-icons/ai";
 import { AiOutlineQuestionCircle as FaqIcon } from "react-icons/ai";
+import { AiOutlineForm as FormIcon } from "react-icons/ai";
 
 const IconButton = ({ name, onClick, size, color }) => {
 	const iconStyle = {
@@ -82,6 +83,12 @@ const IconButton = ({ name, onClick, size, color }) => {
 			return (
 				<BaseButton onClick={onClick}>
 					<FaqIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "form":
+			return (
+				<BaseButton onClick={onClick}>
+					<FormIcon style={iconStyle} />
 				</BaseButton>
 			);
 		default:

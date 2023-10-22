@@ -13,13 +13,21 @@ const Global = () => (
 				-webkit-font-smoothing: antialiased;
 				-moz-osx-font-smoothing: grayscale;
 			}
-			body {
+
+			body,
+			.content {
 				height: 100%;
-				height: 100%;
+				width: 100%;
 				color: ${typography.defaultColor};
 				font-family: ${typography.fonts};
 				font-weight: 400;
 				letter-spacing: ${typography.letterSpacing.regular};
+				flex: 1;
+			}
+
+			.app {
+				display: flex;
+				position: relative;
 			}
 
 			/* Scrollbar */
