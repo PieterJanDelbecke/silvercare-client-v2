@@ -33,8 +33,7 @@ const Role = styled(Subheading)`
 const OptionsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin-inline: 24px;
-	margin-block: 12px;
+	margin: 12px 24px;
 	gap: 8px;
 `;
 
@@ -71,9 +70,10 @@ const Sidebar = () => {
 				<Option title="Dashboard" to="/" iconName="home" selected={selected} setSelected={setSelected} />
 				<Option title="Team" to="/team" iconName="team" selected={selected} setSelected={setSelected} />
 				<Option title="Residents" to="/residents" iconName="user" selected={selected} setSelected={setSelected} />
+				<Option title="Chart" to="/barChart" iconName="barChart" selected={selected} setSelected={setSelected} />
 				<Option
 					title="Resident Form"
-					to="/resident-form"
+					to="/residentForm"
 					iconName="form"
 					selected={selected}
 					setSelected={setSelected}
