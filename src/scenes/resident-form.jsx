@@ -12,8 +12,7 @@ const Container = styled.div`
 	align-items: center;
 	flex-direction: column;
 	background-color: ${colors.primary[500]};
-	height: 100vh;
-	/* height: calc(100vh-60px); */
+	height: calc(100vh - 60px);
 `;
 
 const InputsContainer = styled.div`
