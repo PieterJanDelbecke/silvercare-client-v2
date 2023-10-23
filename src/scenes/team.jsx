@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { mockDataTeam } from "../data/mockData";
+import { useEffect } from "react";
 
 const Container = styled.div`
 	display: flex;
@@ -6,7 +8,8 @@ const Container = styled.div`
 	align-items: center;
 `;
 const Team = () => {
-	return <Container>Team</Container>;
+	console.log("DATA", mockDataTeam);
+	return <Container>Team2</Container>;
 };
 
 export default Team;
