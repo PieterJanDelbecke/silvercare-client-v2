@@ -9,9 +9,11 @@ import { useMediaQuery } from "@mui/material";
 
 const Container = styled.div`
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	background-color: ${colors.primary[500]};
+	height: 100vh;
+	/* height: calc(100vh-60px); */
 `;
 
 const InputsContainer = styled.div`
@@ -25,6 +27,7 @@ const Grid = styled.div`
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 	grid-column-gap: 24px;
+	grid-row-gap: 8px;
 
 	& > div {
 		grid-column: ${(props) => (props.isDesktop ? undefined : "span 4")};
@@ -36,16 +39,15 @@ const InputContainer = styled.div`
 `;
 
 const Input = styled.input`
-	border: 2px solid ${colors.blueAccent[500]};
 	border-radius: 6px;
 	padding-left: 14px;
 	height: 40px;
 	width: 100%;
+	background-color: ${colors.grey[100]};
 `;
 
 const InputLabel = styled.p`
 	font-size: 12px;
-	color: black;
 	margin-left: 8px;
 	height: 16px;
 `;
@@ -55,14 +57,6 @@ const Error = styled.p`
 	color: red;
 	margin-left: 8px;
 	height: 16px;
-`;
-
-const SubmitButton = styled.button`
-	margin-block: 16px;
-	width: 160px;
-	height: 36px;
-	border-radius: 8px;
-	background-color: ${colors.greenAccent[500]};
 `;
 
 const RadioContainer = styled.div`
@@ -78,6 +72,16 @@ const RadioLabel = styled.label`
 const RadioInput = styled(Field)`
 	transform: scale(1.5);
 	margin-right: 5px;
+`;
+
+const SubmitButton = styled.button`
+	cursor: pointer;
+	margin-block: 16px;
+	width: 160px;
+	height: 36px;
+	border-radius: 8px;
+	background-color: ${colors.greenAccent[500]};
+	color: ${colors.primary[500]};
 `;
 
 const ButtonContainer = styled.div`

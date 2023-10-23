@@ -8,7 +8,7 @@ const boldCss = css`
 
 export const PageHeading = styled.h1`
 	font-weight: 300;
-	font-size: ${typography.size.l4};
+	font-size: ${typography.size.l3};
 	line-height: 56px;
 
 	@media screen and (max-width: ${grid.tablet.max}) {

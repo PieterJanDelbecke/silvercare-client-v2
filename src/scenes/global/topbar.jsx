@@ -9,6 +9,7 @@ const Container = styled.div`
 	justify-content: space-between;
 	padding: 16px;
 	background-color: ${colors.primary[500]};
+	height: 60px;
 `;
 
 const IconsContainer = styled.div`

@@ -71,7 +71,7 @@ const typography = {
 		l4: "48px",
 	},
 	letterSpacing: { regular: "0.1px", wide: "2px" },
-	defaultColor: colors.grey[900],
+	defaultColor: colors.grey[100],
 };
 
 const spacers = {
