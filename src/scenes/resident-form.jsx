@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
-import { Formik, useFormik } from "formik";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 
 const Container = styled.div`
 	display: flex;
@@ -17,11 +19,11 @@ const InputsContainer = styled.div`
 `;
 
 const Grid = styled.div`
-	margin-left: 24px;
+	padding-inline: 36px;
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	gap: 24px;
+	grid-column-gap: 24px;
 `;
 
 const InputContainer = styled.div`
@@ -31,9 +33,16 @@ const InputContainer = styled.div`
 const Input = styled.input`
 	border: 2px solid ${colors.blueAccent[500]};
 	border-radius: 6px;
-	padding: 4px;
+	padding-left: 14px;
 	height: 40px;
 	width: 100%;
+`;
+
+const InputLabel = styled.p`
+	font-size: 12px;
+	color: black;
+	margin-left: 8px;
+	height: 16px;
 `;
 
 const Error = styled.p`
@@ -51,6 +60,26 @@ const SubmitButton = styled.button`
 	background-color: ${colors.greenAccent[500]};
 `;
 
+const RadioContainer = styled.div`
+	display: flex;
+	margin-top: 12px;
+`;
+
+const RadioLabel = styled.label`
+	margin-left: 12px;
+`;
+
+const RadioInput = styled(Field)`
+	transform: scale(1.5);
+	margin-right: 5px;
+`;
+
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 36px;
+`;
+
 const ResidentForm = () => {
 	const handleFormSubmit = (values) => {
 		console.log(values);
@@ -61,13 +90,17 @@ const ResidentForm = () => {
 		lastName: "",
 		email: "",
 		dob: "",
+		gender: "",
 	};
+
+	const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
 	const checkoutSchema = Yup.object().shape({
 		firstName: Yup.string().required("required"),
 		lastName: Yup.string().required("required"),
 		email: Yup.string().email("Invalid email address").required("required"),
-		dob: Yup.string().required("required"),
+		dob: Yup.string().matches(dateRegex, "Invalid date").required("required"),
+		gender: Yup.string().required("required"),
 	});
 	return (
 		<Container>
@@ -78,6 +111,7 @@ const ResidentForm = () => {
 						<form onSubmit={handleSubmit}>
 							<Grid>
 								<InputContainer>
+									<InputLabel>First Name:</InputLabel>
 									<Input
 										type="text"
 										name="firstName"
@@ -85,11 +119,12 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.firstName}
-										placeholder="First Name"
+										// placeholder="First Name"
 									/>
-									{!!touched.firstName && !!errors.firstName ? <Error>{errors.firstName}</Error> : <Error></Error>}
+									{<Error>{!!touched.firstName && !!errors.firstName ? errors.firstName : null}</Error>}
 								</InputContainer>
 								<InputContainer>
+									<InputLabel>Last Name:</InputLabel>
 									<Input
 										type="text"
 										name="lastName"
@@ -97,11 +132,12 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.lastName}
-										placeholder="Last Name"
+										// placeholder="Last Name"
 									/>
-									{!!touched.lastName && !!errors.lastName ? <Error>{errors.lastName}</Error> : null}
+									{<Error>{!!touched.lastName && !!errors.lastName ? errors.lastName : null}</Error>}
 								</InputContainer>
 								<InputContainer>
+									<InputLabel>Email</InputLabel>
 									<Input
 										type="text"
 										name="email"
@@ -109,24 +145,36 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.email}
-										placeholder="Email"
+										// placeholder="Email"
 									/>
-									{!!touched.email && !!errors.email ? <Error>{errors.email}</Error> : null}
+									{<Error>{!!touched.email && !!errors.email ? errors.email : null}</Error>}
 								</InputContainer>
 								<InputContainer>
+									<InputLabel>DOB (dd/mm/yyyy)</InputLabel>
 									<Input
-										type="date"
+										type="text"
 										name="dob"
 										id="dob"
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.dob}
-										placeholder="DOB"
+										// placeholder="dd/mm/yyyy"
 									/>
 									{!!touched.dob && !!errors.dob ? <Error>{errors.dob}</Error> : null}
 								</InputContainer>
+								<RadioContainer role="group" aria-labelledby="my-radio-group">
+									<RadioLabel>
+										<RadioInput type="radio" name="gender" value="male" /> Male
+									</RadioLabel>
+									<RadioLabel>
+										<RadioInput type="radio" name="gender" value="female" /> Female
+									</RadioLabel>
+									{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
+								</RadioContainer>
 							</Grid>
-							<SubmitButton type="submit">Submit</SubmitButton>
+							<ButtonContainer>
+								<SubmitButton type="submit">Submit</SubmitButton>
+							</ButtonContainer>
 						</form>
 					)}
 				</Formik>
