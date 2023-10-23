@@ -3,6 +3,7 @@ import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
+import { useMediaQuery } from "@mui/material";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 
@@ -22,8 +23,12 @@ const Grid = styled.div`
 	padding-inline: 36px;
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(4, minmax(0, 1fr));
 	grid-column-gap: 24px;
+
+	& > div {
+		grid-column: ${(props) => (props.isDesktop ? undefined : "span 4")};
+	}
 `;
 
 const InputContainer = styled.div`
@@ -67,6 +72,7 @@ const RadioContainer = styled.div`
 
 const RadioLabel = styled.label`
 	margin-left: 12px;
+	width: 80px;
 `;
 
 const RadioInput = styled(Field)`
@@ -81,9 +87,7 @@ const ButtonContainer = styled.div`
 `;
 
 const ResidentForm = () => {
-	const handleFormSubmit = (values) => {
-		console.log(values);
-	};
+	const isDesktop = useMediaQuery("(min-width:820px)");
 
 	const initialValues = {
 		firstName: "",
@@ -102,6 +106,10 @@ const ResidentForm = () => {
 		dob: Yup.string().matches(dateRegex, "Invalid date").required("required"),
 		gender: Yup.string().required("required"),
 	});
+
+	const handleFormSubmit = (values) => {
+		console.log(values);
+	};
 	return (
 		<Container>
 			<PageHeading>Resident Form</PageHeading>
@@ -109,7 +117,7 @@ const ResidentForm = () => {
 				<Formik onSubmit={handleFormSubmit} initialValues={initialValues} validationSchema={checkoutSchema}>
 					{({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
-							<Grid>
+							<Grid isDesktop={isDesktop}>
 								<InputContainer>
 									<InputLabel>First Name:</InputLabel>
 									<Input
