@@ -21,7 +21,16 @@ const Container = styled.div`
 	color: black;
 	/* background-color: orange; */
 `;
+
+const Button = styled.button`
+	margin: 12px;
+	border: 1px solid red;
+	cursor: pointer;
+`;
 const Team = () => {
+	const [sorting, setSorting] = useState([]);
+	const [filtering, setFiltering] = useState("");
+
 	const data = useMemo(() => residents, []);
 
 	/** @type import('@tanstack/react-table').ColumnDef<any> */
@@ -43,6 +52,12 @@ const Team = () => {
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		state: {
+			sorting: sorting,
+		},
+		onSortingChange: setSorting,
 	});
 
 	return (
@@ -53,7 +68,12 @@ const Team = () => {
 					{table.getHeaderGroups().map((headerGroup) => (
 						<tr key={headerGroup.id}>
 							{headerGroup.headers.map((header) => (
-								<th key={header.id}>{flexRender(header.column.columnDef.header, header.getContext())}</th>
+								<th key={header.id} onClick={header.column.getToggleSortingHandler()}>
+									<div>
+										{flexRender(header.column.columnDef.header, header.getContext())}
+										{{ asc: "up", desc: "down" }[header.column.getIsSorted() ?? null]}
+									</div>
+								</th>
 							))}
 						</tr>
 					))}
@@ -68,6 +88,16 @@ const Team = () => {
 					))}
 				</tbody>
 			</table>
+			<div>
+				<Button onClick={() => table.setPageIndex(0)}>First Page</Button>
+				<Button disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
+					Previous
+				</Button>
+				<Button disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
+					Next
+				</Button>
+				<Button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Last Page</Button>
+			</div>
 		</Container>
 	);
 };
