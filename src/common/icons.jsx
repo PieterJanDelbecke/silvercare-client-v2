@@ -11,11 +11,15 @@ import { AiOutlinePieChart as PieChartIcon } from "react-icons/ai";
 import { AiOutlineCalendar as CalendarIcon } from "react-icons/ai";
 import { AiOutlineQuestionCircle as FaqIcon } from "react-icons/ai";
 import { AiOutlineForm as FormIcon } from "react-icons/ai";
+import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
+import { AiOutlineArrowRight as ArrowRightIcon } from "react-icons/ai";
+
+import { colors } from "../styles/theme";
 
 const IconButton = ({ name, onClick, size, color }) => {
 	const iconStyle = {
 		fontSize: size || 28,
-		color: color || "white",
+		color: color || colors.grey[100],
 	};
 
 	switch (name) {
@@ -89,6 +93,18 @@ const IconButton = ({ name, onClick, size, color }) => {
 			return (
 				<BaseButton onClick={onClick}>
 					<FormIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "arrowLeft":
+			return (
+				<BaseButton onClick={onClick}>
+					<ArrowLeftIcon style={iconStyle} />
+				</BaseButton>
+			);
+		case "arrowRight":
+			return (
+				<BaseButton onClick={onClick}>
+					<ArrowRightIcon style={iconStyle} />
 				</BaseButton>
 			);
 		default:
