@@ -27,6 +27,11 @@ const Button = styled.button`
 	border: 1px solid red;
 	cursor: pointer;
 `;
+
+const SearchInput = styled.input`
+	margin: 12px;
+	border: 1px solid red;
+`;
 const Team = () => {
 	const [sorting, setSorting] = useState([]);
 	const [filtering, setFiltering] = useState("");
@@ -54,15 +59,19 @@ const Team = () => {
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
 		state: {
 			sorting: sorting,
+			globalFilter: filtering,
 		},
 		onSortingChange: setSorting,
+		onGlobalFilterChange: setFiltering,
 	});
 
 	return (
 		<Container>
 			<PageHeading>Team</PageHeading>
+			<SearchInput type="text" value={filtering} onChange={(e) => setFiltering(e.target.value)} />
 			<table>
 				<thead>
 					{table.getHeaderGroups().map((headerGroup) => (
@@ -71,7 +80,7 @@ const Team = () => {
 								<th key={header.id} onClick={header.column.getToggleSortingHandler()}>
 									<div>
 										{flexRender(header.column.columnDef.header, header.getContext())}
-										{{ asc: "up", desc: "down" }[header.column.getIsSorted() ?? null]}
+										{{ asc: "🔼", desc: "🔽" }[header.column.getIsSorted() ?? null]}
 									</div>
 								</th>
 							))}
