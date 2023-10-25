@@ -11,8 +11,6 @@ const Container = styled.div`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	background-color: ${colors.primary[500]};
-	height: calc(100vh - 60px);
 `;
 
 const InputsContainer = styled.div`
@@ -43,6 +41,9 @@ const Input = styled.input`
 	height: 40px;
 	width: 100%;
 	background-color: ${colors.grey[100]};
+	:focus {
+		outline: none;
+	}
 `;
 
 const InputLabel = styled.p`
