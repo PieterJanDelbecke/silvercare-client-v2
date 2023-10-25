@@ -98,9 +98,18 @@ const SelectedContainer = styled.div`
 	margin: 24px;
 	display: flex;
 	flex-direction: row;
-	width: 300px;
+	min-width: 200px;
 	justify-content: space-between;
 	align-items: center;
+`;
+
+const SelectedText = styled.div`
+	color: ${colors.greenAccent[500]};
+`;
+
+const ViewButton = styled(Button)`
+	border: 1px solid ${colors.grey[100]};
+	border-radius: 8px;
 `;
 
 const Residents = () => {
@@ -203,9 +212,10 @@ const Residents = () => {
 				</Footer>
 				{selectedResident && (
 					<SelectedContainer>
-						{/* <Text></Text> */}
-						Selected: {selectedResident.first_name} {selectedResident.last_name}
-						<Button>View</Button>
+						<SelectedText>
+							{selectedResident.first_name} {selectedResident.last_name}
+						</SelectedText>
+						<ViewButton>View</ViewButton>
 					</SelectedContainer>
 				)}
 			</Container>
