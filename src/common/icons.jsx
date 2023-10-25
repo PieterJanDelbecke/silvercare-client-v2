@@ -13,6 +13,8 @@ import { AiOutlineQuestionCircle as FaqIcon } from "react-icons/ai";
 import { AiOutlineForm as FormIcon } from "react-icons/ai";
 import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
 import { AiOutlineArrowRight as ArrowRightIcon } from "react-icons/ai";
+import { AiOutlineArrowUp as ArrowUpIcon } from "react-icons/ai";
+import { AiOutlineArrowDown as ArrowDownIcon } from "react-icons/ai";
 
 import { colors } from "../styles/theme";
 

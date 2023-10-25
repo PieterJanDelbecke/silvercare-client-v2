@@ -15,8 +15,9 @@ import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
 import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
 import { AiOutlineArrowRight as ArrowRightIcon } from "react-icons/ai";
-import { AiOutlineSearch as SearchIcon } from "react-icons/ai";
-import { useMediaQuery } from "@mui/material";
+import { AiOutlineArrowUp as ArrowUpIcon } from "react-icons/ai";
+import { AiOutlineArrowDown as ArrowDownIcon } from "react-icons/ai";
+import SearchBar from "../common/searchBar";
 
 const Container = styled.div`
 	display: flex;
@@ -29,29 +30,11 @@ const Container = styled.div`
 	}
 `;
 
-const SearchContainer = styled.div`
+const TopContainer = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-`;
-
-const SearchBar = styled.div`
-	border-radius: 4px;
-	background-color: ${colors.primary[400]};
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding-right: 8px;
-	margin-bottom: 24px;
-`;
-
-const SearchInput = styled.input`
-	color: ${colors.grey[100]};
-	background-color: ${colors.primary[400]};
-	margin: 12px;
-	:focus {
-		outline: none;
-	}
+	margin-bottom: 18px;
 `;
 
 const Table = styled.table`
@@ -61,7 +44,6 @@ const Table = styled.table`
 `;
 
 const Td = styled.td`
-	/* border: 1px solid #ddd; */
 	padding: 8px;
 `;
 
@@ -70,7 +52,6 @@ const Th = styled.th`
 	text-align: left;
 	background-color: ${colors.blueAccent[500]};
 	color: white;
-	/* min-width: 200px; */
 `;
 
 const Tr = styled.tr``;
@@ -120,7 +101,7 @@ const Residents = () => {
 	/** @type import('@tanstack/react-table').ColumnDef<any> */
 
 	const columns = [
-		{ header: "ID", accessorKey: "id" },
+		// { header: "ID", accessorKey: "id" },
 		{ header: "First Name", accessorKey: "first_name" },
 		{ header: "Last Name", accessorKey: "last_name" },
 		{ header: "Email", accessorKey: "email" },
@@ -148,26 +129,16 @@ const Residents = () => {
 	});
 
 	const handleClick = (rowId) => {
-		console.log("ROW ID", +rowId + 1);
 		const selectedRowId = +rowId + 1;
 		const selected = residents.find((resident) => resident.id === selectedRowId);
 		setSelectedResident(selected);
-		console.log("SELECTED", selected);
 	};
 
 	return (
 		<Container>
 			<PageHeading>Residents</PageHeading>
-			<SearchContainer>
-				<SearchBar>
-					<SearchInput
-						type="text"
-						value={filtering}
-						onChange={(e) => setFiltering(e.target.value)}
-						placeholder="Search"
-					/>
-					<SearchIcon style={{ fontSize: "24px" }} />
-				</SearchBar>
+			<TopContainer>
+				<SearchBar value={filtering} onChange={(e) => setFiltering(e.target.value)} />
 				{selectedResident && (
 					<SelectedContainer>
 						<SelectedText>
@@ -176,7 +147,7 @@ const Residents = () => {
 						<ViewButton>View</ViewButton>
 					</SelectedContainer>
 				)}
-			</SearchContainer>
+			</TopContainer>
 			<Table>
 				<thead>
 					{table.getHeaderGroups().map((headerGroup) => (
@@ -185,7 +156,12 @@ const Residents = () => {
 								<Th key={header.id} onClick={header.column.getToggleSortingHandler()}>
 									<div>
 										{flexRender(header.column.columnDef.header, header.getContext())}
-										{{ asc: "🔼", desc: "🔽" }[header.column.getIsSorted() ?? null]}
+										{
+											{
+												asc: <ArrowUpIcon />,
+												desc: <ArrowDownIcon />,
+											}[header.column.getIsSorted() ?? null]
+										}
 									</div>
 								</Th>
 							))}
