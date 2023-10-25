@@ -32,7 +32,7 @@ const Container = styled.div`
 const SearchContainer = styled.div`
 	width: 100%;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-between;
 `;
 
 const SearchBar = styled.div`
@@ -94,7 +94,6 @@ const Button = styled.button`
 `;
 
 const SelectedContainer = styled.div`
-	margin: 24px;
 	display: flex;
 	flex-direction: row;
 	min-width: 200px;
@@ -169,6 +168,14 @@ const Residents = () => {
 					/>
 					<SearchIcon style={{ fontSize: "24px" }} />
 				</SearchBar>
+				{selectedResident && (
+					<SelectedContainer>
+						<SelectedText>
+							{selectedResident.first_name} {selectedResident.last_name}
+						</SelectedText>
+						<ViewButton>View</ViewButton>
+					</SelectedContainer>
+				)}
 			</SearchContainer>
 			<Table>
 				<thead>
@@ -208,14 +215,6 @@ const Residents = () => {
 				</Button>
 				<Button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Last Page</Button>
 			</Footer>
-			{selectedResident && (
-				<SelectedContainer>
-					<SelectedText>
-						{selectedResident.first_name} {selectedResident.last_name}
-					</SelectedText>
-					<ViewButton>View</ViewButton>
-				</SelectedContainer>
-			)}
 		</Container>
 	);
 };
