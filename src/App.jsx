@@ -15,7 +15,7 @@ import Calendar from "./scenes/calendar";
 import BarChart from "./scenes/bar-chart";
 
 function App() {
-	const isDesktop = useMediaQuery("(min-width:820px)");
+	const isDesktop = useMediaQuery("(min-width: 1200px)");
 
 	return (
 		<ThemeProvider theme={theme}>

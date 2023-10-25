@@ -16,15 +16,21 @@ import { colors } from "../styles/theme";
 import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
 import { AiOutlineArrowRight as ArrowRightIcon } from "react-icons/ai";
 import { AiOutlineSearch as SearchIcon } from "react-icons/ai";
+import { useMediaQuery } from "@mui/material";
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-inline: auto;
+	width: 1200px;
+	@media (max-width: 1200px) {
+		width: 750px;
+	}
 `;
 
 const SearchContainer = styled.div`
-	width: 1200px;
+	width: 100%;
 	display: flex;
 	justify-content: flex-start;
 `;
@@ -51,7 +57,7 @@ const SearchInput = styled.input`
 const Table = styled.table`
 	cursor: pointer;
 	border-collapse: collapse;
-	width: 1200px;
+	width: 100%;
 `;
 
 const Td = styled.td`
@@ -60,18 +66,11 @@ const Td = styled.td`
 `;
 
 const Th = styled.th`
-	/* border: 1px solid #ddd; */
-	padding: 8px;
-
-	padding-top: 12px;
-	padding-bottom: 12px;
+	padding: 12px 8px;
 	text-align: left;
 	background-color: ${colors.blueAccent[500]};
 	color: white;
-
-	& :first-of-type {
-		border-top-left-radius: 12px;
-	}
+	/* min-width: 200px; */
 `;
 
 const Tr = styled.tr``;
@@ -80,7 +79,7 @@ const Footer = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	width: 1200px;
+	width: 100%;
 	background-color: ${colors.blueAccent[500]};
 	margin-top: 4px;
 	gap: 6px;
@@ -158,68 +157,66 @@ const Residents = () => {
 	};
 
 	return (
-		<>
-			<Container>
-				<PageHeading>Residents</PageHeading>
-				<SearchContainer>
-					<SearchBar>
-						<SearchInput
-							type="text"
-							value={filtering}
-							onChange={(e) => setFiltering(e.target.value)}
-							placeholder="Search"
-						/>
-						<SearchIcon style={{ fontSize: "24px" }} />
-					</SearchBar>
-				</SearchContainer>
-				<Table>
-					<thead>
-						{table.getHeaderGroups().map((headerGroup) => (
-							<Tr key={headerGroup.id}>
-								{headerGroup.headers.map((header) => (
-									<Th key={header.id} onClick={header.column.getToggleSortingHandler()}>
-										<div>
-											{flexRender(header.column.columnDef.header, header.getContext())}
-											{{ asc: "🔼", desc: "🔽" }[header.column.getIsSorted() ?? null]}
-										</div>
-									</Th>
-								))}
-							</Tr>
-						))}
-					</thead>
-					<tbody>
-						{table.getRowModel().rows.map((row) => (
-							<Tr key={row.id} onClick={() => handleClick(row.id)}>
-								{row.getVisibleCells().map((cell) => (
-									<Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
-								))}
-							</Tr>
-						))}
-					</tbody>
-				</Table>
-				<Footer>
-					<div>
-						{table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-					</div>
-					<Button onClick={() => table.setPageIndex(0)}>First Page</Button>
-					<Button disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
-						<ArrowLeftIcon />
-					</Button>
-					<Button disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
-						<ArrowRightIcon />
-					</Button>
-					<Button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Last Page</Button>
-				</Footer>
-				{selectedResident && (
-					<SelectedContainer>
-						<SelectedText>
-							{selectedResident.first_name} {selectedResident.last_name}
-						</SelectedText>
-						<ViewButton>View</ViewButton>
-					</SelectedContainer>
-				)}
-			</Container>
-		</>
+		<Container>
+			<PageHeading>Residents</PageHeading>
+			<SearchContainer>
+				<SearchBar>
+					<SearchInput
+						type="text"
+						value={filtering}
+						onChange={(e) => setFiltering(e.target.value)}
+						placeholder="Search"
+					/>
+					<SearchIcon style={{ fontSize: "24px" }} />
+				</SearchBar>
+			</SearchContainer>
+			<Table>
+				<thead>
+					{table.getHeaderGroups().map((headerGroup) => (
+						<Tr key={headerGroup.id}>
+							{headerGroup.headers.map((header) => (
+								<Th key={header.id} onClick={header.column.getToggleSortingHandler()}>
+									<div>
+										{flexRender(header.column.columnDef.header, header.getContext())}
+										{{ asc: "🔼", desc: "🔽" }[header.column.getIsSorted() ?? null]}
+									</div>
+								</Th>
+							))}
+						</Tr>
+					))}
+				</thead>
+				<tbody>
+					{table.getRowModel().rows.map((row) => (
+						<Tr key={row.id} onClick={() => handleClick(row.id)}>
+							{row.getVisibleCells().map((cell) => (
+								<Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
+							))}
+						</Tr>
+					))}
+				</tbody>
+			</Table>
+			<Footer>
+				<div>
+					{table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+				</div>
+				<Button onClick={() => table.setPageIndex(0)}>First Page</Button>
+				<Button disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
+					<ArrowLeftIcon />
+				</Button>
+				<Button disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
+					<ArrowRightIcon />
+				</Button>
+				<Button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Last Page</Button>
+			</Footer>
+			{selectedResident && (
+				<SelectedContainer>
+					<SelectedText>
+						{selectedResident.first_name} {selectedResident.last_name}
+					</SelectedText>
+					<ViewButton>View</ViewButton>
+				</SelectedContainer>
+			)}
+		</Container>
 	);
 };
 
