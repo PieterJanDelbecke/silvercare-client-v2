@@ -54,7 +54,10 @@ const Th = styled.th`
 	color: white;
 `;
 
-const Tr = styled.tr``;
+const ThCell = styled.div`
+	display: flex;
+	gap: 12px;
+`;
 
 const Footer = styled.div`
 	display: flex;
@@ -102,7 +105,7 @@ const Residents = () => {
 
 	const columns = [
 		// { header: "ID", accessorKey: "id" },
-		{ header: "First Name", accessorKey: "first_name" },
+		{ header: "First Name", accessorKey: "first_name", size: "200" },
 		{ header: "Last Name", accessorKey: "last_name" },
 		{ header: "Email", accessorKey: "email" },
 		{ header: "Gender", accessorKey: "gender" },
@@ -151,10 +154,10 @@ const Residents = () => {
 			<Table>
 				<thead>
 					{table.getHeaderGroups().map((headerGroup) => (
-						<Tr key={headerGroup.id}>
+						<tr key={headerGroup.id}>
 							{headerGroup.headers.map((header) => (
 								<Th key={header.id} onClick={header.column.getToggleSortingHandler()}>
-									<div>
+									<ThCell>
 										{flexRender(header.column.columnDef.header, header.getContext())}
 										{
 											{
@@ -162,19 +165,19 @@ const Residents = () => {
 												desc: <ArrowDownIcon />,
 											}[header.column.getIsSorted() ?? null]
 										}
-									</div>
+									</ThCell>
 								</Th>
 							))}
-						</Tr>
+						</tr>
 					))}
 				</thead>
 				<tbody>
 					{table.getRowModel().rows.map((row) => (
-						<Tr key={row.id} onClick={() => handleClick(row.id)}>
+						<tr key={row.id} onClick={() => handleClick(row.id)}>
 							{row.getVisibleCells().map((cell) => (
 								<Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
 							))}
-						</Tr>
+						</tr>
 					))}
 				</tbody>
 			</Table>
