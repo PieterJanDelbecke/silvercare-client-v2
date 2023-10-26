@@ -20,7 +20,7 @@ const IconsContainer = styled.div`
 `;
 
 const Topbar = () => {
-	const isDesktop = useMediaQuery("(min-width:820px)");
+	const isDesktop = useMediaQuery("(min-width:1200px)");
 
 	const user = () => {
 		console.log("USER");

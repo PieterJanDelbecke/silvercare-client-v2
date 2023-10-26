@@ -2,6 +2,7 @@ import { Global as GlobalStyling, css } from "@emotion/react";
 
 import reset from "./reset";
 import { typography } from "./theme";
+import { colors } from "./theme";
 
 const Global = () => (
 	<GlobalStyling
@@ -19,6 +20,7 @@ const Global = () => (
 				height: 100%;
 				width: 100%;
 				color: ${typography.defaultColor};
+				background-color: ${colors.primary[500]};
 				font-family: ${typography.fonts};
 				font-weight: 400;
 				letter-spacing: ${typography.letterSpacing.regular};
