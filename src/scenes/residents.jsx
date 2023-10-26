@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
 	flexRender,
 	getCoreRowModel,
@@ -10,6 +11,7 @@ import {
 } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 
+import Context from "../context/context";
 import residents from "../data/MOCK_DATA.json";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
@@ -95,9 +97,16 @@ const ViewButton = styled(Button)`
 `;
 
 const Residents = () => {
+	const { context, setContext } = useContext(Context);
+	const navigate = useNavigate();
+
 	const [sorting, setSorting] = useState([]);
 	const [filtering, setFiltering] = useState("");
 	const [selectedResident, setSelectedResident] = useState(null);
+
+	useEffect(() => {
+		setContext({ ...context, residents: residents });
+	}, []);
 
 	const data = useMemo(() => residents, []);
 
@@ -134,7 +143,13 @@ const Residents = () => {
 	const handleClick = (rowId) => {
 		const selectedRowId = +rowId + 1;
 		const selected = residents.find((resident) => resident.id === selectedRowId);
+		console.log("selected: ", selected.id);
 		setSelectedResident(selected);
+		setContext({ ...context, selectedResidentId: selected.id });
+	};
+
+	const handleView = () => {
+		navigate("/resident");
 	};
 
 	return (
@@ -147,7 +162,7 @@ const Residents = () => {
 						<SelectedText>
 							{selectedResident.first_name} {selectedResident.last_name}
 						</SelectedText>
-						<ViewButton>View</ViewButton>
+						<ViewButton onClick={handleView}>View</ViewButton>
 					</SelectedContainer>
 				)}
 			</TopContainer>
