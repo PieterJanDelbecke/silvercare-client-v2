@@ -41,7 +41,7 @@ const Resident = () => {
 			{resident ? (
 				<ResidentContainer>
 					<PageHeading>
-						{resident.first_name} {resident.last_name}
+						{resident.firstName} {resident.lastName}
 					</PageHeading>
 					<div>
 						<Body>Gender: {resident.gender}</Body>
