@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
 	flexRender,
 	getCoreRowModel,
@@ -10,7 +11,8 @@ import {
 } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 
-import residents from "../data/MOCK_DATA.json";
+import Context from "../context/context";
+import residents from "../data/residentsMockData.json";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
 import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
@@ -95,9 +97,16 @@ const ViewButton = styled(Button)`
 `;
 
 const Residents = () => {
+	const { context, setContext } = useContext(Context);
+	const navigate = useNavigate();
+
 	const [sorting, setSorting] = useState([]);
 	const [filtering, setFiltering] = useState("");
 	const [selectedResident, setSelectedResident] = useState(null);
+
+	useEffect(() => {
+		setContext({ ...context, residents: residents });
+	}, []);
 
 	const data = useMemo(() => residents, []);
 
@@ -105,8 +114,8 @@ const Residents = () => {
 
 	const columns = [
 		// { header: "ID", accessorKey: "id" },
-		{ header: "First Name", accessorKey: "first_name", size: "200" },
-		{ header: "Last Name", accessorKey: "last_name" },
+		{ header: "First Name", accessorKey: "firstName", size: "200" },
+		{ header: "Last Name", accessorKey: "lastName" },
 		{ header: "Email", accessorKey: "email" },
 		{ header: "Gender", accessorKey: "gender" },
 		{
@@ -131,10 +140,14 @@ const Residents = () => {
 		onGlobalFilterChange: setFiltering,
 	});
 
-	const handleClick = (rowId) => {
-		const selectedRowId = +rowId + 1;
-		const selected = residents.find((resident) => resident.id === selectedRowId);
-		setSelectedResident(selected);
+	const handleClick = (resident) => {
+		console.log("==> resident: ", resident);
+		setSelectedResident(resident);
+		setContext({ ...context, selectedResidentId: resident.id });
+	};
+
+	const handleView = () => {
+		navigate("/resident");
 	};
 
 	return (
@@ -145,9 +158,9 @@ const Residents = () => {
 				{selectedResident && (
 					<SelectedContainer>
 						<SelectedText>
-							{selectedResident.first_name} {selectedResident.last_name}
+							{selectedResident.firstName} {selectedResident.lastName}
 						</SelectedText>
-						<ViewButton>View</ViewButton>
+						<ViewButton onClick={handleView}>View</ViewButton>
 					</SelectedContainer>
 				)}
 			</TopContainer>
@@ -173,7 +186,7 @@ const Residents = () => {
 				</thead>
 				<tbody>
 					{table.getRowModel().rows.map((row) => (
-						<tr key={row.id} onClick={() => handleClick(row.id)}>
+						<tr key={row.id} onClick={() => handleClick(row.original)}>
 							{row.getVisibleCells().map((cell) => (
 								<Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
 							))}
