@@ -3,6 +3,10 @@ import Context from "../context/context";
 import { PageHeading, Body } from "../common/typography";
 import { DateTime } from "luxon";
 import styled from "@emotion/styled";
+import { colors } from "../styles/theme";
+
+// import residents from "../data/residentsMockData.json"; // remove when finished
+import blankImage from "../images/blank-profile-picture.png";
 
 const Container = styled.div`
 	display: flex;
@@ -15,10 +19,36 @@ const Container = styled.div`
 	}
 `;
 
-const ResidentContainer = styled.div`
+const HeadContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	/* border: 1px solid red; */
+	background-color: ${colors.primary[400]};
+	border-radius: 8px;
+`;
+
+const InfoContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	width: 400px;
+	padding: 24px;
+`;
+
+const ImageContainer = styled.div`
+	/* border: 1px solid yellow; */
+	width: 400px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+`;
+
+const Image = styled.img`
+	margin: 24px;
+`;
+
+const ResidentName = styled(PageHeading)`
+	color: ${colors.greenAccent[500]};
 `;
 
 const Resident = () => {
@@ -27,8 +57,10 @@ const Resident = () => {
 
 	const { residents, selectedResidentId } = context;
 
-	console.log("### residents: ", residents);
-	console.log("### selectedResidentId: ", selectedResidentId);
+	// const selectedResidentId = "4ff0db76-60e4-40e2-b60b-afdad444187a";
+
+	// console.log("### residents: ", residents);
+	// console.log("### selectedResidentId: ", selectedResidentId);
 
 	useEffect(() => {
 		const selected = residents.find((resident) => resident.id === selectedResidentId);
@@ -36,23 +68,35 @@ const Resident = () => {
 		setResident(selected);
 	}, []);
 
+	const calculateAge = (dob) => {
+		const today = DateTime.local();
+		const age = Math.floor(today.diff(dob, "years").years);
+		return age;
+	};
 	return (
-		<Container>
+		<>
 			{resident ? (
-				<ResidentContainer>
-					<PageHeading>
-						{resident.firstName} {resident.lastName}
-					</PageHeading>
-					<div>
-						<Body>Gender: {resident.gender}</Body>
-						<Body>DOB: {DateTime.fromISO(resident.dob).toLocaleString(DateTime.DATE_MED)}</Body>
-						<Body>Email: {resident.email}</Body>
-					</div>
-				</ResidentContainer>
+				<Container>
+					<HeadContainer>
+						<InfoContainer>
+							<ResidentName>
+								{resident.firstName} {resident.lastName}
+							</ResidentName>
+							<div>
+								<Body>Gender: {resident.gender}</Body>
+								<Body>DOB: {DateTime.fromISO(resident.dob).toLocaleString(DateTime.DATE_MED)}</Body>
+								<Body>Age: {calculateAge(DateTime.fromISO(resident.dob))}</Body>
+							</div>
+						</InfoContainer>
+						<ImageContainer>
+							<Image src={blankImage} alt="blank picture" style={{ width: "200px", height: "240px" }} />
+						</ImageContainer>
+					</HeadContainer>
+				</Container>
 			) : (
 				"LOADING..."
 			)}
-		</Container>
+		</>
 	);
 };
 
