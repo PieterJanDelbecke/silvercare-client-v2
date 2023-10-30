@@ -8,3 +8,11 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 # silvercare-client-v2
+
+# Documentation:
+
+## used libraries:
+
+- Formik and Yup for forms
+- TanStack/react table for the tables
+- Redux for Global State managment
