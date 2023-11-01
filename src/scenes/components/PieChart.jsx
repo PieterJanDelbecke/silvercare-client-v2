@@ -20,13 +20,9 @@ const MyResponsivePie = () => {
 			arcLinkLabelsTextColor={colors.grey[100]}
 			arcLinkLabelsThickness={2}
 			arcLinkLabelsColor={{ from: "color" }}
-			enableArcLabels={false}
 			arcLabelsRadiusOffset={0.4}
 			arcLabelsSkipAngle={7}
-			arcLabelsTextColor={{
-				from: "color",
-				modifiers: [["darker", 2]],
-			}}
+			arcLabelsTextColor="black"
 			defs={[
 				{
 					id: "dots",
