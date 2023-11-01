@@ -23,7 +23,6 @@ const HeadContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	/* border: 1px solid red; */
 	background-color: ${colors.primary[400]};
 	border-radius: 8px;
 `;
@@ -36,7 +35,6 @@ const InfoContainer = styled.div`
 `;
 
 const ImageContainer = styled.div`
-	/* border: 1px solid yellow; */
 	width: 400px;
 	display: flex;
 	flex-direction: row;
@@ -53,20 +51,7 @@ const ResidentName = styled(PageHeading)`
 
 const Resident = () => {
 	const { context, setContext } = useContext(Context);
-	const [resident, setResident] = useState(null);
-
-	const { residents, selectedResidentId } = context;
-
-	// const selectedResidentId = "4ff0db76-60e4-40e2-b60b-afdad444187a";
-
-	// console.log("### residents: ", residents);
-	// console.log("### selectedResidentId: ", selectedResidentId);
-
-	useEffect(() => {
-		const selected = residents.find((resident) => resident.id === selectedResidentId);
-		console.log("### selected: ", selected);
-		setResident(selected);
-	}, []);
+	const { selectedResident: resident } = context;
 
 	const calculateAge = (dob) => {
 		const today = DateTime.local();

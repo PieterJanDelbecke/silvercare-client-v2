@@ -401,31 +401,31 @@ export const mockPieData = [
 	{
 		id: "bingo",
 		label: "bingo",
-		value: 239,
+		value: 5,
 		color: "hsl(104, 70%, 50%)",
 	},
 	{
 		id: "painting",
 		label: "painting",
-		value: 170,
+		value: 5,
 		color: "hsl(162, 70%, 50%)",
 	},
 	{
 		id: "gardening",
 		label: "gardening",
-		value: 322,
+		value: 4,
 		color: "hsl(291, 70%, 50%)",
 	},
 	{
 		id: "bustrip",
 		label: "bustrip",
-		value: 503,
+		value: 3,
 		color: "hsl(229, 70%, 50%)",
 	},
 	{
 		id: "music",
-		label: "scala",
-		value: 584,
+		label: "music",
+		value: 7,
 		color: "hsl(344, 70%, 50%)",
 	},
 ];

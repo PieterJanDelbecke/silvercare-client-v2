@@ -33,7 +33,7 @@ function App() {
 						<Route path="/residents" element={<Residents />} />
 						<Route path="/resident" element={<Resident />} />
 						{/* <Route path="/barChart" element={<BarChart />} /> */}
-						<Route path="/barChart" element={<PieChart />} />
+						<Route path="/pieChart" element={<PieChart />} />
 						<Route path="/residentForm" element={<ResidentForm />} />
 						<Route path="/faq" element={<Faq />} />
 						<Route path="/calendar" element={<Calendar />} />

@@ -143,7 +143,7 @@ const Residents = () => {
 	const handleClick = (resident) => {
 		console.log("==> resident: ", resident);
 		setSelectedResident(resident);
-		setContext({ ...context, selectedResidentId: resident.id });
+		setContext({ ...context, selectedResident: resident });
 	};
 
 	const handleView = () => {

@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { useContext } from "react";
-
+import { PageHeading, Heading } from "../common/typography";
+import MyResponsivePie from "./components/PieChart";
 import Context from "../context/context";
+import { colors } from "../styles/theme";
 
 const Container = styled.div`
 	display: flex;
@@ -11,17 +13,20 @@ const Container = styled.div`
 	height: 75vh;
 `;
 
-import MyResponsivePie from "./components/PieChart";
+const ResidentName = styled(Heading)`
+	color: ${colors.greenAccent[500]};
+`;
 
 const PieChart = () => {
 	const { context, setContext } = useContext(Context);
-	const { selectedResidentId } = context;
+	const { selectedResident } = context;
 
-	console.log("### selectedResidentId: ", selectedResidentId);
+	console.log("### selectedResident: ", selectedResident);
 
 	return (
 		<Container>
-			Pie Chart
+			<PageHeading>Pie Chart</PageHeading>
+			<ResidentName>{selectedResident?.firstName || "Brad Pitt"}</ResidentName>
 			<MyResponsivePie />
 		</Container>
 	);
