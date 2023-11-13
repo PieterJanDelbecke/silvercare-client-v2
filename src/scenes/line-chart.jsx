@@ -4,12 +4,14 @@ import { PageHeading, Heading } from "../common/typography";
 
 import Context from "../context/context";
 import { colors } from "../styles/theme";
+import MyLineChart from "./components/LineChart";
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	height: 75vh;
 `;
 
 const ResidentName = styled(Heading)`
@@ -26,7 +28,7 @@ const LineChart = () => {
 		<Container>
 			<PageHeading>Line Chart</PageHeading>
 			<ResidentName>{selectedResident?.firtName || "John Doe"}</ResidentName>
-			{/* <MyLineCart /> */}
+			<MyLineChart />
 		</Container>
 	);
 };
