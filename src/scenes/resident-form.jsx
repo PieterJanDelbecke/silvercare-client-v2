@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
@@ -6,6 +7,7 @@ import { colors } from "../styles/theme";
 import { useMediaQuery } from "@mui/material";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
+import Select from "react-select";
 
 const Container = styled.div`
 	display: flex;
@@ -32,7 +34,7 @@ const Grid = styled.div`
 `;
 
 const InputContainer = styled.div`
-	grid-column: 2 span;
+	grid-column: 4 span;
 `;
 
 const Input = styled.input`
@@ -90,15 +92,69 @@ const ButtonContainer = styled.div`
 	padding-right: 36px;
 `;
 
+const selectOptionStyles = {
+	container: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: colors.grey[100],
+		borderRadius: "6px;",
+	}),
+	control: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: colors.grey[100],
+	}),
+	option: (baseStyles) => ({
+		...baseStyles,
+		color: "black",
+		// backgroundColor: colors.grey[100],
+	}),
+	multiValueLabel: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: colors.greenAccent[500],
+		fontSize: "16px",
+		borderRadius: "2px 0px 0px 2px",
+	}),
+	multiValueRemove: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: colors.greenAccent[500],
+		borderRadius: "0px 2px 2px 0px",
+	}),
+};
+
 const ResidentForm = () => {
 	const isDesktop = useMediaQuery("(min-width:820px)");
+
+	const [selectedNationality, setSelectedNationality] = useState({ value: "Australia", label: "Australia" });
+	const [selectedLangauge, setSelectedLangauge] = useState({ value: "English", label: "English" });
+	const [selectedReligion, setSelectedReligion] = useState({ value: "Christian", label: "Christian" });
+
+	const nationalityOptions = [
+		{ value: "Australia", label: "Australia" },
+		{ value: "Italy", label: "Italy" },
+		{ value: "Greece", label: "Greece" },
+		{ value: "New Zealand", label: "New Zealand" },
+	];
+
+	const languageOptions = [
+		{ value: "English", label: "English" },
+		{ value: "Italian", label: "Italian" },
+		{ value: "Greek", label: "Greek" },
+	];
+
+	const religionOptions = [
+		{ value: "Christian", label: "Christian" },
+		{ value: "Jewish", label: "Jewish" },
+		{ value: "Buddhist", label: "Buddhist" },
+		{ value: "Muslim", label: "Muslim" },
+		{ value: "Hindu", label: "Hindu" },
+		{ value: "Atheist", label: "Atheist" },
+	];
 
 	const initialValues = {
 		firstName: "",
 		lastName: "",
-		email: "",
 		dob: "",
 		gender: "",
+		practicingReligion: "",
 	};
 
 	const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
@@ -106,13 +162,15 @@ const ResidentForm = () => {
 	const checkoutSchema = Yup.object().shape({
 		firstName: Yup.string().required("required"),
 		lastName: Yup.string().required("required"),
-		email: Yup.string().email("Invalid email address").required("required"),
 		dob: Yup.string().matches(dateRegex, "Invalid date").required("required"),
 		gender: Yup.string().required("required"),
+		practicingReligion: Yup.string().required("required"),
+		// email: Yup.string().email("Invalid email address").required("required"),
 	});
 
 	const handleFormSubmit = (values) => {
 		console.log(values);
+		console.log(selectedNationality);
 	};
 	return (
 		<Container>
@@ -149,19 +207,6 @@ const ResidentForm = () => {
 									{<Error>{!!touched.lastName && !!errors.lastName ? errors.lastName : null}</Error>}
 								</InputContainer>
 								<InputContainer>
-									<InputLabel>Email</InputLabel>
-									<Input
-										type="text"
-										name="email"
-										id="email"
-										onBlur={handleBlur}
-										onChange={handleChange}
-										value={values.email}
-										// placeholder="Email"
-									/>
-									{<Error>{!!touched.email && !!errors.email ? errors.email : null}</Error>}
-								</InputContainer>
-								<InputContainer>
 									<InputLabel>DOB (dd/mm/yyyy)</InputLabel>
 									<Input
 										type="text"
@@ -174,12 +219,54 @@ const ResidentForm = () => {
 									/>
 									{!!touched.dob && !!errors.dob ? <Error>{errors.dob}</Error> : null}
 								</InputContainer>
-								<RadioContainer role="group" aria-labelledby="my-radio-group">
+								<RadioContainer role="group" aria-labelledby="my-gender-group">
 									<RadioLabel>
 										<RadioInput type="radio" name="gender" value="male" /> Male
 									</RadioLabel>
 									<RadioLabel>
 										<RadioInput type="radio" name="gender" value="female" /> Female
+									</RadioLabel>
+									{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
+								</RadioContainer>
+								<InputContainer>
+									<InputLabel>Nationality</InputLabel>
+									<Select
+										options={nationalityOptions}
+										defaultValue={selectedNationality}
+										onChange={setSelectedNationality}
+										isMulti={true}
+										styles={selectOptionStyles}
+									/>
+								</InputContainer>
+								{selectedNationality.length === 0 && <Error>Required</Error>}
+								<InputContainer>
+									<InputLabel>Spoken Languages</InputLabel>
+									<Select
+										options={languageOptions}
+										defaultValue={selectedLangauge}
+										onChange={setSelectedLangauge}
+										isMulti={true}
+										styles={selectOptionStyles}
+									/>
+								</InputContainer>
+								{selectedLangauge.length === 0 && <Error>Required</Error>}
+								<InputContainer>
+									<InputLabel>Religion</InputLabel>
+									<Select
+										options={religionOptions}
+										defaultValue={selectedReligion}
+										onChange={setSelectedReligion}
+										isMulti={true}
+										styles={selectOptionStyles}
+									/>
+								</InputContainer>
+								{selectedReligion.length === 0 && <Error>Required</Error>}
+								<RadioContainer role="group" aria-labelledby="my-gender-group">
+									<RadioLabel>
+										<RadioInput type="radio" name="gender" value="true" /> practicing
+									</RadioLabel>
+									<RadioLabel>
+										<RadioInput type="radio" name="gender" value="false" /> non-practicing
 									</RadioLabel>
 									{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
 								</RadioContainer>

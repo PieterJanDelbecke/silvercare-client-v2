@@ -70,7 +70,8 @@ const Sidebar = () => {
 				<Option title="Dashboard" to="/" iconName="home" selected={selected} setSelected={setSelected} />
 				<Option title="Team" to="/team" iconName="team" selected={selected} setSelected={setSelected} />
 				<Option title="Residents" to="/residents" iconName="user" selected={selected} setSelected={setSelected} />
-				<Option title="Chart" to="/barChart" iconName="barChart" selected={selected} setSelected={setSelected} />
+				<Option title="Pie Chart" to="/pieChart" iconName="barChart" selected={selected} setSelected={setSelected} />
+				<Option title="Line Chart" to="/lineChart" iconName="barChart" selected={selected} setSelected={setSelected} />
 				<Option
 					title="Resident Form"
 					to="/residentForm"

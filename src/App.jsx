@@ -14,6 +14,8 @@ import ResidentForm from "./scenes/resident-form";
 import Faq from "./scenes/faq";
 import Calendar from "./scenes/calendar";
 import BarChart from "./scenes/bar-chart";
+import PieChart from "./scenes/pie-chart";
+import LineChart from "./scenes/line-chart";
 
 function App() {
 	const [context, setContext] = useState({});
@@ -31,7 +33,9 @@ function App() {
 						<Route path="/team" element={<Team />} />
 						<Route path="/residents" element={<Residents />} />
 						<Route path="/resident" element={<Resident />} />
-						<Route path="/barChart" element={<BarChart />} />
+						{/* <Route path="/barChart" element={<BarChart />} /> */}
+						<Route path="/pieChart" element={<PieChart />} />
+						<Route path="/lineChart" element={<LineChart />} />
 						<Route path="/residentForm" element={<ResidentForm />} />
 						<Route path="/faq" element={<Faq />} />
 						<Route path="/calendar" element={<Calendar />} />
