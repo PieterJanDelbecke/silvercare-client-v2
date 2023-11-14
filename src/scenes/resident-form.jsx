@@ -9,6 +9,7 @@ import { useMediaQuery } from "@mui/material";
 // import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import { mediaQueryMinWidth } from "../common/common";
+import { nationalityOptions, languageOptions, religionOptions } from "../data/dropdownOptions";
 
 const Container = styled.div`
 	display: flex;
@@ -125,31 +126,9 @@ const selectOptionStyles = {
 const ResidentForm = () => {
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
-	const [selectedNationality, setSelectedNationality] = useState({ value: "Australia", label: "Australia" });
-	const [selectedLangauge, setSelectedLangauge] = useState({ value: "English", label: "English" });
-	const [selectedReligion, setSelectedReligion] = useState({ value: "Christian", label: "Christian" });
-
-	const nationalityOptions = [
-		{ value: "Australia", label: "Australia" },
-		{ value: "Italy", label: "Italy" },
-		{ value: "Greece", label: "Greece" },
-		{ value: "New Zealand", label: "New Zealand" },
-	];
-
-	const languageOptions = [
-		{ value: "English", label: "English" },
-		{ value: "Italian", label: "Italian" },
-		{ value: "Greek", label: "Greek" },
-	];
-
-	const religionOptions = [
-		{ value: "Christian", label: "Christian" },
-		{ value: "Jewish", label: "Jewish" },
-		{ value: "Buddhist", label: "Buddhist" },
-		{ value: "Muslim", label: "Muslim" },
-		{ value: "Hindu", label: "Hindu" },
-		{ value: "Atheist", label: "Atheist" },
-	];
+	const [selectedNationality, setSelectedNationality] = useState(nationalityOptions[0]);
+	const [selectedLangauge, setSelectedLangauge] = useState(languageOptions[0]);
+	const [selectedReligion, setSelectedReligion] = useState(religionOptions[0]);
 
 	const initialValues = {
 		firstName: "",
