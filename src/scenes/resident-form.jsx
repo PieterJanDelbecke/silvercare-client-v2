@@ -63,7 +63,8 @@ const Error = styled.p`
 
 const RadioContainer = styled.div`
 	display: flex;
-	margin-top: 12px;
+	grid-column: 4 span;
+	margin-block: 12px;
 `;
 
 const RadioLabel = styled.label`
@@ -181,7 +182,7 @@ const ResidentForm = () => {
 						<form onSubmit={handleSubmit}>
 							<Grid isDesktop={isDesktop}>
 								<InputContainer>
-									<InputLabel>First Name:</InputLabel>
+									<InputLabel>First Name</InputLabel>
 									<Input
 										type="text"
 										name="firstName"
@@ -189,12 +190,11 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.firstName}
-										// placeholder="First Name"
 									/>
 									{<Error>{!!touched.firstName && !!errors.firstName ? errors.firstName : null}</Error>}
 								</InputContainer>
 								<InputContainer>
-									<InputLabel>Last Name:</InputLabel>
+									<InputLabel>Last Name</InputLabel>
 									<Input
 										type="text"
 										name="lastName"
@@ -202,7 +202,6 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.lastName}
-										// placeholder="Last Name"
 									/>
 									{<Error>{!!touched.lastName && !!errors.lastName ? errors.lastName : null}</Error>}
 								</InputContainer>
@@ -215,19 +214,21 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.dob}
-										// placeholder="dd/mm/yyyy"
 									/>
-									{!!touched.dob && !!errors.dob ? <Error>{errors.dob}</Error> : null}
+									<Error>{!!touched.dob && !!errors.dob ? errors.dob : null}</Error>
 								</InputContainer>
-								<RadioContainer role="group" aria-labelledby="my-gender-group">
-									<RadioLabel>
-										<RadioInput type="radio" name="gender" value="male" /> Male
-									</RadioLabel>
-									<RadioLabel>
-										<RadioInput type="radio" name="gender" value="female" /> Female
-									</RadioLabel>
-									{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
-								</RadioContainer>
+								<InputContainer>
+									<InputLabel>Gender</InputLabel>
+									<RadioContainer role="group" aria-labelledby="my-gender-group">
+										<RadioLabel>
+											<RadioInput type="radio" name="gender" value="male" /> Male
+										</RadioLabel>
+										<RadioLabel>
+											<RadioInput type="radio" name="gender" value="female" /> Female
+										</RadioLabel>
+										{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
+									</RadioContainer>
+								</InputContainer>
 								<InputContainer>
 									<InputLabel>Nationality</InputLabel>
 									<Select
@@ -238,7 +239,7 @@ const ResidentForm = () => {
 										styles={selectOptionStyles}
 									/>
 								</InputContainer>
-								{selectedNationality.length === 0 && <Error>Required</Error>}
+								<Error>{selectedNationality.length === 0 ? "required" : null}</Error>
 								<InputContainer>
 									<InputLabel>Spoken Languages</InputLabel>
 									<Select
@@ -249,7 +250,7 @@ const ResidentForm = () => {
 										styles={selectOptionStyles}
 									/>
 								</InputContainer>
-								{selectedLangauge.length === 0 && <Error>Required</Error>}
+								<Error>{selectedLangauge.length === 0 ? "required" : null}</Error>
 								<InputContainer>
 									<InputLabel>Religion</InputLabel>
 									<Select
@@ -260,16 +261,19 @@ const ResidentForm = () => {
 										styles={selectOptionStyles}
 									/>
 								</InputContainer>
-								{selectedReligion.length === 0 && <Error>Required</Error>}
-								<RadioContainer role="group" aria-labelledby="my-gender-group">
-									<RadioLabel>
-										<RadioInput type="radio" name="gender" value="true" /> practicing
-									</RadioLabel>
-									<RadioLabel>
-										<RadioInput type="radio" name="gender" value="false" /> non-practicing
-									</RadioLabel>
-									{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
-								</RadioContainer>
+								<Error>{selectedReligion.length === 0 && "required"}</Error>
+								<InputContainer>
+									<InputLabel>Practicing relegion:</InputLabel>
+									<RadioContainer role="group" aria-labelledby="my-religion-group">
+										<RadioLabel>
+											<RadioInput type="radio" name="religion" value="true" /> yes
+										</RadioLabel>
+										<RadioLabel>
+											<RadioInput type="radio" name="religion" value="false" /> no
+										</RadioLabel>
+										{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
+									</RadioContainer>
+								</InputContainer>
 							</Grid>
 							<ButtonContainer>
 								<SubmitButton type="submit">Submit</SubmitButton>
