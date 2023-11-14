@@ -63,18 +63,18 @@ const Error = styled.p`
 	height: 16px;
 `;
 
-const RadioContainer = styled.div`
+const FormContainer = styled.div`
 	display: flex;
 	grid-column: 4 span;
 	margin-block: 12px;
 `;
 
-const RadioLabel = styled.label`
+const FormLabel = styled.label`
 	margin-left: 12px;
-	width: 80px;
+	min-width: 80px;
 `;
 
-const RadioInput = styled(Field)`
+const FormInput = styled(Field)`
 	transform: scale(1.5);
 	margin-right: 5px;
 `;
@@ -136,6 +136,8 @@ const ResidentForm = () => {
 		dob: "",
 		gender: "",
 		practicingReligion: "",
+		activitiesOptions: [],
+		// checked: [],
 	};
 
 	const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
@@ -146,6 +148,8 @@ const ResidentForm = () => {
 		dob: Yup.string().matches(dateRegex, "Invalid date").required("required"),
 		gender: Yup.string().required("required"),
 		practicingReligion: Yup.string().required("required"),
+		activitiesOptions: Yup.array().min(1, "select at least one option"),
+		// checked: Yup.array().min(1, "select at least one option"),
 		// email: Yup.string().email("Invalid email address").required("required"),
 	});
 
@@ -199,15 +203,15 @@ const ResidentForm = () => {
 								</InputContainer>
 								<InputContainer>
 									<InputLabel>Gender</InputLabel>
-									<RadioContainer role="group" aria-labelledby="my-gender-group">
-										<RadioLabel>
-											<RadioInput type="radio" name="gender" value="male" /> Male
-										</RadioLabel>
-										<RadioLabel>
-											<RadioInput type="radio" name="gender" value="female" /> Female
-										</RadioLabel>
+									<FormContainer role="group" aria-labelledby="my-gender-group">
+										<FormLabel>
+											<FormInput type="radio" name="gender" value="male" /> Male
+										</FormLabel>
+										<FormLabel>
+											<FormInput type="radio" name="gender" value="female" /> Female
+										</FormLabel>
 										{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
-									</RadioContainer>
+									</FormContainer>
 								</InputContainer>
 								<InputContainer>
 									<InputLabel>Nationality</InputLabel>
@@ -243,16 +247,46 @@ const ResidentForm = () => {
 									<Error>{selectedReligion.length === 0 && "required"}</Error>
 								</InputContainer>
 								<InputContainer>
-									<InputLabel>Practicing relegion:</InputLabel>
-									<RadioContainer role="group" aria-labelledby="my-religion-group">
-										<RadioLabel>
-											<RadioInput type="radio" name="religion" value="true" /> yes
-										</RadioLabel>
-										<RadioLabel>
-											<RadioInput type="radio" name="religion" value="false" /> no
-										</RadioLabel>
-										{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
-									</RadioContainer>
+									<InputLabel>Practicing relegion</InputLabel>
+									<FormContainer role="group" aria-labelledby="my-religion-group">
+										<FormLabel>
+											<FormInput type="radio" name="practicingReligion" value="true" /> Yes
+										</FormLabel>
+										<FormLabel>
+											<FormInput type="radio" name="practicingReligion" value="false" /> No
+										</FormLabel>
+										{
+											<Error>
+												{!!touched.practicingReligion && !!errors.practicingReligion ? errors.practicingReligion : null}
+											</Error>
+										}
+									</FormContainer>
+								</InputContainer>
+								<InputContainer>
+									<InputLabel>Interest of Activities</InputLabel>
+									<FormContainer role="group" aria-labelledby="checkbox-group">
+										<FormLabel>
+											<FormInput type="checkbox" name="activitiesOptions" value="Bingo" />
+											Bingo
+										</FormLabel>
+										<FormLabel>
+											<FormInput type="checkbox" name="activitiesOptions" value="Bustrips" />
+											Bustrips
+										</FormLabel>
+										<FormLabel>
+											<FormInput type="checkbox" name="activitiesOptions" value="Music" />
+											Music
+										</FormLabel>
+										<FormLabel>
+											<FormInput type="checkbox" name="activitiesOptions" value="Gardening" />
+											Gardening
+										</FormLabel>
+									</FormContainer>
+									{
+										<Error>
+											{!!touched.activitiesOptions && !!errors.activitiesOptions ? errors.activitiesOptions : null}
+										</Error>
+									}
 								</InputContainer>
 							</Grid>
 							<ButtonContainer>
