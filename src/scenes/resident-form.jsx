@@ -8,6 +8,7 @@ import { useMediaQuery } from "@mui/material";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
+import { mediaQueryMinWidth } from "../common/common";
 
 const Container = styled.div`
 	display: flex;
@@ -34,7 +35,7 @@ const Grid = styled.div`
 `;
 
 const InputContainer = styled.div`
-	grid-column: 4 span;
+	grid-column: 2 span;
 `;
 
 const Input = styled.input`
@@ -122,7 +123,7 @@ const selectOptionStyles = {
 };
 
 const ResidentForm = () => {
-	const isDesktop = useMediaQuery("(min-width:820px)");
+	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
 	const [selectedNationality, setSelectedNationality] = useState({ value: "Australia", label: "Australia" });
 	const [selectedLangauge, setSelectedLangauge] = useState({ value: "English", label: "English" });
@@ -238,8 +239,8 @@ const ResidentForm = () => {
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
+									<Error>{selectedNationality.length === 0 ? "required" : null}</Error>
 								</InputContainer>
-								<Error>{selectedNationality.length === 0 ? "required" : null}</Error>
 								<InputContainer>
 									<InputLabel>Spoken Languages</InputLabel>
 									<Select
@@ -249,8 +250,8 @@ const ResidentForm = () => {
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
+									<Error>{selectedLangauge.length === 0 ? "required" : null}</Error>
 								</InputContainer>
-								<Error>{selectedLangauge.length === 0 ? "required" : null}</Error>
 								<InputContainer>
 									<InputLabel>Religion</InputLabel>
 									<Select
@@ -260,8 +261,8 @@ const ResidentForm = () => {
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
+									<Error>{selectedReligion.length === 0 && "required"}</Error>
 								</InputContainer>
-								<Error>{selectedReligion.length === 0 && "required"}</Error>
 								<InputContainer>
 									<InputLabel>Practicing relegion:</InputLabel>
 									<RadioContainer role="group" aria-labelledby="my-religion-group">

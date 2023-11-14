@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Context from "./context/context";
 import { useMediaQuery } from "@mui/material";
+import { mediaQueryMinWidth } from "./common/common";
 import Global from "./styles/global";
 import Topbar from "./scenes/global/topbar";
 import Sidebar from "./scenes/global/sidebar";
@@ -19,7 +20,7 @@ import LineChart from "./scenes/line-chart";
 
 function App() {
 	const [context, setContext] = useState({});
-	const isDesktop = useMediaQuery("(min-width: 1200px)");
+	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
 	return (
 		<Context.Provider value={{ context, setContext }}>
