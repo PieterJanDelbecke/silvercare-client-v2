@@ -67,10 +67,11 @@ const FormContainer = styled.div`
 	display: flex;
 	grid-column: 4 span;
 	margin-block: 12px;
+	padding-left: 12px;
 `;
 
 const FormLabel = styled.label`
-	margin-left: 12px;
+	margin-left: 4px;
 	min-width: 80px;
 `;
 
@@ -204,12 +205,10 @@ const ResidentForm = () => {
 								<InputContainer>
 									<InputLabel>Gender</InputLabel>
 									<FormContainer role="group" aria-labelledby="my-gender-group">
-										<FormLabel>
-											<FormInput type="radio" name="gender" value="male" /> Male
-										</FormLabel>
-										<FormLabel>
-											<FormInput type="radio" name="gender" value="female" /> Female
-										</FormLabel>
+										<FormInput type="radio" name="gender" value="male" />
+										<FormLabel>Male</FormLabel>
+										<FormInput type="radio" name="gender" value="female" />
+										<FormLabel>Female</FormLabel>
 										{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
 									</FormContainer>
 								</InputContainer>
@@ -249,12 +248,10 @@ const ResidentForm = () => {
 								<InputContainer>
 									<InputLabel>Practicing relegion</InputLabel>
 									<FormContainer role="group" aria-labelledby="my-religion-group">
-										<FormLabel>
-											<FormInput type="radio" name="practicingReligion" value="true" /> Yes
-										</FormLabel>
-										<FormLabel>
-											<FormInput type="radio" name="practicingReligion" value="false" /> No
-										</FormLabel>
+										<FormInput type="radio" name="practicingReligion" value="true" />
+										<FormLabel>Yes</FormLabel>
+										<FormInput type="radio" name="practicingReligion" value="false" />
+										<FormLabel>No</FormLabel>
 										{
 											<Error>
 												{!!touched.practicingReligion && !!errors.practicingReligion ? errors.practicingReligion : null}
@@ -265,22 +262,14 @@ const ResidentForm = () => {
 								<InputContainer>
 									<InputLabel>Interest of Activities</InputLabel>
 									<FormContainer role="group" aria-labelledby="checkbox-group">
-										<FormLabel>
-											<FormInput type="checkbox" name="activitiesOptions" value="Bingo" />
-											Bingo
-										</FormLabel>
-										<FormLabel>
-											<FormInput type="checkbox" name="activitiesOptions" value="Bustrips" />
-											Bustrips
-										</FormLabel>
-										<FormLabel>
-											<FormInput type="checkbox" name="activitiesOptions" value="Music" />
-											Music
-										</FormLabel>
-										<FormLabel>
-											<FormInput type="checkbox" name="activitiesOptions" value="Gardening" />
-											Gardening
-										</FormLabel>
+										<FormInput type="checkbox" name="activitiesOptions" value="Bingo" />
+										<FormLabel>Bingo</FormLabel>
+										<FormInput type="checkbox" name="activitiesOptions" value="Bustrips" />
+										<FormLabel>Bustrips</FormLabel>
+										<FormInput type="checkbox" name="activitiesOptions" value="Music" />
+										<FormLabel>Music</FormLabel>
+										<FormInput type="checkbox" name="activitiesOptions" value="Gardening" />
+										<FormLabel>Gardening</FormLabel>
 									</FormContainer>
 									{
 										<Error>
