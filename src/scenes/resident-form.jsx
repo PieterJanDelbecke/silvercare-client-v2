@@ -159,15 +159,27 @@ const ResidentForm = () => {
 	const handleFormSubmit = (values) => {
 		const { firstName, lastName, dob, gender, practicingReligion, activitiesOptions } = values;
 
+		const nationalities = selectedNationalities.map((nationality) => {
+			return nationality.value;
+		});
+
+		const languages = selectedLangauges.map((language) => {
+			return language.value;
+		});
+
+		const religions = selectedReligions.map((religion) => {
+			return religion.value;
+		});
+
 		const newResident = {
 			firstName,
 			lastName,
 			dob,
 			gender,
-			nationalities: selectedNationalities,
-			languages: selectedLangauges,
-			relegion: selectedReligions,
-			practicingReligion,
+			nationalities,
+			languages,
+			religions,
+			practicingReligion: practicingReligion === "true" ? true : false,
 			activitiesOptions,
 		};
 
