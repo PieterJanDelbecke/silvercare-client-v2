@@ -8,6 +8,8 @@ import { useMediaQuery } from "@mui/material";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
+import { mediaQueryMinWidth } from "../common/common";
+import { nationalityOptions, languageOptions, religionOptions } from "../data/dropdownOptions";
 
 const Container = styled.div`
 	display: flex;
@@ -34,7 +36,7 @@ const Grid = styled.div`
 `;
 
 const InputContainer = styled.div`
-	grid-column: 4 span;
+	grid-column: 2 span;
 `;
 
 const Input = styled.input`
@@ -61,17 +63,19 @@ const Error = styled.p`
 	height: 16px;
 `;
 
-const RadioContainer = styled.div`
+const FormContainer = styled.div`
 	display: flex;
-	margin-top: 12px;
+	grid-column: 4 span;
+	margin-block: 12px;
+	padding-left: 12px;
 `;
 
-const RadioLabel = styled.label`
-	margin-left: 12px;
-	width: 80px;
+const FormLabel = styled.label`
+	margin-left: 4px;
+	min-width: 80px;
 `;
 
-const RadioInput = styled(Field)`
+const FormInput = styled(Field)`
 	transform: scale(1.5);
 	margin-right: 5px;
 `;
@@ -121,33 +125,11 @@ const selectOptionStyles = {
 };
 
 const ResidentForm = () => {
-	const isDesktop = useMediaQuery("(min-width:820px)");
+	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
-	const [selectedNationality, setSelectedNationality] = useState({ value: "Australia", label: "Australia" });
-	const [selectedLangauge, setSelectedLangauge] = useState({ value: "English", label: "English" });
-	const [selectedReligion, setSelectedReligion] = useState({ value: "Christian", label: "Christian" });
-
-	const nationalityOptions = [
-		{ value: "Australia", label: "Australia" },
-		{ value: "Italy", label: "Italy" },
-		{ value: "Greece", label: "Greece" },
-		{ value: "New Zealand", label: "New Zealand" },
-	];
-
-	const languageOptions = [
-		{ value: "English", label: "English" },
-		{ value: "Italian", label: "Italian" },
-		{ value: "Greek", label: "Greek" },
-	];
-
-	const religionOptions = [
-		{ value: "Christian", label: "Christian" },
-		{ value: "Jewish", label: "Jewish" },
-		{ value: "Buddhist", label: "Buddhist" },
-		{ value: "Muslim", label: "Muslim" },
-		{ value: "Hindu", label: "Hindu" },
-		{ value: "Atheist", label: "Atheist" },
-	];
+	const [selectedNationality, setSelectedNationality] = useState(nationalityOptions[0]);
+	const [selectedLangauge, setSelectedLangauge] = useState(languageOptions[0]);
+	const [selectedReligion, setSelectedReligion] = useState(religionOptions[0]);
 
 	const initialValues = {
 		firstName: "",
@@ -155,6 +137,8 @@ const ResidentForm = () => {
 		dob: "",
 		gender: "",
 		practicingReligion: "",
+		activitiesOptions: [],
+		// checked: [],
 	};
 
 	const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
@@ -165,6 +149,8 @@ const ResidentForm = () => {
 		dob: Yup.string().matches(dateRegex, "Invalid date").required("required"),
 		gender: Yup.string().required("required"),
 		practicingReligion: Yup.string().required("required"),
+		activitiesOptions: Yup.array().min(1, "select at least one option"),
+		// checked: Yup.array().min(1, "select at least one option"),
 		// email: Yup.string().email("Invalid email address").required("required"),
 	});
 
@@ -181,7 +167,7 @@ const ResidentForm = () => {
 						<form onSubmit={handleSubmit}>
 							<Grid isDesktop={isDesktop}>
 								<InputContainer>
-									<InputLabel>First Name:</InputLabel>
+									<InputLabel>First Name</InputLabel>
 									<Input
 										type="text"
 										name="firstName"
@@ -189,12 +175,11 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.firstName}
-										// placeholder="First Name"
 									/>
 									{<Error>{!!touched.firstName && !!errors.firstName ? errors.firstName : null}</Error>}
 								</InputContainer>
 								<InputContainer>
-									<InputLabel>Last Name:</InputLabel>
+									<InputLabel>Last Name</InputLabel>
 									<Input
 										type="text"
 										name="lastName"
@@ -202,7 +187,6 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.lastName}
-										// placeholder="Last Name"
 									/>
 									{<Error>{!!touched.lastName && !!errors.lastName ? errors.lastName : null}</Error>}
 								</InputContainer>
@@ -215,19 +199,19 @@ const ResidentForm = () => {
 										onBlur={handleBlur}
 										onChange={handleChange}
 										value={values.dob}
-										// placeholder="dd/mm/yyyy"
 									/>
-									{!!touched.dob && !!errors.dob ? <Error>{errors.dob}</Error> : null}
+									<Error>{!!touched.dob && !!errors.dob ? errors.dob : null}</Error>
 								</InputContainer>
-								<RadioContainer role="group" aria-labelledby="my-gender-group">
-									<RadioLabel>
-										<RadioInput type="radio" name="gender" value="male" /> Male
-									</RadioLabel>
-									<RadioLabel>
-										<RadioInput type="radio" name="gender" value="female" /> Female
-									</RadioLabel>
-									{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
-								</RadioContainer>
+								<InputContainer>
+									<InputLabel>Gender</InputLabel>
+									<FormContainer role="group" aria-labelledby="my-gender-group">
+										<FormInput type="radio" name="gender" value="male" />
+										<FormLabel>Male</FormLabel>
+										<FormInput type="radio" name="gender" value="female" />
+										<FormLabel>Female</FormLabel>
+										{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
+									</FormContainer>
+								</InputContainer>
 								<InputContainer>
 									<InputLabel>Nationality</InputLabel>
 									<Select
@@ -237,8 +221,8 @@ const ResidentForm = () => {
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
+									<Error>{selectedNationality.length === 0 ? "required" : null}</Error>
 								</InputContainer>
-								{selectedNationality.length === 0 && <Error>Required</Error>}
 								<InputContainer>
 									<InputLabel>Spoken Languages</InputLabel>
 									<Select
@@ -248,8 +232,8 @@ const ResidentForm = () => {
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
+									<Error>{selectedLangauge.length === 0 ? "required" : null}</Error>
 								</InputContainer>
-								{selectedLangauge.length === 0 && <Error>Required</Error>}
 								<InputContainer>
 									<InputLabel>Religion</InputLabel>
 									<Select
@@ -259,17 +243,40 @@ const ResidentForm = () => {
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
+									<Error>{selectedReligion.length === 0 && "required"}</Error>
 								</InputContainer>
-								{selectedReligion.length === 0 && <Error>Required</Error>}
-								<RadioContainer role="group" aria-labelledby="my-gender-group">
-									<RadioLabel>
-										<RadioInput type="radio" name="gender" value="true" /> practicing
-									</RadioLabel>
-									<RadioLabel>
-										<RadioInput type="radio" name="gender" value="false" /> non-practicing
-									</RadioLabel>
-									{<Error>{!!touched.gender && !!errors.gender ? errors.gender : null}</Error>}
-								</RadioContainer>
+								<InputContainer>
+									<InputLabel>Practicing relegion</InputLabel>
+									<FormContainer role="group" aria-labelledby="my-religion-group">
+										<FormInput type="radio" name="practicingReligion" value="true" />
+										<FormLabel>Yes</FormLabel>
+										<FormInput type="radio" name="practicingReligion" value="false" />
+										<FormLabel>No</FormLabel>
+										{
+											<Error>
+												{!!touched.practicingReligion && !!errors.practicingReligion ? errors.practicingReligion : null}
+											</Error>
+										}
+									</FormContainer>
+								</InputContainer>
+								<InputContainer>
+									<InputLabel>Interest of Activities</InputLabel>
+									<FormContainer role="group" aria-labelledby="checkbox-group">
+										<FormInput type="checkbox" name="activitiesOptions" value="Bingo" />
+										<FormLabel>Bingo</FormLabel>
+										<FormInput type="checkbox" name="activitiesOptions" value="Bustrips" />
+										<FormLabel>Bustrips</FormLabel>
+										<FormInput type="checkbox" name="activitiesOptions" value="Music" />
+										<FormLabel>Music</FormLabel>
+										<FormInput type="checkbox" name="activitiesOptions" value="Gardening" />
+										<FormLabel>Gardening</FormLabel>
+									</FormContainer>
+									{
+										<Error>
+											{!!touched.activitiesOptions && !!errors.activitiesOptions ? errors.activitiesOptions : null}
+										</Error>
+									}
+								</InputContainer>
 							</Grid>
 							<ButtonContainer>
 								<SubmitButton type="submit">Submit</SubmitButton>

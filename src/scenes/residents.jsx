@@ -12,7 +12,7 @@ import {
 import { DateTime } from "luxon";
 
 import Context from "../context/context";
-import residents from "../data/residentsMockData.json";
+import api from "../api/api";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
 import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
@@ -100,15 +100,38 @@ const Residents = () => {
 	const { context, setContext } = useContext(Context);
 	const navigate = useNavigate();
 
+	const [residents, setResidents] = useState([]);
+	const [selectedResident, setSelectedResident] = useState(null);
 	const [sorting, setSorting] = useState([]);
 	const [filtering, setFiltering] = useState("");
-	const [selectedResident, setSelectedResident] = useState(null);
 
 	useEffect(() => {
-		setContext({ ...context, residents: residents });
+		let isMounted = true;
+
+		const fetchData = async () => {
+			try {
+				const response = await api.getResidents();
+
+				if (isMounted) {
+					setResidents(response);
+					setContext({ ...context, residents: response });
+				}
+			} catch (error) {
+				console.error("Error fetching data:", error);
+			}
+		};
+
+		fetchData();
+
+		// Cleanup function to cancel any ongoing requests when the component is unmounted
+		return () => {
+			isMounted = false;
+		};
 	}, []);
 
-	const data = useMemo(() => residents, []);
+	const data = useMemo(() => {
+		return residents;
+	}, [residents]);
 
 	/** @type import('@tanstack/react-table').ColumnDef<any> */
 

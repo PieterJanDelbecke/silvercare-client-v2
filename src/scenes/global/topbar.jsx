@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { colors } from "../../styles/theme";
 import IconButton from "../../common/icons";
 import { useMediaQuery } from "@mui/material";
+import { mediaQueryMinWidth } from "../../common/common";
 
 const Container = styled.div`
 	display: flex;
@@ -20,7 +21,7 @@ const IconsContainer = styled.div`
 `;
 
 const Topbar = () => {
-	const isDesktop = useMediaQuery("(min-width:1200px)");
+	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
 	const user = () => {
 		console.log("USER");
