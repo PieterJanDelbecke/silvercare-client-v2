@@ -10,7 +10,7 @@ import { useMediaQuery } from "@mui/material";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
-import { mediaQueryMinWidth } from "../common/common";
+import { mediaQueryMinWidth, convertDateFormat } from "../common/common";
 import { nationalityOptions, languageOptions, religionOptions } from "../data/dropdownOptions";
 
 const Container = styled.div`
@@ -159,6 +159,8 @@ const ResidentForm = () => {
 	const handleFormSubmit = (values) => {
 		const { firstName, lastName, dob, gender, practicingReligion, activitiesOptions } = values;
 
+		const formatDob = convertDateFormat(dob);
+
 		const nationalities = selectedNationalities.map((nationality) => {
 			return nationality.value;
 		});
@@ -174,7 +176,7 @@ const ResidentForm = () => {
 		const newResident = {
 			firstName,
 			lastName,
-			dob,
+			dob: formatDob,
 			gender,
 			nationalities,
 			languages,
