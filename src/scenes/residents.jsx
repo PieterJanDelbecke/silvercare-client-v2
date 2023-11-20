@@ -135,10 +135,8 @@ const Residents = () => {
 	/** @type import('@tanstack/react-table').ColumnDef<any> */
 
 	const columns = [
-		// { header: "ID", accessorKey: "id" },
 		{ header: "First Name", accessorKey: "firstName", size: "200" },
 		{ header: "Last Name", accessorKey: "lastName" },
-		// { header: "Email", accessorKey: "email" },
 		{
 			header: "DOB",
 			accessorKey: "dob",
