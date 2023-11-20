@@ -2,13 +2,15 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
+
+import api from "../api/api";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
 import { useMediaQuery } from "@mui/material";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
-import { mediaQueryMinWidth } from "../common/common";
+import { mediaQueryMinWidth, convertDateFormat } from "../common/common";
 import { nationalityOptions, languageOptions, religionOptions } from "../data/dropdownOptions";
 
 const Container = styled.div`
@@ -127,9 +129,9 @@ const selectOptionStyles = {
 const ResidentForm = () => {
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
-	const [selectedNationality, setSelectedNationality] = useState(nationalityOptions[0]);
-	const [selectedLangauge, setSelectedLangauge] = useState(languageOptions[0]);
-	const [selectedReligion, setSelectedReligion] = useState(religionOptions[0]);
+	const [selectedNationalities, setSelectedNationalities] = useState([nationalityOptions[0]]);
+	const [selectedLangauges, setSelectedLangauges] = useState([languageOptions[0]]);
+	const [selectedReligions, setSelectedReligions] = useState([religionOptions[0]]);
 
 	const initialValues = {
 		firstName: "",
@@ -155,9 +157,37 @@ const ResidentForm = () => {
 	});
 
 	const handleFormSubmit = (values) => {
-		console.log(values);
-		console.log(selectedNationality);
+		const { firstName, lastName, dob, gender, practicingReligion, activitiesOptions } = values;
+
+		const formatDob = convertDateFormat(dob);
+
+		const nationalities = selectedNationalities.map((nationality) => {
+			return nationality.value;
+		});
+
+		const languages = selectedLangauges.map((language) => {
+			return language.value;
+		});
+
+		const religions = selectedReligions.map((religion) => {
+			return religion.value;
+		});
+
+		const newResident = {
+			firstName,
+			lastName,
+			dob: formatDob,
+			gender,
+			nationalities,
+			languages,
+			religions,
+			practicingReligion: practicingReligion === "true" ? true : false,
+			activitiesOptions,
+		};
+
+		api.addResident(newResident);
 	};
+
 	return (
 		<Container>
 			<PageHeading>Resident Form</PageHeading>
@@ -216,34 +246,34 @@ const ResidentForm = () => {
 									<InputLabel>Nationality</InputLabel>
 									<Select
 										options={nationalityOptions}
-										defaultValue={selectedNationality}
-										onChange={setSelectedNationality}
+										defaultValue={selectedNationalities}
+										onChange={setSelectedNationalities}
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
-									<Error>{selectedNationality.length === 0 ? "required" : null}</Error>
+									<Error>{selectedNationalities.length === 0 ? "required" : null}</Error>
 								</InputContainer>
 								<InputContainer>
 									<InputLabel>Spoken Languages</InputLabel>
 									<Select
 										options={languageOptions}
-										defaultValue={selectedLangauge}
-										onChange={setSelectedLangauge}
+										defaultValue={selectedLangauges}
+										onChange={setSelectedLangauges}
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
-									<Error>{selectedLangauge.length === 0 ? "required" : null}</Error>
+									<Error>{selectedLangauges.length === 0 ? "required" : null}</Error>
 								</InputContainer>
 								<InputContainer>
 									<InputLabel>Religion</InputLabel>
 									<Select
 										options={religionOptions}
-										defaultValue={selectedReligion}
-										onChange={setSelectedReligion}
+										defaultValue={selectedReligions}
+										onChange={setSelectedReligions}
 										isMulti={true}
 										styles={selectOptionStyles}
 									/>
-									<Error>{selectedReligion.length === 0 && "required"}</Error>
+									<Error>{selectedReligions.length === 0 && "required"}</Error>
 								</InputContainer>
 								<InputContainer>
 									<InputLabel>Practicing relegion</InputLabel>
@@ -279,7 +309,12 @@ const ResidentForm = () => {
 								</InputContainer>
 							</Grid>
 							<ButtonContainer>
-								<SubmitButton type="submit">Submit</SubmitButton>
+								<SubmitButton
+									disabled={!selectedNationalities.length || !selectedLangauges.length || !selectedReligions.length}
+									type="submit"
+								>
+									Submit
+								</SubmitButton>
 							</ButtonContainer>
 						</form>
 					)}

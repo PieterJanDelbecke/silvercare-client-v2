@@ -3,9 +3,9 @@ import Context from "../context/context";
 import { PageHeading, Body } from "../common/typography";
 import { DateTime } from "luxon";
 import styled from "@emotion/styled";
-import { colors } from "../styles/theme";
 
-// import residents from "../data/residentsMockData.json"; // remove when finished
+import { colors } from "../styles/theme";
+import api from "../api/api";
 import blankImage from "../images/blank-profile-picture.png";
 
 const Container = styled.div`
@@ -49,9 +49,43 @@ const ResidentName = styled(PageHeading)`
 	color: ${colors.greenAccent[500]};
 `;
 
+const SubContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: ${colors.primary[400]};
+	border-radius: 8px;
+`;
 const Resident = () => {
 	const { context, setContext } = useContext(Context);
-	const { selectedResident: resident } = context;
+	const { selectedResident } = context;
+	const [residentInfo, setResidentInfo] = useState("");
+
+	console.log("### Resident", selectedResident);
+
+	const { id, firstName, lastName, gender, dob } = selectedResident;
+
+	useEffect(() => {
+		let isMounted = true;
+
+		const fetchData = async () => {
+			try {
+				const response = await api.getResident(id);
+				if (isMounted) {
+					console.log("### resident", response);
+					setResidentInfo(response);
+				}
+			} catch (error) {
+				console.error("Error fetching resident data:", error);
+			}
+		};
+
+		fetchData();
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
 
 	const calculateAge = (dob) => {
 		const today = DateTime.local();
@@ -60,27 +94,53 @@ const Resident = () => {
 	};
 	return (
 		<>
-			{resident ? (
-				<Container>
+			<Container>
+				{selectedResident && (
 					<HeadContainer>
 						<InfoContainer>
 							<ResidentName>
-								{resident.firstName} {resident.lastName}
+								{firstName} {lastName}
 							</ResidentName>
 							<div>
-								<Body>Gender: {resident.gender}</Body>
-								<Body>DOB: {DateTime.fromISO(resident.dob).toLocaleString(DateTime.DATE_MED)}</Body>
-								<Body>Age: {calculateAge(DateTime.fromISO(resident.dob))}</Body>
+								<Body>Gender: {gender}</Body>
+								<Body>DOB: {DateTime.fromISO(dob).toLocaleString(DateTime.DATE_MED)}</Body>
+								<Body>Age: {calculateAge(DateTime.fromISO(dob))}</Body>
 							</div>
 						</InfoContainer>
 						<ImageContainer>
 							<Image src={blankImage} alt="blank picture" style={{ width: "200px", height: "240px" }} />
 						</ImageContainer>
 					</HeadContainer>
-				</Container>
-			) : (
-				"LOADING..."
-			)}
+				)}
+				{residentInfo && (
+					<SubContainer>
+						<Body>
+							Nationality:{" "}
+							{residentInfo.nationalities.map((nationality) => (
+								<p key={nationality}>{nationality}</p>
+							))}
+						</Body>
+						<Body>
+							Language:{" "}
+							{residentInfo.languagues.map((language) => (
+								<p key={language}>{language}</p>
+							))}
+						</Body>
+						<Body>
+							Religion:{" "}
+							{residentInfo.religions.map((religion) => (
+								<p key={religion}>{religion}</p>
+							))}
+						</Body>
+						<Body>
+							Activities:{" "}
+							{residentInfo.activities.map((activity) => (
+								<p key={activity}>{activity}</p>
+							))}
+						</Body>
+					</SubContainer>
+				)}
+			</Container>
 		</>
 	);
 };

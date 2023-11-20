@@ -111,13 +111,12 @@ const Residents = () => {
 		const fetchData = async () => {
 			try {
 				const response = await api.getResidents();
-
 				if (isMounted) {
 					setResidents(response);
 					setContext({ ...context, residents: response });
 				}
 			} catch (error) {
-				console.error("Error fetching data:", error);
+				console.error("Error fetching residents data:", error);
 			}
 		};
 
@@ -136,16 +135,14 @@ const Residents = () => {
 	/** @type import('@tanstack/react-table').ColumnDef<any> */
 
 	const columns = [
-		// { header: "ID", accessorKey: "id" },
 		{ header: "First Name", accessorKey: "firstName", size: "200" },
 		{ header: "Last Name", accessorKey: "lastName" },
-		{ header: "Email", accessorKey: "email" },
-		{ header: "Gender", accessorKey: "gender" },
 		{
 			header: "DOB",
 			accessorKey: "dob",
 			cell: (info) => DateTime.fromISO(info.getValue()).toLocaleString(DateTime.DATE_MED),
 		},
+		{ header: "Gender", accessorKey: "gender" },
 	];
 
 	const table = useReactTable({
