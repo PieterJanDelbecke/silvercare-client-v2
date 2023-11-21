@@ -21,8 +21,6 @@ const PieChart = () => {
 	const { context, setContext } = useContext(Context);
 	const { selectedResident } = context;
 
-	console.log("### selectedResident: ", selectedResident);
-
 	return (
 		<Container>
 			<PageHeading>Pie Chart</PageHeading>
