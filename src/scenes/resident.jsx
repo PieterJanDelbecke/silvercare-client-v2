@@ -20,6 +20,7 @@ const Container = styled.div`
 `;
 
 const HeadContainer = styled.div`
+	min-width: 850px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -50,18 +51,23 @@ const ResidentName = styled(PageHeading)`
 `;
 
 const SubContainer = styled.div`
+	min-width: 850px;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: flex-start;
 	background-color: ${colors.primary[400]};
 	border-radius: 8px;
+	margin-top: 24px;
+	padding: 24px;
+`;
+
+const InfoItems = styled.span`
+	margin-left: 8px;
 `;
 const Resident = () => {
 	const { context, setContext } = useContext(Context);
 	const { selectedResident } = context;
 	const [residentInfo, setResidentInfo] = useState("");
-
-	console.log("### Resident", selectedResident);
 
 	const { id, firstName, lastName, gender, dob } = selectedResident;
 
@@ -72,7 +78,6 @@ const Resident = () => {
 			try {
 				const response = await api.getResident(id);
 				if (isMounted) {
-					console.log("### resident", response);
 					setResidentInfo(response);
 				}
 			} catch (error) {
@@ -117,25 +122,25 @@ const Resident = () => {
 						<Body>
 							Nationality:{" "}
 							{residentInfo.nationalities.map((nationality) => (
-								<p key={nationality}>{nationality}</p>
+								<InfoItems key={nationality}>{nationality}</InfoItems>
 							))}
 						</Body>
 						<Body>
 							Language:{" "}
 							{residentInfo.languagues.map((language) => (
-								<p key={language}>{language}</p>
+								<InfoItems key={language}>{language}</InfoItems>
 							))}
 						</Body>
 						<Body>
 							Religion:{" "}
 							{residentInfo.religions.map((religion) => (
-								<p key={religion}>{religion}</p>
+								<InfoItems key={religion}>{religion}</InfoItems>
 							))}
 						</Body>
 						<Body>
 							Activities:{" "}
 							{residentInfo.activities.map((activity) => (
-								<p key={activity}>{activity}</p>
+								<InfoItems key={activity}>{activity}</InfoItems>
 							))}
 						</Body>
 					</SubContainer>
