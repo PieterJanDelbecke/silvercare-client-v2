@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Context from "./context/context";
 import { useMediaQuery } from "@mui/material";
-import { mediaQueryMinWidth } from "./common/common";
+import { mediaQueryMinWidth } from "./common/lib";
 import Global from "./styles/global";
 import Topbar from "./scenes/global/topbar";
 import Sidebar from "./scenes/global/sidebar";
@@ -11,7 +11,8 @@ import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Residents from "./scenes/residents";
 import Resident from "./scenes/resident";
-import ResidentForm from "./scenes/resident-form";
+import ResidentForm from "./scenes/add-resident-form";
+import NewResident from "./scenes/new-resident";
 import Faq from "./scenes/faq";
 import Calendar from "./scenes/calendar";
 import BarChart from "./scenes/bar-chart";
@@ -38,6 +39,7 @@ function App() {
 						<Route path="/pieChart" element={<PieChart />} />
 						<Route path="/lineChart" element={<LineChart />} />
 						<Route path="/residentForm" element={<ResidentForm />} />
+						<Route path="/newResident" element={<NewResident />} />
 						<Route path="/faq" element={<Faq />} />
 						<Route path="/calendar" element={<Calendar />} />
 					</Routes>

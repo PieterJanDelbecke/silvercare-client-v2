@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "@emotion/styled";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
+import Select from "react-select";
+import { useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import api from "../api/api";
+import Context from "../context/context";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
-import { useMediaQuery } from "@mui/material";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-import Select from "react-select";
-import { mediaQueryMinWidth, convertDateFormat } from "../common/common";
+import { mediaQueryMinWidth, convertDateFormat } from "../common/lib";
 import { nationalityOptions, languageOptions, religionOptions } from "../data/dropdownOptions";
 
 const Container = styled.div`
@@ -127,11 +127,14 @@ const selectOptionStyles = {
 };
 
 const ResidentForm = () => {
+	const { context, setContext } = useContext(Context);
+	const navigate = useNavigate();
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
 	const [selectedNationalities, setSelectedNationalities] = useState([nationalityOptions[0]]);
 	const [selectedLangauges, setSelectedLangauges] = useState([languageOptions[0]]);
 	const [selectedReligions, setSelectedReligions] = useState([religionOptions[0]]);
+	const [dbError, setDbError] = useState(false);
 
 	const initialValues = {
 		firstName: "",
@@ -140,7 +143,6 @@ const ResidentForm = () => {
 		gender: "",
 		practicingReligion: "",
 		activitiesOptions: [],
-		// checked: [],
 	};
 
 	const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
@@ -152,11 +154,9 @@ const ResidentForm = () => {
 		gender: Yup.string().required("required"),
 		practicingReligion: Yup.string().required("required"),
 		activitiesOptions: Yup.array().min(1, "select at least one option"),
-		// checked: Yup.array().min(1, "select at least one option"),
-		// email: Yup.string().email("Invalid email address").required("required"),
 	});
 
-	const handleFormSubmit = (values) => {
+	const handleFormSubmit = async (values) => {
 		const { firstName, lastName, dob, gender, practicingReligion, activitiesOptions } = values;
 
 		const formatDob = convertDateFormat(dob);
@@ -185,12 +185,18 @@ const ResidentForm = () => {
 			activitiesOptions,
 		};
 
-		api.addResident(newResident);
+		const result = await api.addResident(newResident);
+		if (result) {
+			setContext({ ...context, lastNewResident: result });
+			navigate("/newResident");
+		} else {
+			setDbError(true);
+		}
 	};
 
 	return (
 		<Container>
-			<PageHeading>Resident Form</PageHeading>
+			<PageHeading>Add Resident Form</PageHeading>
 			<InputsContainer>
 				<Formik onSubmit={handleFormSubmit} initialValues={initialValues} validationSchema={checkoutSchema}>
 					{({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
@@ -320,6 +326,7 @@ const ResidentForm = () => {
 					)}
 				</Formik>
 			</InputsContainer>
+			{dbError && <Error>Something went wrong, please try again</Error>}
 		</Container>
 	);
 };

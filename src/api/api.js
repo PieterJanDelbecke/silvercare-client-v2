@@ -31,9 +31,10 @@ const addResident = async (newResident) => {
 	try {
 		const { status, data } = await axios.post(`/resident/add`, newResident);
 		if (status === 200 || status === 201) {
-			console.log(data);
+			return data;
 		} else {
 			console.log("request unsuccessfull");
+			return null;
 		}
 	} catch (error) {
 		console.log(error);

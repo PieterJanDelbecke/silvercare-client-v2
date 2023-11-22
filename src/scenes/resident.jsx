@@ -20,12 +20,15 @@ const Container = styled.div`
 `;
 
 const HeadContainer = styled.div`
-	min-width: 850px;
+	width: 850px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	background-color: ${colors.primary[400]};
 	border-radius: 8px;
+	@media (max-width: 1200px) {
+		width: 720px;
+	}
 `;
 
 const InfoContainer = styled.div`
@@ -51,7 +54,7 @@ const ResidentName = styled(PageHeading)`
 `;
 
 const SubContainer = styled.div`
-	min-width: 850px;
+	width: 850px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -59,6 +62,9 @@ const SubContainer = styled.div`
 	border-radius: 8px;
 	margin-top: 24px;
 	padding: 24px;
+	@media (max-width: 1200px) {
+		width: 720px;
+	}
 `;
 
 const InfoItems = styled.span`

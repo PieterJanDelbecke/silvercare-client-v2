@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { colors } from "../../styles/theme";
 import IconButton from "../../common/icons";
 import { useMediaQuery } from "@mui/material";
-import { mediaQueryMinWidth } from "../../common/common";
+import { mediaQueryMinWidth } from "../../common/lib";
 
 const Container = styled.div`
 	display: flex;
