@@ -85,7 +85,7 @@ const NewResident = () => {
 				<Button onClick={handleView}>View</Button>
 			</HeadContainer>
 			<SubContainer>
-				<IconButton onClick={() => navigate("/residentForm")}>
+				<IconButton onClick={() => navigate("/addResidentForm")}>
 					<Icon name="form" />
 					<Body>Add Resident</Body>
 				</IconButton>

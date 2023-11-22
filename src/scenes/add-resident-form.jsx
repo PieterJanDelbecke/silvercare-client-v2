@@ -126,7 +126,7 @@ const selectOptionStyles = {
 	}),
 };
 
-const ResidentForm = () => {
+const AddResidentForm = () => {
 	const { context, setContext } = useContext(Context);
 	const navigate = useNavigate();
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
@@ -331,4 +331,4 @@ const ResidentForm = () => {
 	);
 };
 
-export default ResidentForm;
+export default AddResidentForm;
