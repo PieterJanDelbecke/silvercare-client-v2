@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { colors } from "../../styles/theme";
-import IconButton from "../../common/icons";
+import IconButton from "../../common/iconButtons";
 import { useMediaQuery } from "@mui/material";
 import { mediaQueryMinWidth } from "../../common/lib";
 

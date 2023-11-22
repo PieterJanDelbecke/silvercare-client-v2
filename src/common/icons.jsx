@@ -1,4 +1,3 @@
-import { BaseButton } from "./buttons";
 import { AiOutlineHome as HomeIcon } from "react-icons/ai";
 import { AiOutlineTeam as TeamIcon } from "react-icons/ai";
 import { AiOutlineUser as UserIcon } from "react-icons/ai";
@@ -18,7 +17,7 @@ import { AiOutlineArrowDown as ArrowDownIcon } from "react-icons/ai";
 
 import { colors } from "../styles/theme";
 
-const IconButton = ({ name, onClick, size, color }) => {
+const Icon = ({ name, size, color }) => {
 	const iconStyle = {
 		fontSize: size || 28,
 		color: color || colors.grey[100],
@@ -26,92 +25,40 @@ const IconButton = ({ name, onClick, size, color }) => {
 
 	switch (name) {
 		case "home":
-			return (
-				<BaseButton onClick={onClick}>
-					<HomeIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <HomeIcon style={iconStyle} />;
 		case "team":
-			return (
-				<BaseButton onClick={onClick}>
-					<TeamIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <TeamIcon style={iconStyle} />;
 		case "user":
-			return (
-				<BaseButton onClick={onClick}>
-					<UserIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <UserIcon style={iconStyle} />;
 		case "settings":
-			return (
-				<BaseButton onClick={onClick}>
-					<SettingsIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <SettingsIcon style={iconStyle} />;
 		case "search":
-			return (
-				<BaseButton onClick={onClick}>
-					<SearchIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <SearchIcon style={iconStyle} />;
 		case "menu":
-			return (
-				<BaseButton onClick={onClick}>
-					<MenuIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <MenuIcon style={iconStyle} />;
 		case "barChart":
-			return (
-				<BaseButton onClick={onClick}>
-					<BarChartIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <BarChartIcon style={iconStyle} />;
 		case "lineChart":
-			return (
-				<BaseButton onClick={onClick}>
-					<LineChartIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <LineChartIcon style={iconStyle} />;
 		case "pieChart":
-			return (
-				<BaseButton onClick={onClick}>
-					<PieChartIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <PieChartIcon style={iconStyle} />;
 		case "calendar":
-			return (
-				<BaseButton onClick={onClick}>
-					<CalendarIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <CalendarIcon style={iconStyle} />;
 		case "faq":
-			return (
-				<BaseButton onClick={onClick}>
-					<FaqIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <FaqIcon style={iconStyle} />;
 		case "form":
-			return (
-				<BaseButton onClick={onClick}>
-					<FormIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <FormIcon style={iconStyle} />;
 		case "arrowLeft":
-			return (
-				<BaseButton onClick={onClick}>
-					<ArrowLeftIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <ArrowLeftIcon style={iconStyle} />;
 		case "arrowRight":
-			return (
-				<BaseButton onClick={onClick}>
-					<ArrowRightIcon style={iconStyle} />
-				</BaseButton>
-			);
+			return <ArrowRightIcon style={iconStyle} />;
+		case "arrowUp":
+			return <ArrowUpIcon style={iconStyle} />;
+		case "arrowDown":
+			return <ArrowDownIcon style={iconStyle} />;
 		default:
-			return <BaseButton onClick={onClick}></BaseButton>;
+			return <></>;
 	}
 };
 
-export default IconButton;
+export default Icon;

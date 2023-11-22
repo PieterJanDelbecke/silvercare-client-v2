@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 import { colors } from "../../styles/theme";
 import { Heading, Subheading, Body } from "../../common/typography";
-import IconButton from "../../common/icons";
+import IconButton from "../../common/iconButtons";
 
 import { Link } from "react-router-dom";
 
@@ -72,13 +72,7 @@ const Sidebar = () => {
 				<Option title="Residents" to="/residents" iconName="user" selected={selected} setSelected={setSelected} />
 				<Option title="Pie Chart" to="/pieChart" iconName="barChart" selected={selected} setSelected={setSelected} />
 				<Option title="Line Chart" to="/lineChart" iconName="barChart" selected={selected} setSelected={setSelected} />
-				<Option
-					title="Resident Form"
-					to="/residentForm"
-					iconName="form"
-					selected={selected}
-					setSelected={setSelected}
-				/>
+				<Option title="Add Resident" to="/residentForm" iconName="form" selected={selected} setSelected={setSelected} />
 				<Option title="Calendar" to="/calendar" iconName="calendar" selected={selected} setSelected={setSelected} />
 				<Option title="FAQ" to="/faq" iconName="faq" selected={selected} setSelected={setSelected} />
 			</OptionsContainer>
