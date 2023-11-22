@@ -12,8 +12,6 @@ const BarChart = () => {
 	const { context, setContext } = useContext(Context);
 	const { selectedResidentId } = context;
 
-	console.log("### selectedResidentId: ", selectedResidentId);
-
 	return <Container>BarChart</Container>;
 };
 

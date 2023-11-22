@@ -22,8 +22,6 @@ const LineChart = () => {
 	const { context, setContext } = useContext(Context);
 	const { selectedResident } = context;
 
-	console.log("### selectedResident: ", selectedResident);
-
 	return (
 		<Container>
 			<PageHeading>Line Chart</PageHeading>
