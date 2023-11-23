@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
@@ -131,10 +131,34 @@ const AddResidentForm = () => {
 	const navigate = useNavigate();
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
+	const [activities, setActivities] = useState([]);
 	const [selectedNationalities, setSelectedNationalities] = useState([nationalityOptions[0]]);
 	const [selectedLangauges, setSelectedLangauges] = useState([languageOptions[0]]);
 	const [selectedReligions, setSelectedReligions] = useState([religionOptions[0]]);
 	const [dbError, setDbError] = useState(false);
+
+	useEffect(() => {
+		let isMounted = true;
+
+		const fetchData = async () => {
+			try {
+				const response = await api.getActivities();
+				if (isMounted) {
+					console.log("### activities", response);
+					setActivities(response);
+					setContext({ ...context, activities: response });
+				}
+			} catch (error) {
+				console.error("Error fetching residents data:", error);
+			}
+		};
+
+		fetchData();
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
 
 	const initialValues = {
 		firstName: "",
