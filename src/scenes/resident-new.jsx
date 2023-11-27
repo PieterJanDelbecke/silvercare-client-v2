@@ -57,10 +57,8 @@ const IconButton = styled(Button)`
 	gap: 4px;
 `;
 
-const NewResident = () => {
+const ResidentNew = () => {
 	const { context, setContext } = useContext(Context);
-	// console.log("### context", context);
-	// const { lastNewResident: resident } = context;
 	const { lastNewResident } = context;
 	const navigate = useNavigate();
 
@@ -101,4 +99,4 @@ const NewResident = () => {
 	);
 };
 
-export default NewResident;
+export default ResidentNew;

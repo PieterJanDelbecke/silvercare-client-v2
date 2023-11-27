@@ -130,7 +130,7 @@ const selectOptionStyles = {
 	}),
 };
 
-const AddResidentForm = () => {
+const ResidentAddForm = () => {
 	const { context, setContext } = useContext(Context);
 	const navigate = useNavigate();
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
@@ -221,7 +221,7 @@ const AddResidentForm = () => {
 		const result = await api.addResident(newResident);
 		if (result) {
 			setContext({ ...context, lastNewResident: result });
-			navigate("/newResident");
+			navigate("/residentNew");
 		} else {
 			setDbError(true);
 		}
@@ -364,4 +364,4 @@ const AddResidentForm = () => {
 	);
 };
 
-export default AddResidentForm;
+export default ResidentAddForm;
