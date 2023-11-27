@@ -76,7 +76,7 @@ const Resident = () => {
 	const { id, firstName, lastName, gender, dob } = selectedResident;
 
 	const [residentInfo, setResidentInfo] = useState("");
-	const [activities, setActivities] = useState([]);
+	const [residentActivities, setResidentActivities] = useState([]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -84,35 +84,13 @@ const Resident = () => {
 		const fetchData = async () => {
 			try {
 				const response = await api.getResident(id);
+				const { info: residentInfo, residentActivities } = response;
 				if (isMounted) {
-					setResidentInfo(response);
-					console.log("### ResidentInfo", response);
+					setResidentInfo(residentInfo);
+					setResidentActivities(residentActivities);
 				}
 			} catch (error) {
 				console.error("Error fetching resident data:", error);
-			}
-		};
-
-		fetchData();
-
-		return () => {
-			isMounted = false;
-		};
-	}, []);
-
-	useEffect(() => {
-		let isMounted = true;
-
-		const fetchData = async () => {
-			try {
-				const response = await api.getActivities();
-				if (isMounted) {
-					// setActivities(response);
-					// setContext({ ...context, activities: response });
-					console.log("### activities", response);
-				}
-			} catch (error) {
-				console.error("Error fetching activities data:", error);
 			}
 		};
 
@@ -170,8 +148,8 @@ const Resident = () => {
 						</Body>
 						<Body>
 							Activities:{" "}
-							{residentInfo.activities.map((activity) => (
-								<InfoItems key={activity}>{activity}</InfoItems>
+							{residentActivities.map((item) => (
+								<InfoItems key={item.Activity.activity}>{item.Activity.activity}</InfoItems>
 							))}
 						</Body>
 					</SubContainer>
