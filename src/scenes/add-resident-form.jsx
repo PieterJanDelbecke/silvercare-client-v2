@@ -148,12 +148,11 @@ const AddResidentForm = () => {
 			try {
 				const response = await api.getActivities();
 				if (isMounted) {
-					console.log("### activities", response);
 					setActivities(response);
 					setContext({ ...context, activities: response });
 				}
 			} catch (error) {
-				console.error("Error fetching residents data:", error);
+				console.error("Error fetching activities data:", error);
 			}
 		};
 
@@ -216,6 +215,8 @@ const AddResidentForm = () => {
 			practicingReligion: practicingReligion === "true" ? true : false,
 			activityIds,
 		};
+
+		console.log("### activity options", activityIds);
 
 		const result = await api.addResident(newResident);
 		if (result) {

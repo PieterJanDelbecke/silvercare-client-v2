@@ -59,17 +59,20 @@ const IconButton = styled(Button)`
 
 const NewResident = () => {
 	const { context, setContext } = useContext(Context);
-	console.log("### context", context);
+	// console.log("### context", context);
 	// const { lastNewResident: resident } = context;
+	const { lastNewResident } = context;
 	const navigate = useNavigate();
 
-	const resident = {
-		firstName: "Ennio",
-		lastName: "Morricone",
-		gender: "male",
-		dob: new Date("01/10/2001"),
-		id: "c5e85b23-c397-4e9c-b2a7-a311bdba310f",
+	const mockResident = {
+		firstName: "Larue",
+		lastName: "White",
+		gender: "female",
+		dob: new Date("2023-11-24"),
+		id: "e09f11dc-35e5-48b9-83a8-b3a4f7a27147",
 	};
+
+	const resident = lastNewResident || mockResident;
 
 	const handleView = () => {
 		setContext({ ...context, selectedResident: resident });
