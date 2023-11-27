@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
@@ -72,6 +72,10 @@ const FormContainer = styled.div`
 	padding-left: 12px;
 `;
 
+const FormSpan = styled.span`
+	min-width: 100px;
+`;
+
 const FormLabel = styled.label`
 	margin-left: 4px;
 	min-width: 80px;
@@ -131,10 +135,33 @@ const AddResidentForm = () => {
 	const navigate = useNavigate();
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
+	const [activities, setActivities] = useState([]);
 	const [selectedNationalities, setSelectedNationalities] = useState([nationalityOptions[0]]);
 	const [selectedLangauges, setSelectedLangauges] = useState([languageOptions[0]]);
 	const [selectedReligions, setSelectedReligions] = useState([religionOptions[0]]);
 	const [dbError, setDbError] = useState(false);
+
+	useEffect(() => {
+		let isMounted = true;
+
+		const fetchData = async () => {
+			try {
+				const response = await api.getActivities();
+				if (isMounted) {
+					setActivities(response);
+					setContext({ ...context, activities: response });
+				}
+			} catch (error) {
+				console.error("Error fetching activities data:", error);
+			}
+		};
+
+		fetchData();
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
 
 	const initialValues = {
 		firstName: "",
@@ -142,7 +169,7 @@ const AddResidentForm = () => {
 		dob: "",
 		gender: "",
 		practicingReligion: "",
-		activitiesOptions: [],
+		activityOptions: [],
 	};
 
 	const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
@@ -153,11 +180,11 @@ const AddResidentForm = () => {
 		dob: Yup.string().matches(dateRegex, "Invalid date").required("required"),
 		gender: Yup.string().required("required"),
 		practicingReligion: Yup.string().required("required"),
-		activitiesOptions: Yup.array().min(1, "select at least one option"),
+		activityOptions: Yup.array().min(1, "select at least one option"),
 	});
 
 	const handleFormSubmit = async (values) => {
-		const { firstName, lastName, dob, gender, practicingReligion, activitiesOptions } = values;
+		const { firstName, lastName, dob, gender, practicingReligion, activityOptions } = values;
 
 		const formatDob = convertDateFormat(dob);
 
@@ -173,6 +200,10 @@ const AddResidentForm = () => {
 			return religion.value;
 		});
 
+		const activityIds = activityOptions.map((option) => {
+			return +option;
+		});
+
 		const newResident = {
 			firstName,
 			lastName,
@@ -182,8 +213,10 @@ const AddResidentForm = () => {
 			languages,
 			religions,
 			practicingReligion: practicingReligion === "true" ? true : false,
-			activitiesOptions,
+			activityIds,
 		};
+
+		console.log("### activity options", activityIds);
 
 		const result = await api.addResident(newResident);
 		if (result) {
@@ -295,24 +328,24 @@ const AddResidentForm = () => {
 										}
 									</FormContainer>
 								</InputContainer>
-								<InputContainer>
-									<InputLabel>Interest of Activities</InputLabel>
-									<FormContainer role="group" aria-labelledby="checkbox-group">
-										<FormInput type="checkbox" name="activitiesOptions" value="Bingo" />
-										<FormLabel>Bingo</FormLabel>
-										<FormInput type="checkbox" name="activitiesOptions" value="Bustrips" />
-										<FormLabel>Bustrips</FormLabel>
-										<FormInput type="checkbox" name="activitiesOptions" value="Music" />
-										<FormLabel>Music</FormLabel>
-										<FormInput type="checkbox" name="activitiesOptions" value="Gardening" />
-										<FormLabel>Gardening</FormLabel>
-									</FormContainer>
-									{
-										<Error>
-											{!!touched.activitiesOptions && !!errors.activitiesOptions ? errors.activitiesOptions : null}
-										</Error>
-									}
-								</InputContainer>
+								{activities.length && (
+									<InputContainer>
+										<InputLabel>Interest of Activities</InputLabel>
+										<FormContainer role="group" aria-labelledby="checkbox-group">
+											{activities.map((activity) => (
+												<FormSpan key={activity.id}>
+													<FormInput type="checkbox" name="activityOptions" value={activity.id.toString()} />
+													<FormLabel>{activity.activity}</FormLabel>
+												</FormSpan>
+											))}
+										</FormContainer>
+										{
+											<Error>
+												{!!touched.activitiesOptions && !!errors.activitiesOptions ? errors.activitiesOptions : null}
+											</Error>
+										}
+									</InputContainer>
+								)}
 							</Grid>
 							<ButtonContainer>
 								<SubmitButton

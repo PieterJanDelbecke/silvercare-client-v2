@@ -73,9 +73,10 @@ const InfoItems = styled.span`
 const Resident = () => {
 	const { context, setContext } = useContext(Context);
 	const { selectedResident } = context;
-	const [residentInfo, setResidentInfo] = useState("");
-
 	const { id, firstName, lastName, gender, dob } = selectedResident;
+
+	const [residentInfo, setResidentInfo] = useState("");
+	const [residentActivities, setResidentActivities] = useState([]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -83,8 +84,10 @@ const Resident = () => {
 		const fetchData = async () => {
 			try {
 				const response = await api.getResident(id);
+				const { info: residentInfo, residentActivities } = response;
 				if (isMounted) {
-					setResidentInfo(response);
+					setResidentInfo(residentInfo);
+					setResidentActivities(residentActivities);
 				}
 			} catch (error) {
 				console.error("Error fetching resident data:", error);
@@ -145,8 +148,8 @@ const Resident = () => {
 						</Body>
 						<Body>
 							Activities:{" "}
-							{residentInfo.activities.map((activity) => (
-								<InfoItems key={activity}>{activity}</InfoItems>
+							{residentActivities.map((item) => (
+								<InfoItems key={item.Activity.activity}>{item.Activity.activity}</InfoItems>
 							))}
 						</Body>
 					</SubContainer>
