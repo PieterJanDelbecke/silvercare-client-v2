@@ -12,6 +12,7 @@ import Team from "./scenes/team";
 import Residents from "./scenes/residents";
 import Resident from "./scenes/resident";
 import ResidentAddForm from "./scenes/resident-add-form";
+import ResidentSetActivities from "./scenes/resident-set-actitvities";
 import ResidentNew from "./scenes/resident-new";
 import Faq from "./scenes/faq";
 import Calendar from "./scenes/calendar";
@@ -36,10 +37,11 @@ function App() {
 						<Route path="/residents" element={<Residents />} />
 						<Route path="/resident" element={<Resident />} />
 						<Route path="/residentAddForm" element={<ResidentAddForm />} />
+						<Route path="/residentSetActivities" element={<ResidentSetActivities />} />
 						<Route path="/residentNew" element={<ResidentNew />} />
-						{/* <Route path="/barChart" element={<BarChart />} /> */}
 						<Route path="/pieChart" element={<PieChart />} />
 						<Route path="/lineChart" element={<LineChart />} />
+						{/* <Route path="/barChart" element={<BarChart />} /> */}
 						<Route path="/faq" element={<Faq />} />
 						<Route path="/calendar" element={<Calendar />} />
 					</Routes>
