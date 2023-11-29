@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 import Context from "./context/context";
-import { useMediaQuery } from "@mui/material";
 import { mediaQueryMinWidth } from "./common/lib";
 import Global from "./styles/global";
 import Topbar from "./scenes/global/topbar";
