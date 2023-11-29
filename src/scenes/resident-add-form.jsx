@@ -130,38 +130,15 @@ const selectOptionStyles = {
 	}),
 };
 
-const AddResidentForm = () => {
+const ResidentAddForm = () => {
 	const { context, setContext } = useContext(Context);
 	const navigate = useNavigate();
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 
-	const [activities, setActivities] = useState([]);
 	const [selectedNationalities, setSelectedNationalities] = useState([nationalityOptions[0]]);
 	const [selectedLangauges, setSelectedLangauges] = useState([languageOptions[0]]);
 	const [selectedReligions, setSelectedReligions] = useState([religionOptions[0]]);
 	const [dbError, setDbError] = useState(false);
-
-	useEffect(() => {
-		let isMounted = true;
-
-		const fetchData = async () => {
-			try {
-				const response = await api.getActivities();
-				if (isMounted) {
-					setActivities(response);
-					setContext({ ...context, activities: response });
-				}
-			} catch (error) {
-				console.error("Error fetching activities data:", error);
-			}
-		};
-
-		fetchData();
-
-		return () => {
-			isMounted = false;
-		};
-	}, []);
 
 	const initialValues = {
 		firstName: "",
@@ -169,7 +146,6 @@ const AddResidentForm = () => {
 		dob: "",
 		gender: "",
 		practicingReligion: "",
-		activityOptions: [],
 	};
 
 	const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
@@ -180,11 +156,10 @@ const AddResidentForm = () => {
 		dob: Yup.string().matches(dateRegex, "Invalid date").required("required"),
 		gender: Yup.string().required("required"),
 		practicingReligion: Yup.string().required("required"),
-		activityOptions: Yup.array().min(1, "select at least one option"),
 	});
 
 	const handleFormSubmit = async (values) => {
-		const { firstName, lastName, dob, gender, practicingReligion, activityOptions } = values;
+		const { firstName, lastName, dob, gender, practicingReligion } = values;
 
 		const formatDob = convertDateFormat(dob);
 
@@ -200,10 +175,6 @@ const AddResidentForm = () => {
 			return religion.value;
 		});
 
-		const activityIds = activityOptions.map((option) => {
-			return +option;
-		});
-
 		const newResident = {
 			firstName,
 			lastName,
@@ -213,15 +184,12 @@ const AddResidentForm = () => {
 			languages,
 			religions,
 			practicingReligion: practicingReligion === "true" ? true : false,
-			activityIds,
 		};
-
-		console.log("### activity options", activityIds);
 
 		const result = await api.addResident(newResident);
 		if (result) {
 			setContext({ ...context, lastNewResident: result });
-			navigate("/newResident");
+			navigate("/residentSetActivities");
 		} else {
 			setDbError(true);
 		}
@@ -328,24 +296,6 @@ const AddResidentForm = () => {
 										}
 									</FormContainer>
 								</InputContainer>
-								{activities.length && (
-									<InputContainer>
-										<InputLabel>Interest of Activities</InputLabel>
-										<FormContainer role="group" aria-labelledby="checkbox-group">
-											{activities.map((activity) => (
-												<FormSpan key={activity.id}>
-													<FormInput type="checkbox" name="activityOptions" value={activity.id.toString()} />
-													<FormLabel>{activity.activity}</FormLabel>
-												</FormSpan>
-											))}
-										</FormContainer>
-										{
-											<Error>
-												{!!touched.activitiesOptions && !!errors.activitiesOptions ? errors.activitiesOptions : null}
-											</Error>
-										}
-									</InputContainer>
-								)}
 							</Grid>
 							<ButtonContainer>
 								<SubmitButton
@@ -364,4 +314,4 @@ const AddResidentForm = () => {
 	);
 };
 
-export default AddResidentForm;
+export default ResidentAddForm;

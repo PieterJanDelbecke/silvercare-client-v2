@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 import Context from "./context/context";
-import { useMediaQuery } from "@mui/material";
 import { mediaQueryMinWidth } from "./common/lib";
 import Global from "./styles/global";
 import Topbar from "./scenes/global/topbar";
@@ -11,8 +11,9 @@ import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Residents from "./scenes/residents";
 import Resident from "./scenes/resident";
-import AddResidentForm from "./scenes/add-resident-form";
-import NewResident from "./scenes/new-resident";
+import ResidentAddForm from "./scenes/resident-add-form";
+import ResidentSetActivities from "./scenes/resident-set-actitvities";
+import ResidentNew from "./scenes/resident-new";
 import Faq from "./scenes/faq";
 import Calendar from "./scenes/calendar";
 import BarChart from "./scenes/bar-chart";
@@ -35,11 +36,12 @@ function App() {
 						<Route path="/team" element={<Team />} />
 						<Route path="/residents" element={<Residents />} />
 						<Route path="/resident" element={<Resident />} />
-						{/* <Route path="/barChart" element={<BarChart />} /> */}
+						<Route path="/residentAddForm" element={<ResidentAddForm />} />
+						<Route path="/residentSetActivities" element={<ResidentSetActivities />} />
+						<Route path="/residentNew" element={<ResidentNew />} />
 						<Route path="/pieChart" element={<PieChart />} />
 						<Route path="/lineChart" element={<LineChart />} />
-						<Route path="/addResidentForm" element={<AddResidentForm />} />
-						<Route path="/newResident" element={<NewResident />} />
+						{/* <Route path="/barChart" element={<BarChart />} /> */}
 						<Route path="/faq" element={<Faq />} />
 						<Route path="/calendar" element={<Calendar />} />
 					</Routes>

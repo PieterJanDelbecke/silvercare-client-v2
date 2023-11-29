@@ -72,7 +72,7 @@ const Sidebar = () => {
 				<Option title="Residents" to="/residents" iconName="user" selected={selected} setSelected={setSelected} />
 				<Option
 					title="Add Resident"
-					to="/addResidentForm"
+					to="/residentAddForm"
 					iconName="form"
 					selected={selected}
 					setSelected={setSelected}

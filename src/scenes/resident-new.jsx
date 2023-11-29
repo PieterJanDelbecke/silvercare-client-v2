@@ -23,7 +23,7 @@ const HeadContainer = styled.div`
 	margin-top: 48px;
 	width: 850px;
 	display: flex;
-	padding: 12px;
+	padding: 24px;
 	justify-content: space-between;
 	background-color: ${colors.primary[400]};
 	border-radius: 8px;
@@ -57,13 +57,12 @@ const IconButton = styled(Button)`
 	gap: 4px;
 `;
 
-const NewResident = () => {
+const ResidentNew = () => {
 	const { context, setContext } = useContext(Context);
-	// console.log("### context", context);
-	// const { lastNewResident: resident } = context;
 	const { lastNewResident } = context;
 	const navigate = useNavigate();
 
+	//TODO remove mockresident
 	const mockResident = {
 		firstName: "Larue",
 		lastName: "White",
@@ -82,9 +81,12 @@ const NewResident = () => {
 	return (
 		<Container>
 			<HeadContainer>
-				<ResidentName>
-					{resident.firstName} {resident.lastName}
-				</ResidentName>
+				<div>
+					<Body>Successfully added</Body>
+					<ResidentName>
+						{resident.firstName} {resident.lastName}
+					</ResidentName>
+				</div>
 				<Button onClick={handleView}>View</Button>
 			</HeadContainer>
 			<SubContainer>
@@ -101,4 +103,4 @@ const NewResident = () => {
 	);
 };
 
-export default NewResident;
+export default ResidentNew;
