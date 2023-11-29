@@ -14,9 +14,11 @@ const getResidents = async () => {
 	}
 };
 
-const getResident = async (uuid) => {
+const getResident = async (residentId) => {
+	console.log("### 2 ###");
+	console.log("### residentId ", residentId);
 	try {
-		const { status, data } = await axios.get(`/resident/${uuid}`);
+		const { status, data } = await axios.get(`/resident/resident`, { residentId });
 		if (status === 200 || status === 201) {
 			return data;
 		} else {
@@ -55,11 +57,28 @@ const addResidentActivities = async (residentActivities) => {
 	}
 };
 
+const getResidentActivities = async (residentId) => {
+	console.log("### 5 ###");
+
+	try {
+		const { status, data } = await axios.get(`/resident/residentActivities`, residentId);
+		if (status === 200 || status === 201) {
+			return data;
+		} else {
+			console.log("request unsuccessfull");
+			return null;
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 const api = {
 	getResidents,
 	getResident,
 	addResident,
 	addResidentActivities,
+	getResidentActivities,
 };
 
 export default api;

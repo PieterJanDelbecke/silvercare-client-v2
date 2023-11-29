@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import Context from "../context/context";
 import { PageHeading, Body } from "../common/typography";
 import { DateTime } from "luxon";
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
+import Context from "../context/context";
 import { colors } from "../styles/theme";
 import api from "../api/api";
 import blankImage from "../images/blank-profile-picture.png";
@@ -71,6 +72,7 @@ const InfoItems = styled.span`
 	margin-left: 8px;
 `;
 const Resident = () => {
+	const navigate = useNavigate();
 	const { context, setContext } = useContext(Context);
 	const { selectedResident } = context;
 	const { id, firstName, lastName, gender, dob } = selectedResident;
@@ -106,6 +108,11 @@ const Resident = () => {
 		const age = Math.floor(today.diff(dob, "years").years);
 		return age;
 	};
+
+	const handleEdit = () => {
+		navigate("/residentEditActivities");
+	};
+
 	return (
 		<>
 			<Container>
@@ -151,6 +158,7 @@ const Resident = () => {
 							{residentActivities.map((item) => (
 								<InfoItems key={item.Activity.activity}>{item.Activity.activity}</InfoItems>
 							))}
+							<button onClick={handleEdit}>edit</button>
 						</Body>
 					</SubContainer>
 				)}
