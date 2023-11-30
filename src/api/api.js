@@ -15,10 +15,8 @@ const getResidents = async () => {
 };
 
 const getResident = async (residentId) => {
-	console.log("### 2 ###");
-	console.log("### residentId ", residentId);
 	try {
-		const { status, data } = await axios.get(`/resident/resident`, { residentId });
+		const { status, data } = await axios.get(`/resident/resident?residentId=${residentId}`);
 		if (status === 200 || status === 201) {
 			return data;
 		} else {
@@ -58,10 +56,8 @@ const addResidentActivities = async (residentActivities) => {
 };
 
 const getResidentActivities = async (residentId) => {
-	console.log("### 5 ###");
-
 	try {
-		const { status, data } = await axios.get(`/resident/residentActivities`, residentId);
+		const { status, data } = await axios.get(`/resident/residentActivities?residentId=${residentId}`);
 		if (status === 200 || status === 201) {
 			return data;
 		} else {
