@@ -58,6 +58,22 @@ const Error = styled.p`
 	height: 16px;
 `;
 
+const SubmitButton = styled.button`
+	cursor: pointer;
+	margin-block: 16px;
+	width: 160px;
+	height: 36px;
+	border-radius: 8px;
+	background-color: ${colors.greenAccent[500]};
+	color: ${colors.primary[500]};
+`;
+
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	padding-right: 36px;
+`;
+
 const ResidentSetActivities = () => {
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 	const { context, setContext } = useContext(Context);
@@ -100,22 +116,6 @@ const ResidentSetActivities = () => {
 	const checkoutSchema = Yup.object().shape({
 		activityOptions: Yup.array().min(1, "select at least one option"),
 	});
-
-	const SubmitButton = styled.button`
-		cursor: pointer;
-		margin-block: 16px;
-		width: 160px;
-		height: 36px;
-		border-radius: 8px;
-		background-color: ${colors.greenAccent[500]};
-		color: ${colors.primary[500]};
-	`;
-
-	const ButtonContainer = styled.div`
-		display: flex;
-		justify-content: center;
-		padding-right: 36px;
-	`;
 
 	const handleFormSubmit = async (values) => {
 		const { activityOptions } = values;
