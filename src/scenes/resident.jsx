@@ -63,14 +63,50 @@ const SubContainer = styled.div`
 	border-radius: 8px;
 	margin-top: 24px;
 	padding: 24px;
+	gap: 4px;
 	@media (max-width: 1200px) {
 		width: 720px;
 	}
 `;
 
-const InfoItems = styled.span`
-	margin-left: 8px;
+const SubjectContainer = styled.div``;
+
+const Subject = styled.span`
+	display: inline-block;
+	color: ${colors.greenAccent[500]};
+	width: 90px;
 `;
+
+const InfoItems = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	padding-left: 24px;
+`;
+
+const InfoItem = styled.span`
+	text-transform: capitalize;
+	padding-inline: 8px;
+	border-right: ${(props) => (props.isActivity ? `1px solid ${colors.blueAccent[500]}` : null)};
+`;
+
+const ActivitiesContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+`;
+
+const Activities = styled.div`
+	display: flex;
+	width: 90%;
+`;
+
+const EditButton = styled.button`
+	border: 1px solid ${colors.primary[100]};
+	padding: 2px 3px;
+	border-radius: 4px;
+`;
+
 const Resident = () => {
 	const navigate = useNavigate();
 	const { context, setContext } = useContext(Context);
@@ -141,31 +177,37 @@ const Resident = () => {
 				)}
 				{residentInfo && (
 					<SubContainer>
-						<Body>
-							Nationality:{" "}
+						<SubjectContainer>
+							<Subject>Nationality:</Subject>
 							{residentInfo.nationalities.map((nationality) => (
-								<InfoItems key={nationality}>{nationality}</InfoItems>
+								<InfoItem key={nationality}>{nationality}</InfoItem>
 							))}
-						</Body>
-						<Body>
-							Language:{" "}
+						</SubjectContainer>
+						<SubjectContainer>
+							<Subject>Language:</Subject>
 							{residentInfo.languagues.map((language) => (
-								<InfoItems key={language}>{language}</InfoItems>
+								<InfoItem key={language}>{language}</InfoItem>
 							))}
-						</Body>
-						<Body>
-							Religion:{" "}
+						</SubjectContainer>
+						<SubjectContainer>
+							<Subject>Religion:</Subject>
 							{residentInfo.religions.map((religion) => (
-								<InfoItems key={religion}>{religion}</InfoItems>
+								<InfoItem key={religion}>{religion}</InfoItem>
 							))}
-						</Body>
-						<Body>
-							Activities:{" "}
-							{residentActivities.map((item) => (
-								<InfoItems key={item.Activity.activity}>{item.Activity.activity}</InfoItems>
-							))}
-							<button onClick={handleEdit}>edit</button>
-						</Body>
+						</SubjectContainer>
+						<ActivitiesContainer>
+							<Activities>
+								<Subject>Activities:</Subject>
+								<InfoItems>
+									{residentActivities.map((item) => (
+										<InfoItem isActivity={true} key={item.Activity.activity}>
+											{item.Activity.activity}
+										</InfoItem>
+									))}
+								</InfoItems>
+							</Activities>
+							<EditButton onClick={handleEdit}>edit</EditButton>
+						</ActivitiesContainer>
 					</SubContainer>
 				)}
 			</Container>
