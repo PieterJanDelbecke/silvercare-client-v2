@@ -86,10 +86,16 @@ const Resident = () => {
 		const fetchData = async () => {
 			try {
 				const response = await api.getResident(id);
-				const { info: residentInfo, residentActivities } = response;
+				const {
+					info: residentInfo,
+					residentActivities,
+					editResidentActivities,
+					editActivitiesInitialValues,
+				} = response;
 				if (isMounted) {
 					setResidentInfo(residentInfo);
 					setResidentActivities(residentActivities);
+					setContext({ ...context, editResidentActivities, editActivitiesInitialValues });
 				}
 			} catch (error) {
 				console.error("Error fetching resident data:", error);

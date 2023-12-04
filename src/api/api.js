@@ -55,6 +55,20 @@ const addResidentActivities = async (residentActivities) => {
 	}
 };
 
+const editResidentActivities = async (editedResidentActivities) => {
+	try {
+		const { status, data } = await axios.post(`/resident/editActivities`, { editedResidentActivities });
+		if (status === 200 || status === 201) {
+			return data;
+		} else {
+			console.log("request unsuccessfull");
+			return null;
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 const getResidentActivities = async (residentId) => {
 	try {
 		const { status, data } = await axios.get(`/resident/residentActivities?residentId=${residentId}`);
@@ -74,6 +88,7 @@ const api = {
 	getResident,
 	addResident,
 	addResidentActivities,
+	editResidentActivities,
 	getResidentActivities,
 };
 
