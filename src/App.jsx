@@ -22,7 +22,7 @@ import BarChart from "./scenes/bar-chart";
 import PieChart from "./scenes/pie-chart";
 import LineChart from "./scenes/line-chart";
 
-import activitiesApi from "./api/activities.api";
+import adminApi from "./api/admin.api";
 
 function App() {
 	const [context, setContext] = useState({});
@@ -30,14 +30,9 @@ function App() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			//TODO: streamline with other activitiesApi.getActivities() request
 			try {
-				const activities = await activitiesApi.getActivities();
-				const selectActivities = [];
-				activities.forEach((activity) => {
-					selectActivities.push({ value: activity.id, label: activity.activity });
-				});
-				setContext({ ...context, selectActivities });
+				const { activities, residents, team } = await adminApi.firstLoad();
+				setContext({ ...context, activities, residents, team });
 			} catch (error) {
 				console.error(error);
 			}
@@ -62,6 +57,7 @@ function App() {
 						<Route path="/residentEditActivities" element={<ResidentEditActivities />} />
 						<Route path="/residentNew" element={<ResidentNew />} />
 						<Route path="/activityNewForm" element={<ActivityNewForm />} />
+						<Route path="/newActivityAttendance" element={<ActivityNewForm />} />
 						<Route path="/pieChart" element={<PieChart />} />
 						<Route path="/lineChart" element={<LineChart />} />
 						{/* <Route path="/barChart" element={<BarChart />} /> */}

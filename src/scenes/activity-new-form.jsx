@@ -23,28 +23,40 @@ import Context from "../context/context";
 import { mediaQueryMinWidth } from "../common/lib";
 
 const ActivityNewForm = () => {
-	const { context, setContext } = useContext(Context);
-	const { selectActivities } = context;
-	const isDesktop = useMediaQuery(mediaQueryMinWidth);
-	const [selectedActivity, setSelectedActivity] = useState(selectActivities[0]);
 	const navigate = useNavigate();
+	const isDesktop = useMediaQuery(mediaQueryMinWidth);
+	const { context, setContext } = useContext(Context);
+	const { activities, team } = context;
+
+	const selectActivities = [];
+	activities.forEach((activity) => {
+		selectActivities.push({ value: activity.id, label: activity.activity });
+	});
+	const [selectedActivity, setSelectedActivity] = useState(selectActivities[0]);
+	const [selectedTeamMember, setSelectedTeamMember] = useState(team[0]);
 
 	const initialValues = {
 		date: "",
 		comment: "",
-		instructor: "",
 	};
 
 	const checkoutSchema = Yup.object().shape({
 		date: Yup.string().required("required"),
 	});
 	const handleFormSubmit = (values) => {
-		const { date, comment, instructor } = values;
-		console.log("### SUBMIT values", values);
-		console.log("### SUBMIT activity", selectedActivity);
-		//TODO: do backend
+		const { date, comment } = values;
+		const newActivityValues = {
+			date,
+			comment,
+			activity: selectedActivity,
+			teamMember: selectedTeamMember,
+		};
+		console.log("### newActivityValues", newActivityValues);
+
+		// TODO: do backend
 		const result = true;
 		if (result) {
+			setContext({ ...context, newActivityValues });
 			navigate("/newActivityAttendance");
 		}
 	};
@@ -79,16 +91,14 @@ const ActivityNewForm = () => {
 									{<Error>{!!touched.date && !!errors.date ? errors.date : null}</Error>}
 								</InputContainer>
 								<InputContainer>
-									<InputLabel>Instructor</InputLabel>
-									<Input
-										type="text"
-										name="instructor"
-										id="instructor"
-										onBlur={handleBlur}
-										onChange={handleChange}
-										value={values.instructor}
+									<InputLabel>Team Member</InputLabel>
+									<Select
+										options={team}
+										defaultValue={selectedTeamMember}
+										onChange={setSelectedTeamMember}
+										styles={selectOptionStyles}
 									/>
-									{/* {<Error>{!!touched.date && !!errors.date ? errors.date : null}</Error>} */}
+									{<Error>{!!touched.teamMember && !!errors.teamMember ? errors.teamMember : null}</Error>}
 								</InputContainer>
 								<InputContainer>
 									<InputLabel>Comment</InputLabel>
