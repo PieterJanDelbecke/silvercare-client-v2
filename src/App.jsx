@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 
@@ -22,9 +22,28 @@ import BarChart from "./scenes/bar-chart";
 import PieChart from "./scenes/pie-chart";
 import LineChart from "./scenes/line-chart";
 
+import activitiesApi from "./api/activities.api";
+
 function App() {
 	const [context, setContext] = useState({});
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			//TODO: streamline with other activitiesApi.getActivities() request
+			try {
+				const activities = await activitiesApi.getActivities();
+				const selectActivities = [];
+				activities.forEach((activity) => {
+					selectActivities.push({ value: activity.id, label: activity.activity });
+				});
+				setContext({ ...context, selectActivities });
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchData();
+	}, []);
 
 	return (
 		<Context.Provider value={{ context, setContext }}>

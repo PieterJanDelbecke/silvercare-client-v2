@@ -91,3 +91,31 @@ export const ButtonContainer = styled.div`
 	justify-content: flex-end;
 	padding-right: 36px;
 `;
+
+export const selectOptionStyles = {
+	container: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: colors.grey[100],
+		borderRadius: "6px;",
+	}),
+	control: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: colors.grey[100],
+	}),
+	option: (baseStyles) => ({
+		...baseStyles,
+		color: "black",
+		// backgroundColor: colors.grey[100],
+	}),
+	multiValueLabel: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: colors.greenAccent[500],
+		fontSize: "16px",
+		borderRadius: "2px 0px 0px 2px",
+	}),
+	multiValueRemove: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: colors.greenAccent[500],
+		borderRadius: "0px 2px 2px 0px",
+	}),
+};
