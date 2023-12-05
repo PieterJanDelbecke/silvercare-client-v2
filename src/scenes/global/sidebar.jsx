@@ -77,6 +77,13 @@ const Sidebar = () => {
 					selected={selected}
 					setSelected={setSelected}
 				/>
+				<Option
+					title="New Activity"
+					to="/activityNewForm"
+					iconName="form"
+					selected={selected}
+					setSelected={setSelected}
+				/>
 				<Option title="Pie Chart" to="/pieChart" iconName="pieChart" selected={selected} setSelected={setSelected} />
 				<Option title="Line Chart" to="/lineChart" iconName="lineChart" selected={selected} setSelected={setSelected} />
 				<Option title="Calendar" to="/calendar" iconName="calendar" selected={selected} setSelected={setSelected} />

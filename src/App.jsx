@@ -9,6 +9,7 @@ import Topbar from "./scenes/global/topbar";
 import Sidebar from "./scenes/global/sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
+import ActivityNewForm from "./scenes/activity-new-form";
 import Residents from "./scenes/residents";
 import Resident from "./scenes/resident";
 import ResidentAddForm from "./scenes/resident-add-form";
@@ -41,6 +42,7 @@ function App() {
 						<Route path="/residentSetActivities" element={<ResidentSetActivities />} />
 						<Route path="/residentEditActivities" element={<ResidentEditActivities />} />
 						<Route path="/residentNew" element={<ResidentNew />} />
+						<Route path="/activityNewForm" element={<ActivityNewForm />} />
 						<Route path="/pieChart" element={<PieChart />} />
 						<Route path="/lineChart" element={<LineChart />} />
 						{/* <Route path="/barChart" element={<BarChart />} /> */}
