@@ -3,5 +3,8 @@
 # used libraries
 
 - winston for loggin
-- axios for hhtp requests
--
+- axios for http requests
+- emotion for styling
+- formik for the forms
+- yup for form validation
+- luxon for Date/Time
