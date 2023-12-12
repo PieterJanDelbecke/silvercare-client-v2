@@ -21,6 +21,7 @@ import Calendar from "./scenes/calendar";
 import BarChart from "./scenes/bar-chart";
 import PieChart from "./scenes/pie-chart";
 import LineChart from "./scenes/line-chart";
+import ActivityNewAttendance from "./scenes/activity-new-attendance";
 
 import adminApi from "./api/admin.api";
 
@@ -57,7 +58,7 @@ function App() {
 						<Route path="/residentEditActivities" element={<ResidentEditActivities />} />
 						<Route path="/residentNew" element={<ResidentNew />} />
 						<Route path="/activityNewForm" element={<ActivityNewForm />} />
-						<Route path="/newActivityAttendance" element={<ActivityNewForm />} />
+						<Route path="/activityNewAttendance" element={<ActivityNewAttendance />} />
 						<Route path="/pieChart" element={<PieChart />} />
 						<Route path="/lineChart" element={<LineChart />} />
 						{/* <Route path="/barChart" element={<BarChart />} /> */}

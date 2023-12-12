@@ -97,36 +97,14 @@ const ViewButton = styled(Button)`
 `;
 
 const Residents = () => {
-	const { context, setContext } = useContext(Context);
 	const navigate = useNavigate();
+	const { context, setContext } = useContext(Context);
+	const { residents: initialResidents } = context;
 
-	const [residents, setResidents] = useState([]);
+	const [residents, setResidents] = useState(initialResidents);
 	const [selectedResident, setSelectedResident] = useState(null);
 	const [sorting, setSorting] = useState([]);
 	const [filtering, setFiltering] = useState("");
-
-	useEffect(() => {
-		let isMounted = true;
-
-		const fetchData = async () => {
-			try {
-				const response = await api.getResidents();
-				if (isMounted) {
-					setResidents(response);
-					setContext({ ...context, residents: response });
-				}
-			} catch (error) {
-				console.error("Error fetching residents data:", error);
-			}
-		};
-
-		fetchData();
-
-		// Cleanup function to cancel any ongoing requests when the component is unmounted
-		return () => {
-			isMounted = false;
-		};
-	}, []);
 
 	const data = useMemo(() => {
 		return residents;
