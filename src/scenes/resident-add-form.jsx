@@ -186,9 +186,11 @@ const ResidentAddForm = () => {
 			practicingReligion: practicingReligion === "true" ? true : false,
 		};
 
+		//TODO: refactor result, needs correct attributes from BE on return
 		const result = await api.addResident(newResident);
+		const { residents } = context;
 		if (result) {
-			setContext({ ...context, lastNewResident: result });
+			setContext({ ...context, residents: [...residents, result], lastNewResident: result });
 			navigate("/residentSetActivities");
 		} else {
 			setDbError(true);
