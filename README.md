@@ -12,3 +12,4 @@
 - react-icons for icons
 - react-router-dom for routing
 - react-select for form select
+- react-datepicker
