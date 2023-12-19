@@ -15,7 +15,7 @@ import {
 	Input,
 	ButtonContainer,
 	SubmitButton,
-} from "../common/styling";
+} from "../common/styling-forms";
 import { PageHeading } from "../common/typography";
 import Select from "react-select";
 import { useMediaQuery } from "@mui/material";
@@ -57,7 +57,7 @@ const ActivityNewForm = () => {
 		const result = true;
 		if (result) {
 			setContext({ ...context, newActivityValues });
-			navigate("/newActivityAttendance");
+			navigate("/activityNewAttendance");
 		}
 	};
 	return (
@@ -118,7 +118,7 @@ const ActivityNewForm = () => {
 									// disabled={!selectedNationalities.length || !selectedLangauges.length || !selectedReligions.length}
 									type="submit"
 								>
-									Submit
+									Next
 								</SubmitButton>
 							</ButtonContainer>
 						</form>
