@@ -46,7 +46,7 @@ const ActivityNewAttendance = () => {
 		const result = await activitiesApi.newActivity({ newActivityValues, attendingResidents });
 		console.log("### RESULT:", result);
 		if (result) {
-			navigate("/");
+			navigate("/activityNewConfirmed");
 		}
 	};
 
