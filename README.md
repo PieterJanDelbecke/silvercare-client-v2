@@ -1,15 +1,16 @@
-# Silvercare
-
-## Front-end
+# Silvercare - Frontend
 
 ### What does it do?
 
-This is an app that is build for the aged care industry.
+This is the frontend of the Silvercare appliction.
+It is an app that is build for the aged care industry.
 It is tracking the mental health of the residents in a aged care village.
 
 ### build in React with Vite
 
-## start develoopment with "npm run dev" the localhost of the backend is on port 4000
+### getting started
+
+start develoopment with "npm run dev" the localhost of the backend is on port 4000
 
 ## used libraries
 
