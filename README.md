@@ -1,6 +1,17 @@
-# start develoopment with "npm run dev" the localhost of the backend is on port 4000
+# Silvercare
 
-# used libraries
+## Front-end
+
+### What does it do?
+
+This is an app that is build for the aged care industry.
+It is tracking the mental health of the residents in a aged care village.
+
+### build in React with Vite
+
+## start develoopment with "npm run dev" the localhost of the backend is on port 4000
+
+## used libraries
 
 - winston for loggin
 - axios for http requests
