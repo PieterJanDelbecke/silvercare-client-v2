@@ -58,48 +58,48 @@ const IconButton = styled(Button)`
 `;
 
 const ActivityNewConfirmed = () => {
-	// const { context, setContext } = useContext(Context);
-	// const { lastNewResident } = context;
-	// const navigate = useNavigate();
+	const { context, setContext } = useContext(Context);
+	const { newActivityValues } = context;
 
-	// //TODO remove mockresident
-	// const mockResident = {
-	// 	firstName: "Larue",
-	// 	lastName: "White",
-	// 	gender: "female",
-	// 	dob: new Date("2023-11-24"),
-	// 	id: "e09f11dc-35e5-48b9-83a8-b3a4f7a27147",
-	// };
+	const navigate = useNavigate();
 
-	// const resident = lastNewResident || mockResident;
+	console.log("### newActivityValues", newActivityValues);
 
-	// const handleView = () => {
-	// 	setContext({ ...context, selectedResident: resident });
-	// 	navigate("/resident");
-	// };
+	//TODO remove mockresident
+	const mockActivity = {
+		activity: { label: "salsa", value: "10" },
+		date: "20 December 2023",
+	};
+
+	const activity = newActivityValues || mockActivity;
+
+	console.log("### activity", activity);
+
+	const handleView = () => {
+		// setContext({ ...context, selectedResident: resident });
+		// navigate("/resident");
+	};
 
 	return (
 		<Container>
-			<h1>Activity Confirmed</h1>
-			{/* <HeadContainer>
+			<HeadContainer>
 				<div>
 					<Body>Successfully added</Body>
-					<ResidentName>
-						{resident.firstName} {resident.lastName}
-					</ResidentName>
+					<ResidentName>{activity.activity.label}</ResidentName>
+					<Body>{activity.date}</Body>
 				</div>
 				<Button onClick={handleView}>View</Button>
 			</HeadContainer>
 			<SubContainer>
-				<IconButton onClick={() => navigate("/addResidentForm")}>
+				<IconButton onClick={() => navigate("/activityNewForm")}>
 					<Icon name="form" />
-					<Body>Add Resident</Body>
+					<Body>Add Activity</Body>
 				</IconButton>
 				<IconButton onClick={() => navigate("/")}>
 					<Icon name="home" onClick={() => navigate("/")} />
 					<Body>Dashboard</Body>
 				</IconButton>
-			</SubContainer> */}
+			</SubContainer>
 		</Container>
 	);
 };
