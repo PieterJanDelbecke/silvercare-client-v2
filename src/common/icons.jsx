@@ -14,6 +14,7 @@ import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
 import { AiOutlineArrowRight as ArrowRightIcon } from "react-icons/ai";
 import { AiOutlineArrowUp as ArrowUpIcon } from "react-icons/ai";
 import { AiOutlineArrowDown as ArrowDownIcon } from "react-icons/ai";
+import { AiOutlineUserAdd as AddMemberIcon } from "react-icons/ai";
 
 import { colors } from "../styles/theme";
 
@@ -30,6 +31,8 @@ const Icon = ({ name, size, color }) => {
 			return <TeamIcon style={iconStyle} />;
 		case "user":
 			return <UserIcon style={iconStyle} />;
+		case "addMember":
+			return <AddMemberIcon style={iconStyle} />;
 		case "settings":
 			return <SettingsIcon style={iconStyle} />;
 		case "search":
