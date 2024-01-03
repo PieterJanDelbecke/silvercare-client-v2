@@ -73,6 +73,13 @@ const Sidebar = () => {
 				<Option
 					title="Add Resident"
 					to="/residentAddForm"
+					iconName="addMember"
+					selected={selected}
+					setSelected={setSelected}
+				/>
+				<Option
+					title="New Activity"
+					to="/activityNewForm"
 					iconName="form"
 					selected={selected}
 					setSelected={setSelected}

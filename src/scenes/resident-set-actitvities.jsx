@@ -78,15 +78,8 @@ const ResidentSetActivities = () => {
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 	const { context, setContext } = useContext(Context);
 	const navigate = useNavigate();
-	const { lastNewResident } = context;
+	const { lastNewResident: resident } = context;
 	const [activities, setActivities] = useState([]);
-
-	//TODO remove the rest resident
-	const resident = lastNewResident || {
-		id: "42b93927-1525-43fa-ae20-0dd01e4888e7",
-		firstName: "John",
-		lastName: "Doe",
-	};
 
 	useEffect(() => {
 		let isMounted = true;

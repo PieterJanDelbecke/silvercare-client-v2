@@ -1,18 +1,27 @@
-# React + Vite
+# Silvercare - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### What does it do?
 
-Currently, two official plugins are available:
+This is the frontend of the Silvercare appliction.
+It is an app that is build for the aged care industry.
+It is tracking the mental health of the residents in a aged care village.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### build in React with Vite
 
-# silvercare-client-v2
+### getting started
 
-# Documentation:
+start develoopment with "npm run dev" the localhost of the backend is on port 4000
 
-## used libraries:
+## used libraries
 
-- Formik and Yup for forms
-- TanStack/react table for the tables
-- Redux for Global State managment
+- winston for loggin
+- axios for http requests
+- emotion for styling
+- formik for the forms
+- yup for form validation
+- luxon for Date/Time
+- tanstack/react-table for the table
+- react-icons for icons
+- react-router-dom for routing
+- react-select for form select
+- react-datepicker
