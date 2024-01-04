@@ -33,7 +33,7 @@ const ActivityNewForm = () => {
 		selectActivities.push({ value: activity.id, label: activity.activity });
 	});
 	const [selectedActivity, setSelectedActivity] = useState(selectActivities[0]);
-	const [selectedTeamMember, setSelectedTeamMember] = useState(team[0]);
+	const [selectedTeamMembers, setSelectedTeamMembers] = useState([team[0]]);
 
 	const initialValues = {
 		date: "",
@@ -45,11 +45,12 @@ const ActivityNewForm = () => {
 	});
 	const handleFormSubmit = (values) => {
 		const { date, comment } = values;
+		const teamMembers = selectedTeamMembers.map((teamMember) => teamMember.value);
 		const newActivityValues = {
 			date,
 			comment,
 			activity: selectedActivity,
-			teamMember: selectedTeamMember,
+			teamMembers,
 		};
 		console.log("### newActivityValues", newActivityValues);
 
@@ -91,11 +92,12 @@ const ActivityNewForm = () => {
 									{<Error>{!!touched.date && !!errors.date ? errors.date : null}</Error>}
 								</InputContainer>
 								<InputContainer>
-									<InputLabel>Team Member</InputLabel>
+									<InputLabel>Team Members</InputLabel>
 									<Select
+										isMulti={true}
 										options={team}
-										defaultValue={selectedTeamMember}
-										onChange={setSelectedTeamMember}
+										defaultValue={selectedTeamMembers}
+										onChange={setSelectedTeamMembers}
 										styles={selectOptionStyles}
 									/>
 									{<Error>{!!touched.teamMember && !!errors.teamMember ? errors.teamMember : null}</Error>}
