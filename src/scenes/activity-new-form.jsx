@@ -26,14 +26,22 @@ const ActivityNewForm = () => {
 	const navigate = useNavigate();
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 	const { context, setContext } = useContext(Context);
-	const { activities, team } = context;
+	const { activities, teamMembers } = context;
+
+	const team = teamMembers.map((member) => {
+		return {
+			value: member.id,
+			label: `${member.firstName} ${member.lastName}`,
+		};
+	});
 
 	const selectActivities = [];
 	activities.forEach((activity) => {
 		selectActivities.push({ value: activity.id, label: activity.activity });
 	});
+
 	const [selectedActivity, setSelectedActivity] = useState(selectActivities[0]);
-	const [selectedTeamMembers, setSelectedTeamMembers] = useState([team[0]]);
+	const [selectedTeamMember, setSelectedTeamMember] = useState(team[0]);
 
 	const initialValues = {
 		date: "",
@@ -45,12 +53,11 @@ const ActivityNewForm = () => {
 	});
 	const handleFormSubmit = (values) => {
 		const { date, comment } = values;
-		const teamMembers = selectedTeamMembers.map((teamMember) => teamMember.value);
 		const newActivityValues = {
 			date,
 			comment,
 			activity: selectedActivity,
-			teamMembers,
+			teamMemberId: selectedTeamMember.value,
 		};
 		console.log("### newActivityValues", newActivityValues);
 
@@ -94,10 +101,9 @@ const ActivityNewForm = () => {
 								<InputContainer>
 									<InputLabel>Team Members</InputLabel>
 									<Select
-										isMulti={true}
 										options={team}
-										defaultValue={selectedTeamMembers}
-										onChange={setSelectedTeamMembers}
+										defaultValue={selectedTeamMember}
+										onChange={setSelectedTeamMember}
 										styles={selectOptionStyles}
 									/>
 									{<Error>{!!touched.teamMember && !!errors.teamMember ? errors.teamMember : null}</Error>}
