@@ -59,21 +59,24 @@ const IconButton = styled(Button)`
 
 const ActivityNewConfirmed = () => {
 	const { context, setContext } = useContext(Context);
-	const { newActivityValues } = context;
+	const { newActivityValues: activity } = context;
 
 	const navigate = useNavigate();
 
-	console.log("### newActivityValues", newActivityValues);
+	console.log("### activity", activity);
 
-	//TODO remove mockresident
-	const mockActivity = {
-		activity: { label: "salsa", value: "10" },
-		date: "20 December 2023",
+	const formatDate = (inputDate) => {
+		let regex = /(\d{4})-(\d{2})-(\d{2})/;
+		let match = regex.exec(inputDate);
+		let year = match[1];
+		let month = match[2];
+		let day = match[3];
+
+		let outputDate = `${day}-${month}-${year}`;
+		return outputDate;
 	};
 
-	const activity = newActivityValues || mockActivity;
-
-	console.log("### activity", activity);
+	let activityDate = formatDate(activity.date);
 
 	const handleView = () => {
 		// setContext({ ...context, selectedResident: resident });
@@ -86,7 +89,7 @@ const ActivityNewConfirmed = () => {
 				<div>
 					<Body>Successfully added</Body>
 					<ResidentName>{activity.activity.label}</ResidentName>
-					<Body>{activity.date}</Body>
+					<Body>{activityDate}</Body>
 				</div>
 				<Button onClick={handleView}>View</Button>
 			</HeadContainer>

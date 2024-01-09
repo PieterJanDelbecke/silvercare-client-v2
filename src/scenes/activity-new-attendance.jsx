@@ -44,10 +44,8 @@ const ActivityNewAttendance = () => {
 		console.log("### VALUES", values);
 		const { attendingResidents } = values;
 		const result = await activitiesApi.newActivity({
-			newActivityValues: {
-				...newActivityValues,
-				attendingResidents,
-			},
+			...newActivityValues,
+			attendingResidentIds: attendingResidents,
 		});
 		console.log("### RESULT:", result);
 		if (result) {

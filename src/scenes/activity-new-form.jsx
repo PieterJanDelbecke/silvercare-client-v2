@@ -51,6 +51,7 @@ const ActivityNewForm = () => {
 	const checkoutSchema = Yup.object().shape({
 		date: Yup.string().required("required"),
 	});
+
 	const handleFormSubmit = (values) => {
 		const { date, comment } = values;
 		const newActivityValues = {
@@ -60,13 +61,8 @@ const ActivityNewForm = () => {
 			teamMemberId: selectedTeamMember.value,
 		};
 		console.log("### newActivityValues", newActivityValues);
-
-		// TODO: do backend
-		const result = true;
-		if (result) {
-			setContext({ ...context, newActivityValues });
-			navigate("/activityNewAttendance");
-		}
+		setContext({ ...context, newActivityValues });
+		navigate("/activityNewAttendance");
 	};
 	return (
 		<Container>
@@ -99,7 +95,7 @@ const ActivityNewForm = () => {
 									{<Error>{!!touched.date && !!errors.date ? errors.date : null}</Error>}
 								</InputContainer>
 								<InputContainer>
-									<InputLabel>Team Members</InputLabel>
+									<InputLabel>Team Member</InputLabel>
 									<Select
 										options={team}
 										defaultValue={selectedTeamMember}
