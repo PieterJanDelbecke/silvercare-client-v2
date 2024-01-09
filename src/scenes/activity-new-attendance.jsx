@@ -43,7 +43,10 @@ const ActivityNewAttendance = () => {
 	const handleFormSubmit = async (values) => {
 		console.log("### VALUES", values);
 		const { attendingResidents } = values;
-		const result = await activitiesApi.newActivity({ newActivityValues, attendingResidents });
+		const result = await activitiesApi.newActivity({
+			...newActivityValues,
+			attendingResidentIds: attendingResidents,
+		});
 		console.log("### RESULT:", result);
 		if (result) {
 			navigate("/activityNewConfirmed");

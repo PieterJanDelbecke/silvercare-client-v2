@@ -33,8 +33,8 @@ function App() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const { activities, residents, team } = await adminApi.firstLoad();
-				setContext({ ...context, activities, residents, team });
+				const { activities, residents, teamMembers } = await adminApi.firstLoad();
+				setContext({ ...context, activities, residents, teamMembers });
 			} catch (error) {
 				console.error(error);
 			}

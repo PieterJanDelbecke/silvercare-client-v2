@@ -26,12 +26,20 @@ const ActivityNewForm = () => {
 	const navigate = useNavigate();
 	const isDesktop = useMediaQuery(mediaQueryMinWidth);
 	const { context, setContext } = useContext(Context);
-	const { activities, team } = context;
+	const { activities, teamMembers } = context;
+
+	const team = teamMembers.map((member) => {
+		return {
+			value: member.id,
+			label: `${member.firstName} ${member.lastName}`,
+		};
+	});
 
 	const selectActivities = [];
 	activities.forEach((activity) => {
 		selectActivities.push({ value: activity.id, label: activity.activity });
 	});
+
 	const [selectedActivity, setSelectedActivity] = useState(selectActivities[0]);
 	const [selectedTeamMember, setSelectedTeamMember] = useState(team[0]);
 
@@ -43,22 +51,18 @@ const ActivityNewForm = () => {
 	const checkoutSchema = Yup.object().shape({
 		date: Yup.string().required("required"),
 	});
+
 	const handleFormSubmit = (values) => {
 		const { date, comment } = values;
 		const newActivityValues = {
 			date,
 			comment,
 			activity: selectedActivity,
-			teamMember: selectedTeamMember,
+			teamMemberId: selectedTeamMember.value,
 		};
 		console.log("### newActivityValues", newActivityValues);
-
-		// TODO: do backend
-		const result = true;
-		if (result) {
-			setContext({ ...context, newActivityValues });
-			navigate("/activityNewAttendance");
-		}
+		setContext({ ...context, newActivityValues });
+		navigate("/activityNewAttendance");
 	};
 	return (
 		<Container>
