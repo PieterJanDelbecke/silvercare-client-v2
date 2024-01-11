@@ -80,7 +80,7 @@ const ActivityNewConfirmed = () => {
 
 	const handleView = () => {
 		// setContext({ ...context, selectedResident: resident });
-		// navigate("/resident");
+		navigate("/activityOrganisedView");
 	};
 
 	return (
