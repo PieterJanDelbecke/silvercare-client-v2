@@ -59,6 +59,8 @@ const ActivityNewForm = () => {
 			comment,
 			activity: selectedActivity,
 			teamMemberId: selectedTeamMember.value,
+			confirmed: false,
+			activityId: null,
 		};
 		console.log("### newActivityValues", newActivityValues);
 		setContext({ ...context, newActivityValues });
