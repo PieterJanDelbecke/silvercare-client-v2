@@ -37,7 +37,7 @@ const SubContainer = styled(HeadContainer)`
 	gap: 40px;
 `;
 
-const ResidentName = styled(PageHeading)`
+const ActivityName = styled(PageHeading)`
 	color: ${colors.greenAccent[500]};
 `;
 
@@ -72,15 +72,14 @@ const ActivityNewConfirmed = () => {
 		let month = match[2];
 		let day = match[3];
 
-		let outputDate = `${day}-${month}-${year}`;
+		let outputDate = `${day}/${month}/${year}`;
 		return outputDate;
 	};
 
 	let activityDate = formatDate(activity.date);
 
 	const handleView = () => {
-		// setContext({ ...context, selectedResident: resident });
-		// navigate("/resident");
+		navigate("/activityOrganisedView");
 	};
 
 	return (
@@ -88,7 +87,7 @@ const ActivityNewConfirmed = () => {
 			<HeadContainer>
 				<div>
 					<Body>Successfully added</Body>
-					<ResidentName>{activity.activity.label}</ResidentName>
+					<ActivityName>{activity.activity.label}</ActivityName>
 					<Body>{activityDate}</Body>
 				</div>
 				<Button onClick={handleView}>View</Button>

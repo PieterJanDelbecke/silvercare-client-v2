@@ -49,6 +49,7 @@ const ActivityNewAttendance = () => {
 		});
 		console.log("### RESULT:", result);
 		if (result) {
+			setContext({ ...context, newActivityValues: { ...newActivityValues, confirmed: true, activityId: result.id } });
 			navigate("/activityNewConfirmed");
 		}
 	};

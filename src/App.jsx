@@ -23,6 +23,7 @@ import PieChart from "./scenes/pie-chart";
 import LineChart from "./scenes/line-chart";
 import ActivityNewAttendance from "./scenes/activity-new-attendance";
 import ActivityNewConfirmed from "./scenes/activity-new-confirmed";
+import ActivityOrganisedView from "./scenes/activity-organised-view";
 
 import adminApi from "./api/admin.api";
 
@@ -61,6 +62,7 @@ function App() {
 						<Route path="/activityNewForm" element={<ActivityNewForm />} />
 						<Route path="/activityNewAttendance" element={<ActivityNewAttendance />} />
 						<Route path="/activityNewConfirmed" element={<ActivityNewConfirmed />} />
+						<Route path="/activityOrganisedView" element={<ActivityOrganisedView />} />
 						<Route path="/pieChart" element={<PieChart />} />
 						<Route path="/lineChart" element={<LineChart />} />
 						{/* <Route path="/barChart" element={<BarChart />} /> */}
