@@ -72,7 +72,7 @@ const ActivityNewConfirmed = () => {
 		let month = match[2];
 		let day = match[3];
 
-		let outputDate = `${day}-${month}-${year}`;
+		let outputDate = `${day}/${month}/${year}`;
 		return outputDate;
 	};
 

@@ -44,7 +44,7 @@ const ActivityName = styled(PageHeading)`
 
 const ActivityOrganisedView = () => {
 	const { context, setContext } = useContext(Context);
-	const [organisedActivity, setOrganisedActivity] = useState({});
+	const [organisedActivity, setOrganisedActivity] = useState(null);
 
 	const { newActivityValues } = context;
 	console.log("### newActivityValues", newActivityValues);
@@ -67,23 +67,29 @@ const ActivityOrganisedView = () => {
 			<HeadContainer>
 				<div>
 					<Body>Organised Activity:</Body>
-					<ActivityName>{organisedActivity.Activity.activity}</ActivityName>
-					<Body>{organisedActivity.date}</Body>
-					<Body>{organisedActivity.comment}</Body>
+					{organisedActivity && (
+						<>
+							<ActivityName>{organisedActivity.Activity.activity}</ActivityName>
+							<Body>Date: {new Date(organisedActivity.date).toLocaleDateString()}</Body>
+							<Body>Comment: {organisedActivity.comment}</Body>
+						</>
+					)}
 				</div>
 			</HeadContainer>
-			<SubContainer>
-				<div>
-					<Body>Participants</Body>
-					{organisedActivity.OrganisedActivityAttendences.map((attendee) => (
-						<div key={attendee.Resident.id}>
-							<Body>
-								{attendee.Resident.firstName} {attendee.Resident.lastName}
-							</Body>
-						</div>
-					))}
-				</div>
-			</SubContainer>
+			{organisedActivity && (
+				<SubContainer>
+					<div>
+						<Body>Participants</Body>
+						{organisedActivity.OrganisedActivityAttendences.map((attendee) => (
+							<div key={attendee.Resident.id}>
+								<Body>
+									{attendee.Resident.firstName} {attendee.Resident.lastName}
+								</Body>
+							</div>
+						))}
+					</div>
+				</SubContainer>
+			)}
 		</Container>
 	);
 };
