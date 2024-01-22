@@ -25,5 +25,3 @@ start develoopment with "npm run dev" the localhost of the backend is on port 40
 - react-router-dom for routing
 - react-select for form select
 - react-datepicker
-
-## TODO

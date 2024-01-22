@@ -60,14 +60,11 @@ const ActivityOrganisedView = () => {
 	const [organisedActivity, setOrganisedActivity] = useState(null);
 
 	const { newActivityValues } = context;
-	console.log("CONTEXT: ", context);
-	// console.log("### newActivityValues", newActivityValues);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const result = await activitiesApi.getOrganisedActivity(newActivityValues.activityId);
-				console.log("### result: ", result);
 				setOrganisedActivity(result);
 			} catch (error) {
 				console.error(error);
@@ -77,38 +74,35 @@ const ActivityOrganisedView = () => {
 	}, []);
 
 	const handleViewResident = (resident) => {
-		console.log("### Selected residentId", resident);
 		setContext({ ...context, selectedResident: resident });
 		navigate("/resident");
 	};
 
 	return (
 		<Container>
-			<HeadContainer>
-				<div>
-					<Body>Organised Activity:</Body>
-					{organisedActivity && (
-						<>
+			<PageHeading>Organised Activity</PageHeading>
+			{organisedActivity && (
+				<>
+					<HeadContainer>
+						<div>
 							<ActivityName>{organisedActivity.Activity.activity}</ActivityName>
 							<Body>Date: {DateTime.fromISO(organisedActivity.date).toLocaleString(DateTime.DATE_MED)}</Body>
 							<Body>Comment: {organisedActivity.comment}</Body>
-						</>
-					)}
-				</div>
-			</HeadContainer>
-			{organisedActivity && (
-				<SubContainer>
-					<div>
-						<ActivitySubHeading>Participants</ActivitySubHeading>
-						{organisedActivity.OrganisedActivityAttendences.map((attendee) => (
-							<div key={attendee.Resident.id}>
-								<Participant onClick={() => handleViewResident(attendee.Resident)}>
-									{attendee.Resident.firstName} {attendee.Resident.lastName}
-								</Participant>
-							</div>
-						))}
-					</div>
-				</SubContainer>
+						</div>
+					</HeadContainer>
+					<SubContainer>
+						<div>
+							<ActivitySubHeading>Participants</ActivitySubHeading>
+							{organisedActivity.OrganisedActivityAttendences.map((attendee) => (
+								<div key={attendee.Resident.id}>
+									<Participant onClick={() => handleViewResident(attendee.Resident)}>
+										{attendee.Resident.firstName} {attendee.Resident.lastName}
+									</Participant>
+								</div>
+							))}
+						</div>
+					</SubContainer>
+				</>
 			)}
 		</Container>
 	);
