@@ -15,7 +15,7 @@ const getActivities = async () => {
 
 const getOrganisedActivity = async (activityId) => {
 	try {
-		const { status, data } = await axios.get(`/activity/organisedActivity`, activityId);
+		const { status, data } = await axios.get(`/activity/organisedActivity?organisedActivityId=${activityId}`);
 		if (status === 200 || status === 201) {
 			return data;
 		} else {
