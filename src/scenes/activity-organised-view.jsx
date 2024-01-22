@@ -44,6 +44,7 @@ const ActivityName = styled(PageHeading)`
 
 const ActivityOrganisedView = () => {
 	const { context, setContext } = useContext(Context);
+	const [organisedActivity, setOrganisedActivity] = useState({});
 
 	const { newActivityValues } = context;
 	console.log("### newActivityValues", newActivityValues);
@@ -53,6 +54,7 @@ const ActivityOrganisedView = () => {
 			try {
 				const result = await activitiesApi.getOrganisedActivity(newActivityValues.activityId);
 				console.log("### result: ", result);
+				setOrganisedActivity(result);
 			} catch (error) {
 				console.error(error);
 			}
@@ -65,16 +67,21 @@ const ActivityOrganisedView = () => {
 			<HeadContainer>
 				<div>
 					<Body>Organised Activity:</Body>
-					<ActivityName>Bingo</ActivityName>
-					<Body>Date: 11-01-2024</Body>
-					<Body>Comment: extreme bingo</Body>
+					<ActivityName>{organisedActivity.Activity.activity}</ActivityName>
+					<Body>{organisedActivity.date}</Body>
+					<Body>{organisedActivity.comment}</Body>
 				</div>
 			</HeadContainer>
 			<SubContainer>
 				<div>
 					<Body>Participants</Body>
-					<Body>Johny Gibson</Body>
-					<Body>Alexa Carter</Body>
+					{organisedActivity.OrganisedActivityAttendences.map((attendee) => (
+						<div key={attendee.Resident.id}>
+							<Body>
+								{attendee.Resident.firstName} {attendee.Resident.lastName}
+							</Body>
+						</div>
+					))}
 				</div>
 			</SubContainer>
 		</Container>
