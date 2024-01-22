@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import { DateTime } from "luxon";
 
 import Context from "../context/context";
 import { PageHeading, Heading, Subheading } from "../common/typography";
@@ -34,7 +35,7 @@ const HeadContainer = styled.div`
 `;
 
 const SubContainer = styled(HeadContainer)`
-	justify-content: center;
+	/* justify-content: center; */
 	gap: 40px;
 `;
 
@@ -42,12 +43,25 @@ const ActivityName = styled(PageHeading)`
 	color: ${colors.greenAccent[500]};
 `;
 
+const ActivitySubHeading = styled(Subheading)`
+	font-weight: 500;
+	color: ${colors.greenAccent[500]};
+`;
+
+const Participant = styled(Body)`
+	&:hover {
+		cursor: pointer;
+	}
+`;
+
 const ActivityOrganisedView = () => {
+	const navigate = useNavigate();
 	const { context, setContext } = useContext(Context);
 	const [organisedActivity, setOrganisedActivity] = useState(null);
 
 	const { newActivityValues } = context;
-	console.log("### newActivityValues", newActivityValues);
+	console.log("CONTEXT: ", context);
+	// console.log("### newActivityValues", newActivityValues);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -62,6 +76,12 @@ const ActivityOrganisedView = () => {
 		fetchData();
 	}, []);
 
+	const handleViewResident = (resident) => {
+		console.log("### Selected residentId", resident);
+		setContext({ ...context, selectedResident: resident });
+		navigate("/resident");
+	};
+
 	return (
 		<Container>
 			<HeadContainer>
@@ -70,7 +90,7 @@ const ActivityOrganisedView = () => {
 					{organisedActivity && (
 						<>
 							<ActivityName>{organisedActivity.Activity.activity}</ActivityName>
-							<Body>Date: {new Date(organisedActivity.date).toLocaleDateString()}</Body>
+							<Body>Date: {DateTime.fromISO(organisedActivity.date).toLocaleString(DateTime.DATE_MED)}</Body>
 							<Body>Comment: {organisedActivity.comment}</Body>
 						</>
 					)}
@@ -79,12 +99,12 @@ const ActivityOrganisedView = () => {
 			{organisedActivity && (
 				<SubContainer>
 					<div>
-						<Body>Participants</Body>
+						<ActivitySubHeading>Participants</ActivitySubHeading>
 						{organisedActivity.OrganisedActivityAttendences.map((attendee) => (
 							<div key={attendee.Resident.id}>
-								<Body>
+								<Participant onClick={() => handleViewResident(attendee.Resident)}>
 									{attendee.Resident.firstName} {attendee.Resident.lastName}
-								</Body>
+								</Participant>
 							</div>
 						))}
 					</div>
