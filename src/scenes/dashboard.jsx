@@ -114,12 +114,13 @@ const Dashboard = () => {
 	}, [organisedActivities]);
 
 	const columns = [
-		{ header: "Activity", accessorKey: "Activity.activity", size: "200" },
+		{ header: "Activity", accessorKey: "activityName", size: "200" },
 		{
 			header: "Date",
 			accessorKey: "date",
 			cell: (info) => DateTime.fromISO(info.getValue()).toLocaleString(DateTime.DATE_MED),
 		},
+		{ header: "Attendees", accessorKey: "residentCount", size: "200" },
 	];
 
 	const handleClick = () => {
