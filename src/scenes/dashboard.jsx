@@ -123,27 +123,16 @@ const Dashboard = () => {
 		{ header: "Attendees", accessorKey: "residentCount", size: "200" },
 	];
 
-	const handleClick = () => {
-		console.log("CLICKED");
-	};
-
-	const handleView = () => {
-		console.log("VIEW");
+	const handleClick = (rowOriginal) => {
+		console.log("### rowOriginal", rowOriginal);
+		setContext({ ...context, newActivityValues: rowOriginal });
+		navigate("/activityOrganisedView");
 	};
 
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-		state: {
-			sorting: sorting,
-			globalFilter: filtering,
-		},
-		onSortingChange: setSorting,
-		onGlobalFilterChange: setFiltering,
 	});
 
 	return (
@@ -155,16 +144,8 @@ const Dashboard = () => {
 						{table.getHeaderGroups().map((headerGroup) => (
 							<tr key={headerGroup.id}>
 								{headerGroup.headers.map((header) => (
-									<Th key={header.id} onClick={header.column.getToggleSortingHandler()}>
-										<ThCell>
-											{flexRender(header.column.columnDef.header, header.getContext())}
-											{
-												{
-													asc: <ArrowUpIcon />,
-													desc: <ArrowDownIcon />,
-												}[header.column.getIsSorted() ?? null]
-											}
-										</ThCell>
+									<Th key={header.id}>
+										<ThCell>{flexRender(header.column.columnDef.header, header.getContext())}</ThCell>
 									</Th>
 								))}
 							</tr>
