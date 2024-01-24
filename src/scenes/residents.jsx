@@ -7,7 +7,7 @@ import PeopleTable from "./PeopleTable";
 const Residents = () => {
 	const { context, setContext } = useContext(Context);
 	const { residents: initialResidents } = context;
-	const [person, setPerson] = useState(initialResidents);
+	const [people, setPeople] = useState(initialResidents);
 	const [selectedPerson, setSelectedPerson] = useState(null);
 
 	/** @type import('@tanstack/react-table').ColumnDef<any> */
@@ -34,8 +34,8 @@ const Residents = () => {
 			initialResidents={initialResidents}
 			columns={columns}
 			navigateRoute={"/resident"}
-			person={person}
-			setPerson={setPerson}
+			people={people}
+			setPeople={setPeople}
 			selectedPerson={selectedPerson}
 			setSelectedPerson={setSelectedPerson}
 			handleClick={handleClick}

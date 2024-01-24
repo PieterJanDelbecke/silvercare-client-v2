@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState, useMemo, useContext } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
 	flexRender,
@@ -10,7 +10,6 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 
-import Context from "../context/context";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
 import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
@@ -99,8 +98,8 @@ const PeopleTable = ({
 	initialResidents,
 	columns,
 	navigateRoute,
-	person,
-	setPerson,
+	people,
+	setPeople,
 	selectedPerson,
 	setSelectedPerson,
 	handleClick,
@@ -110,8 +109,8 @@ const PeopleTable = ({
 	const [filtering, setFiltering] = useState("");
 
 	const data = useMemo(() => {
-		return person;
-	}, [person]);
+		return people;
+	}, [people]);
 
 	const table = useReactTable({
 		data,
@@ -129,7 +128,7 @@ const PeopleTable = ({
 	});
 
 	const handleView = () => {
-		navigate("/resident");
+		navigate(navigateRoute);
 	};
 
 	return (
