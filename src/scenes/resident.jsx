@@ -8,6 +8,7 @@ import Context from "../context/context";
 import { colors } from "../styles/theme";
 import api from "../api/api";
 import blankImage from "../images/blank-profile-picture.png";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const Container = styled.div`
 	display: flex;
@@ -158,24 +159,22 @@ const Resident = () => {
 	return (
 		<>
 			<Container>
-				{selectedResident && (
-					<HeadContainer>
-						<InfoContainer>
-							<ResidentName>
-								{firstName} {lastName}
-							</ResidentName>
-							<div>
-								<Body>Gender: {gender}</Body>
-								<Body>DOB: {DateTime.fromISO(dob).toLocaleString(DateTime.DATE_MED)}</Body>
-								<Body>Age: {calculateAge(DateTime.fromISO(dob))}</Body>
-							</div>
-						</InfoContainer>
-						<ImageContainer>
-							<Image src={blankImage} alt="blank picture" style={{ width: "200px", height: "240px" }} />
-						</ImageContainer>
-					</HeadContainer>
-				)}
-				{residentInfo && (
+				<HeadContainer>
+					<InfoContainer>
+						<ResidentName>
+							{firstName} {lastName}
+						</ResidentName>
+						<div>
+							<Body>Gender: {gender}</Body>
+							<Body>DOB: {DateTime.fromISO(dob).toLocaleString(DateTime.DATE_MED)}</Body>
+							<Body>Age: {calculateAge(DateTime.fromISO(dob))}</Body>
+						</div>
+					</InfoContainer>
+					<ImageContainer>
+						<Image src={blankImage} alt="blank picture" style={{ width: "200px", height: "240px" }} />
+					</ImageContainer>
+				</HeadContainer>
+				{residentInfo ? (
 					<SubContainer>
 						<SubjectContainer>
 							<Subject>Nationality:</Subject>
@@ -209,6 +208,8 @@ const Resident = () => {
 							<EditButton onClick={handleEdit}>edit</EditButton>
 						</ActivitiesContainer>
 					</SubContainer>
+				) : (
+					<LoadingSpinner />
 				)}
 			</Container>
 		</>

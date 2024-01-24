@@ -20,6 +20,7 @@ import { AiOutlineArrowRight as ArrowRightIcon } from "react-icons/ai";
 import { AiOutlineArrowUp as ArrowUpIcon } from "react-icons/ai";
 import { AiOutlineArrowDown as ArrowDownIcon } from "react-icons/ai";
 import SearchBar from "../common/searchBar";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const Container = styled.div`
 	display: flex;
@@ -138,7 +139,7 @@ const Dashboard = () => {
 	return (
 		<Container>
 			<PageHeading>Dashboard</PageHeading>
-			{organisedActivities && (
+			{organisedActivities ? (
 				<Table>
 					<thead>
 						{table.getHeaderGroups().map((headerGroup) => (
@@ -161,6 +162,8 @@ const Dashboard = () => {
 						))}
 					</tbody>
 				</Table>
+			) : (
+				<LoadingSpinner />
 			)}
 		</Container>
 	);
