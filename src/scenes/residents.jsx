@@ -20,6 +20,7 @@ import { AiOutlineArrowRight as ArrowRightIcon } from "react-icons/ai";
 import { AiOutlineArrowUp as ArrowUpIcon } from "react-icons/ai";
 import { AiOutlineArrowDown as ArrowDownIcon } from "react-icons/ai";
 import SearchBar from "../common/searchBar";
+import PeopleTable from "./PeopleTable";
 
 const Container = styled.div`
 	display: flex;
@@ -101,15 +102,6 @@ const Residents = () => {
 	const { context, setContext } = useContext(Context);
 	const { residents: initialResidents } = context;
 
-	const [residents, setResidents] = useState(initialResidents);
-	const [selectedResident, setSelectedResident] = useState(null);
-	const [sorting, setSorting] = useState([]);
-	const [filtering, setFiltering] = useState("");
-
-	const data = useMemo(() => {
-		return residents;
-	}, [residents]);
-
 	/** @type import('@tanstack/react-table').ColumnDef<any> */
 
 	const columns = [
@@ -123,89 +115,13 @@ const Residents = () => {
 		{ header: "Gender", accessorKey: "gender" },
 	];
 
-	const table = useReactTable({
-		data,
-		columns,
-		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-		state: {
-			sorting: sorting,
-			globalFilter: filtering,
-		},
-		onSortingChange: setSorting,
-		onGlobalFilterChange: setFiltering,
-	});
-
-	const handleClick = (resident) => {
-		console.log("==> resident: ", resident);
-		setSelectedResident(resident);
-		setContext({ ...context, selectedResident: resident });
-	};
-
-	const handleView = () => {
-		navigate("/resident");
-	};
-
 	return (
-		<Container>
-			<PageHeading>Residents</PageHeading>
-			<TopContainer>
-				<SearchBar value={filtering} onChange={(e) => setFiltering(e.target.value)} />
-				{selectedResident && (
-					<SelectedContainer>
-						<SelectedText>
-							{selectedResident.firstName} {selectedResident.lastName}
-						</SelectedText>
-						<ViewButton onClick={handleView}>View</ViewButton>
-					</SelectedContainer>
-				)}
-			</TopContainer>
-			<Table>
-				<thead>
-					{table.getHeaderGroups().map((headerGroup) => (
-						<tr key={headerGroup.id}>
-							{headerGroup.headers.map((header) => (
-								<Th key={header.id} onClick={header.column.getToggleSortingHandler()}>
-									<ThCell>
-										{flexRender(header.column.columnDef.header, header.getContext())}
-										{
-											{
-												asc: <ArrowUpIcon />,
-												desc: <ArrowDownIcon />,
-											}[header.column.getIsSorted() ?? null]
-										}
-									</ThCell>
-								</Th>
-							))}
-						</tr>
-					))}
-				</thead>
-				<tbody>
-					{table.getRowModel().rows.map((row) => (
-						<tr key={row.id} onClick={() => handleClick(row.original)}>
-							{row.getVisibleCells().map((cell) => (
-								<Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
-							))}
-						</tr>
-					))}
-				</tbody>
-			</Table>
-			<Footer>
-				<div>
-					{table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-				</div>
-				<Button onClick={() => table.setPageIndex(0)}>First Page</Button>
-				<Button disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
-					<ArrowLeftIcon />
-				</Button>
-				<Button disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
-					<ArrowRightIcon />
-				</Button>
-				<Button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>Last Page</Button>
-			</Footer>
-		</Container>
+		<PeopleTable
+			title={"Residents"}
+			initialResidents={initialResidents}
+			columns={columns}
+			navigateRoute={"/resident"}
+		/>
 	);
 };
 
