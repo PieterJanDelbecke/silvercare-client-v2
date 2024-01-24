@@ -93,17 +93,7 @@ const ViewButton = styled(Button)`
 	border-radius: 8px;
 `;
 
-const PeopleTable = ({
-	title,
-	initialResidents,
-	columns,
-	navigateRoute,
-	people,
-	setPeople,
-	selectedPerson,
-	setSelectedPerson,
-	handleClick,
-}) => {
+const PeopleTable = ({ title, columns, navigateRoute, people, selectedPerson, handleClick }) => {
 	const navigate = useNavigate();
 	const [sorting, setSorting] = useState([]);
 	const [filtering, setFiltering] = useState("");
