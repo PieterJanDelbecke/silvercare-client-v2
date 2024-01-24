@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { DateTime } from "luxon";
 
 import Context from "../context/context";
-import PeopleTable from "./PeopleTable";
+import PeopleTable from "./components/PeopleTable";
 
 const Residents = () => {
 	const { context, setContext } = useContext(Context);
