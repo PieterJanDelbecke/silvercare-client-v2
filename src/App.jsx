@@ -24,6 +24,7 @@ import LineChart from "./scenes/line-chart";
 import ActivityNewAttendance from "./scenes/activity-new-attendance";
 import ActivityNewConfirmed from "./scenes/activity-new-confirmed";
 import ActivityOrganisedView from "./scenes/activity-organised-view";
+import TeamMember from "./scenes/team-member";
 
 import adminApi from "./api/admin.api";
 
@@ -53,6 +54,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Dashboard />} />
 						<Route path="/team" element={<Team />} />
+						<Route path="/teamMember" element={<TeamMember />} />
 						<Route path="/residents" element={<Residents />} />
 						<Route path="/resident" element={<Resident />} />
 						<Route path="/residentAddForm" element={<ResidentAddForm />} />
