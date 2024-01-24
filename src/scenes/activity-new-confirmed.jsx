@@ -63,8 +63,6 @@ const ActivityNewConfirmed = () => {
 
 	const navigate = useNavigate();
 
-	console.log("### activity", activity);
-
 	const formatDate = (inputDate) => {
 		let regex = /(\d{4})-(\d{2})-(\d{2})/;
 		let match = regex.exec(inputDate);
