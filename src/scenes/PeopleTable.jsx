@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState, useMemo, useContext, useEffect } from "react";
+import { useState, useMemo, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
 	flexRender,
@@ -9,10 +9,8 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
-import { DateTime } from "luxon";
 
 import Context from "../context/context";
-import api from "../api/api";
 import { PageHeading } from "../common/typography";
 import { colors } from "../styles/theme";
 import { AiOutlineArrowLeft as ArrowLeftIcon } from "react-icons/ai";
@@ -96,12 +94,18 @@ const ViewButton = styled(Button)`
 	border-radius: 8px;
 `;
 
-const PeopleTable = ({ title, initialResidents, columns, navigateRoute }) => {
+const PeopleTable = ({
+	title,
+	initialResidents,
+	columns,
+	navigateRoute,
+	person,
+	setPerson,
+	selectedPerson,
+	setSelectedPerson,
+	handleClick,
+}) => {
 	const navigate = useNavigate();
-	const { context, setContext } = useContext(Context);
-
-	const [person, setPerson] = useState(initialResidents);
-	const [selectedPerson, setSelectedPerson] = useState(null);
 	const [sorting, setSorting] = useState([]);
 	const [filtering, setFiltering] = useState("");
 
@@ -123,12 +127,6 @@ const PeopleTable = ({ title, initialResidents, columns, navigateRoute }) => {
 		onSortingChange: setSorting,
 		onGlobalFilterChange: setFiltering,
 	});
-
-	const handleClick = (person) => {
-		console.log("==> person: ", person);
-		setSelectedPerson(person);
-		setContext({ ...context, selectedResident: person });
-	};
 
 	const handleView = () => {
 		navigate("/resident");
