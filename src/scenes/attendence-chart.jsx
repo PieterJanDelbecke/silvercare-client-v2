@@ -35,10 +35,6 @@ const FormContainer = styled.div`
 	width: 480px;
 `;
 
-const ResidentName = styled(Heading)`
-	color: ${colors.greenAccent[500]};
-`;
-
 const Text = styled(Body)`
 	color: ${colors.greenAccent[500]};
 `;
@@ -59,8 +55,7 @@ const AttendanceChart = () => {
 	useEffect(() => {
 		const getChartData = async () => {
 			try {
-				const result = await api.getResidentAttendenceData(selectedResident.id);
-				console.log("result", result);
+				const result = await api.getResidentAttendenceData(selectedResident.value);
 				setData(result);
 			} catch (error) {
 				console.error(error);

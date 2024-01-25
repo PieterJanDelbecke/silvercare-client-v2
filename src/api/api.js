@@ -85,7 +85,7 @@ const getResidentActivities = async (residentId) => {
 
 const getResidentAttendenceData = async (residentId) => {
 	try {
-		const { status, data } = await axios.get(`resident/attendenceData`);
+		const { status, data } = await axios.get(`resident/attendenceData?residentId=${residentId}`);
 		if (status === 200 || status === 201) {
 			return data;
 		} else {
