@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useState, useContext, useEffect } from "react";
-import { PageHeading, Heading } from "../common/typography";
+import { PageHeading, Heading, Body } from "../common/typography";
 import MyResponsivePie from "./components/PieChart";
 import Context from "../context/context";
 import { colors } from "../styles/theme";
@@ -31,12 +31,15 @@ const Container = styled.div`
 `;
 
 const FormContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 400px;
+	margin-block: 20px;
+	width: 480px;
 `;
 
 const ResidentName = styled(Heading)`
+	color: ${colors.greenAccent[500]};
+`;
+
+const Text = styled(Body)`
 	color: ${colors.greenAccent[500]};
 `;
 
@@ -44,7 +47,6 @@ const PieChart = () => {
 	const { context, setContext } = useContext(Context);
 	const { residents } = context;
 	const [data, setData] = useState(mockPieData);
-	console.log("### residents", residents);
 
 	const residentsData = residents.map((resident) => {
 		return {
@@ -52,37 +54,37 @@ const PieChart = () => {
 			label: `${resident.firstName} ${resident.lastName}`,
 		};
 	});
-	const [selectedResident, setSelectedResident] = useState(residentsData[0]);
+	const [selectedResident, setSelectedResident] = useState(null);
 
-	const viewResident = async () => {
-		try {
-			const result = await api.getResidentPieChartData(selectedResident.id);
-			console.log("result", result);
-			setData(result);
-		} catch (error) {
-			console.error(error);
+	useEffect(() => {
+		const getChartData = async () => {
+			try {
+				const result = await api.getResidentAttendenceData(selectedResident.id);
+				console.log("result", result);
+				setData(result);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		if (selectedResident) {
+			getChartData();
 		}
-	};
+	}, [selectedResident]);
 
 	return (
 		<Container>
-			<PageHeading>Pie Chart</PageHeading>
+			<PageHeading>Attendence Chart</PageHeading>
+			<Text>last 30 days</Text>
 			<FormContainer>
-				<div>
-					<InputLabel>Select Resident</InputLabel>
-					<Select
-						options={residentsData}
-						// defaultValue={selectedResident}
-						onChange={setSelectedResident}
-						styles={selectOptionStyles}
-					/>
-				</div>
-				<ButtonContainer>
-					<SubmitButton onClick={viewResident}>View</SubmitButton>
-				</ButtonContainer>
+				<InputLabel>Resident</InputLabel>
+				<Select
+					options={residentsData}
+					// defaultValue={selectedResident}
+					onChange={setSelectedResident}
+					styles={selectOptionStyles}
+				/>
 			</FormContainer>
-			<ResidentName>John Doe</ResidentName>
-			<MyResponsivePie data={data} />
+			{selectedResident && <MyResponsivePie data={data} />}
 		</Container>
 	);
 };

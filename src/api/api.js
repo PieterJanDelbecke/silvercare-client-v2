@@ -83,9 +83,9 @@ const getResidentActivities = async (residentId) => {
 	}
 };
 
-const getResidentPieChartData = async (residentId) => {
+const getResidentAttendenceData = async (residentId) => {
 	try {
-		const { status, data } = await axios.get(`resident/pieChartData`);
+		const { status, data } = await axios.get(`resident/attendenceData`);
 		if (status === 200 || status === 201) {
 			return data;
 		} else {
@@ -104,7 +104,7 @@ const api = {
 	addResidentActivities,
 	editResidentActivities,
 	getResidentActivities,
-	getResidentPieChartData,
+	getResidentAttendenceData,
 };
 
 export default api;
