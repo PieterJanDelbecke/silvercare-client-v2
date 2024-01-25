@@ -72,12 +72,7 @@ const AttendanceChart = () => {
 			<Text>last 30 days</Text>
 			<FormContainer>
 				<InputLabel>Resident</InputLabel>
-				<Select
-					options={residentsData}
-					// defaultValue={selectedResident}
-					onChange={setSelectedResident}
-					styles={selectOptionStyles}
-				/>
+				<Select options={residentsData} onChange={setSelectedResident} styles={selectOptionStyles} />
 			</FormContainer>
 			{selectedResident && <MyResponsivePie data={data} />}
 		</Container>
