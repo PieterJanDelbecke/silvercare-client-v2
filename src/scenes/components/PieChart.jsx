@@ -1,9 +1,9 @@
 import { ResponsivePie } from "@nivo/pie";
 
 import { colors } from "../../styles/theme";
-import { mockPieData as data } from "../../data/mockData";
+// import { mockPieData as data } from "../../data/mockData";
 
-const MyResponsivePie = () => {
+const MyResponsivePie = ({ data }) => {
 	return (
 		<ResponsivePie
 			data={data}

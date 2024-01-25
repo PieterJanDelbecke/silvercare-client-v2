@@ -19,7 +19,7 @@ import ResidentNew from "./scenes/resident-new";
 import Faq from "./scenes/faq";
 import Calendar from "./scenes/calendar";
 import BarChart from "./scenes/bar-chart";
-import PieChart from "./scenes/pie-chart";
+import AttendanceChart from "./scenes/attendence-chart";
 import LineChart from "./scenes/line-chart";
 import ActivityNewAttendance from "./scenes/activity-new-attendance";
 import ActivityNewConfirmed from "./scenes/activity-new-confirmed";
@@ -65,7 +65,7 @@ function App() {
 						<Route path="/activityNewAttendance" element={<ActivityNewAttendance />} />
 						<Route path="/activityNewConfirmed" element={<ActivityNewConfirmed />} />
 						<Route path="/activityOrganisedView" element={<ActivityOrganisedView />} />
-						<Route path="/pieChart" element={<PieChart />} />
+						<Route path="/attendenceChart" element={<AttendanceChart />} />
 						<Route path="/lineChart" element={<LineChart />} />
 						{/* <Route path="/barChart" element={<BarChart />} /> */}
 						<Route path="/faq" element={<Faq />} />
