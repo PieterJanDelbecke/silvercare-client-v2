@@ -43,7 +43,7 @@ const Text = styled(Body)`
 	color: ${colors.greenAccent[500]};
 `;
 
-const PieChart = () => {
+const AttendanceChart = () => {
 	const { context, setContext } = useContext(Context);
 	const { residents } = context;
 	const [data, setData] = useState(mockPieData);
@@ -89,4 +89,4 @@ const PieChart = () => {
 	);
 };
 
-export default PieChart;
+export default AttendanceChart;
