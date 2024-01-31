@@ -14,7 +14,7 @@ start develoopment with "npm run dev" the localhost of the backend is on port 40
 
 ## used libraries
 
-<!-- - winston for loggin
+- winston for loggin
 - axios for http requests
 - emotion for styling
 - formik for the forms
@@ -24,4 +24,4 @@ start develoopment with "npm run dev" the localhost of the backend is on port 40
 - react-icons for icons
 - react-router-dom for routing
 - react-select for form select
-- react-datepicker -->
+- react-datepicker
